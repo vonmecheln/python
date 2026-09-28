@@ -1,0 +1,933 @@
+---
+title: "Linguagens de Programação e Banco de Dados"
+subtitle: "Planejamento de aulas"
+author: "Curso Superior de Tecnologia em Automação Industrial"
+date: "2026-08-07"
+lang: pt-BR
+format:
+  revealjs:
+    theme: simple
+    slide-number: true
+    transition: slide
+    incremental: false
+    toc: false
+    chalkboard: true
+    width: 1280
+    height: 720
+---
+
+# Apresentação da disciplina
+
+## Identificação
+
+- **Componente curricular:** Linguagens de Programação e Banco de Dados
+- **Curso:** Tecnologia em Automação Industrial
+- **Período:** 2º semestre
+- **Carga horária:** 80 horas-aula
+- **Organização:** 20 unidades de 4 horas-aula
+- **Modalidade:** presencial
+- **Tecnologias principais:** Python e PostgreSQL
+
+## Ementa
+
+- Programação orientada a objetos;
+- Desenvolvimento de algoritmos;
+- Bancos de dados relacionais;
+- Modelagem de dados;
+- Manipulação de dados utilizando SQL;
+- Bancos de dados de séries temporais;
+- Aplicações em sistemas industriais de controle e automação.
+
+## Onde esta disciplina se encaixa?
+
+A disciplina articula conhecimentos de:
+
+- Algoritmos de Programação;
+- Instrumentação Industrial;
+- Metrologia;
+- Análise de Circuitos Elétricos;
+- Automação Industrial;
+- Sistemas Supervisórios;
+- Redes Industriais;
+- Sistemas Embarcados.
+
+> O foco será transformar dados de sensores e equipamentos em informações úteis para a operação industrial.
+
+# Como vamos trabalhar
+
+## Metodologia
+
+As aulas serão baseadas em:
+
+- Problemas de automação industrial;
+- Projetos práticos;
+- Simulações de sensores e equipamentos;
+- Desenvolvimento incremental de sistemas;
+- Testes e correção de falhas;
+- Trabalho individual e em equipe;
+- Demonstrações práticas.
+
+## Dinâmica de cada unidade
+
+1. Apresentação de um problema;
+2. Discussão de possíveis soluções;
+3. Introdução dos conceitos necessários;
+4. Desenvolvimento no laboratório;
+5. Testes com diferentes situações;
+6. Melhorias na solução;
+7. Demonstração ou entrega da atividade.
+
+> A teoria será apresentada como ferramenta para resolver problemas concretos.
+
+## Projeto que evolui durante a disciplina
+
+Ao longo das aulas, será desenvolvido um sistema de:
+
+> **Monitoramento e registro de um processo industrial**
+
+O sistema poderá envolver:
+
+- Equipamentos industriais;
+- Sensores;
+- Dispositivos de coleta;
+- Leituras de temperatura, pressão, nível e vibração;
+- Alarmes;
+- Histórico de dados;
+- Banco de dados;
+- Consultas e relatórios;
+- Simulação de uma planta industrial.
+
+## Evolução do sistema
+
+```text
+Python básico
+     ↓
+Simulação de sensores
+     ↓
+Organização dos dados
+     ↓
+Programação orientada a objetos
+     ↓
+Modelagem do banco
+     ↓
+SQL com PostgreSQL
+     ↓
+Integração Python + PostgreSQL
+     ↓
+Sistema de monitoramento
+     ↓
+Projeto final
+```
+
+# Objetivos da disciplina
+
+## Objetivo geral
+
+Desenvolver aplicações em Python integradas a bancos de dados relacionais, aplicadas a problemas de monitoramento, aquisição e análise de dados em sistemas industriais de controle e automação.
+
+## Ao final da disciplina, você deverá ser capaz de:
+
+- Desenvolver algoritmos em Python;
+- Utilizar estruturas condicionais e de repetição;
+- Organizar dados em listas e dicionários;
+- Criar funções e módulos reutilizáveis;
+- Aplicar conceitos de programação orientada a objetos;
+- Simular sensores e dispositivos de aquisição de dados;
+- Modelar bancos de dados relacionais;
+- Criar tabelas e relacionamentos no PostgreSQL;
+- Executar consultas SQL;
+- Integrar aplicações Python com PostgreSQL;
+- Registrar leituras e alarmes;
+- Desenvolver uma solução aplicada a um problema industrial.
+
+# Módulo 1 — Python aplicado a problemas industriais
+
+## Unidade 1 — Da lógica em C para Python
+
+**Problema:** adaptar um programa de monitoramento desenvolvido conceitualmente em C para Python.
+
+### Conceitos trabalhados
+
+- Estrutura básica de um programa Python;
+- Variáveis e tipos de dados;
+- Operadores;
+- Entrada e saída;
+- Conversão de tipos;
+- Diferenças entre C e Python.
+
+### Atividade prática
+
+Criar um programa que registre uma leitura industrial contendo:
+
+- Equipamento;
+- Sensor;
+- Valor medido;
+- Unidade;
+- Limite de segurança.
+
+### Produto da unidade
+
+Um relatório simples de leitura de um sensor industrial.
+
+## Unidade 2 — Decisão e classificação de estados
+
+**Problema:** classificar automaticamente o estado de um equipamento.
+
+### Conceitos trabalhados
+
+- `if`;
+- `elif`;
+- `else`;
+- Operadores relacionais;
+- Operadores lógicos;
+- Condições combinadas.
+
+### Atividade prática
+
+Criar um classificador para as condições:
+
+- Normal;
+- Atenção;
+- Alarme;
+- Emergência.
+
+O sistema deverá analisar variáveis como:
+
+- Temperatura;
+- Pressão;
+- Nível;
+- Vibração.
+
+### Produto da unidade
+
+Um módulo de diagnóstico inicial do processo.
+
+## Unidade 3 — Simulação de ciclos de leitura
+
+**Problema:** um dispositivo de coleta precisa verificar os sensores em ciclos sucessivos.
+
+### Conceitos trabalhados
+
+- `while`;
+- `for`;
+- `range()`;
+- `break`;
+- `continue`;
+- Ciclos de amostragem.
+
+### Atividade prática
+
+Simular 20 ciclos de coleta:
+
+- Gerar valores de sensores;
+- Exibir os dados coletados;
+- Verificar limites;
+- Identificar alarmes;
+- Interromper a coleta em caso de emergência.
+
+### Produto da unidade
+
+Um simulador de coleta de dados industriais.
+
+## Unidade 4 — Histórico de leituras
+
+**Problema:** o operador precisa analisar os dados coletados durante um ciclo de produção.
+
+### Conceitos trabalhados
+
+- Listas;
+- Índices;
+- Fatiamento;
+- `min()`;
+- `max()`;
+- `sum()`;
+- `len()`;
+- Média e contagem de eventos.
+
+### Atividade prática
+
+A partir das leituras simuladas, calcular:
+
+- Média;
+- Valor mínimo;
+- Valor máximo;
+- Número de leituras;
+- Quantidade de alarmes;
+- Percentual de leituras normais;
+- Maior variação entre leituras.
+
+### Produto da unidade
+
+Um relatório de análise do histórico do sensor.
+
+## Unidade 5 — Organização dos dados em Python
+
+**Problema:** os dados estão espalhados em várias listas e precisam ser organizados como registros.
+
+### Conceitos trabalhados
+
+- Dicionários;
+- Listas de dicionários;
+- Estruturas compostas;
+- Busca;
+- Filtragem;
+- Organização de registros.
+
+### Exemplo de registro
+
+```python
+leitura = {
+    "equipamento": "Motor M01",
+    "sensor": "Temperatura",
+    "valor": 78.5,
+    "unidade": "°C",
+    "timestamp": "2026-08-07 19:30:00",
+    "status": "NORMAL"
+}
+```
+
+### Atividade prática
+
+Criar um histórico com funcionalidades para:
+
+- Filtrar por equipamento;
+- Filtrar por sensor;
+- Listar apenas alarmes;
+- Calcular estatísticas;
+- Exibir o histórico de um dispositivo.
+
+### Produto da unidade
+
+Um histórico estruturado de dados em memória.
+
+## Unidade 6 — Funções, validação e arquivos
+
+**Problema:** o simulador está crescendo, possui código repetido e perde os dados ao ser encerrado.
+
+### Conceitos trabalhados
+
+- Funções;
+- Parâmetros;
+- Retorno;
+- Modularização;
+- Tratamento de erros;
+- Arquivos CSV;
+- Data e hora.
+
+### Atividade prática
+
+Organizar o simulador em funções como:
+
+- `gerar_leitura()`;
+- `classificar_leitura()`;
+- `registrar_evento()`;
+- `calcular_estatisticas()`;
+- `salvar_csv()`;
+- `carregar_historico()`.
+
+### Produto da unidade
+
+Um simulador modular com armazenamento em arquivo CSV.
+
+# Módulo 2 — Programação orientada a objetos
+
+## Unidade 7 — Classes para sensores e dispositivos
+
+**Problema:** o sistema precisa representar diferentes sensores, equipamentos e dispositivos de coleta.
+
+### Conceitos trabalhados
+
+- Classes;
+- Objetos;
+- Atributos;
+- Métodos;
+- Construtor `__init__`.
+
+### Atividade prática
+
+Criar classes para:
+
+- `Sensor`;
+- `Equipamento`;
+- `DispositivoColeta`;
+- `Leitura`.
+
+### Responsabilidades dos objetos
+
+- O sensor possui nome, unidade e limites;
+- O equipamento possui estado operacional;
+- O dispositivo realiza a coleta;
+- A leitura registra valor, horário e status.
+
+### Produto da unidade
+
+Modelo orientado a objetos para o sistema de monitoramento.
+
+## Unidade 8 — Simulação da planta industrial
+
+**Problema:** diferentes equipamentos possuem comportamentos e sensores próprios.
+
+### Conceitos trabalhados
+
+- Métodos;
+- Estado interno;
+- Encapsulamento;
+- Herança;
+- Sobrescrita de métodos;
+- Polimorfismo aplicado.
+
+### Atividade prática
+
+Simular uma planta com:
+
+- Motor;
+- Bomba;
+- Tanque;
+- Esteira;
+- Sensor de temperatura;
+- Sensor de pressão;
+- Sensor de nível;
+- Sensor de vibração.
+
+Os objetos deverão ser capazes de:
+
+- Ligar;
+- Desligar;
+- Simular leituras;
+- Informar o estado;
+- Gerar ocorrências;
+- Executar parada de emergência.
+
+### Produto da unidade
+
+Uma pequena planta industrial simulada em Python.
+
+# Módulo 3 — Banco de dados e SQL
+
+## Unidade 9 — Do arquivo ao banco de dados
+
+**Problema:** o arquivo CSV não é suficiente para armazenar milhares de leituras e permitir consultas eficientes.
+
+### Conceitos trabalhados
+
+- Limitações dos arquivos;
+- Banco de dados;
+- SGBD;
+- PostgreSQL;
+- Tabela;
+- Registro;
+- Campo;
+- Chave primária;
+- Chave estrangeira.
+
+### Atividade prática
+
+Analisar os dados produzidos pelo simulador e identificar:
+
+- Entidades;
+- Atributos;
+- Relacionamentos;
+- Dados repetidos;
+- Informações que precisam ser persistidas.
+
+### Produto da unidade
+
+Primeira proposta de estrutura do banco da planta industrial.
+
+## Unidade 10 — Modelagem e criação do banco
+
+**Problema:** transformar o modelo da planta industrial em tabelas no PostgreSQL.
+
+### Conceitos trabalhados
+
+- Modelo entidade-relacionamento;
+- Relacionamentos;
+- `CREATE TABLE`;
+- Tipos de dados;
+- `PRIMARY KEY`;
+- `FOREIGN KEY`;
+- `NOT NULL`;
+- `UNIQUE`;
+- `CHECK`;
+- `DEFAULT`.
+
+### Tabelas sugeridas
+
+- `equipamentos`;
+- `sensores`;
+- `dispositivos_coleta`;
+- `leituras`;
+- `alarmes`.
+
+### Atividade prática
+
+Criar o banco e testar sua integridade:
+
+- Impedir sensor sem equipamento;
+- Impedir leitura sem sensor;
+- Validar valores;
+- Registrar data e hora;
+- Evitar cadastros duplicados.
+
+### Produto da unidade
+
+Banco de dados funcional para o sistema de monitoramento.
+
+## Unidade 11 — Inserção, alteração e consultas SQL
+
+**Problema:** a equipe precisa cadastrar a planta e obter informações para a supervisão.
+
+### Conceitos trabalhados
+
+- `INSERT`;
+- `UPDATE`;
+- `DELETE`;
+- `SELECT`;
+- `WHERE`;
+- `ORDER BY`;
+- `GROUP BY`;
+- `JOIN`;
+- `AVG`;
+- `MIN`;
+- `MAX`;
+- `COUNT`.
+
+### Atividade prática
+
+Cadastrar:
+
+- Equipamentos;
+- Sensores;
+- Dispositivos de coleta;
+- Leituras;
+- Alarmes.
+
+Criar consultas para responder:
+
+- Qual equipamento possui mais alarmes?
+- Qual foi a temperatura média por equipamento?
+- Quais sensores excederam os limites?
+- Quantas leituras foram realizadas por dispositivo?
+- Qual foi o maior valor registrado por sensor?
+
+### Produto da unidade
+
+Relatório operacional produzido com SQL.
+
+# Módulo 4 — Integração Python e PostgreSQL
+
+## Unidade 12 — Conexão Python com PostgreSQL
+
+**Problema:** substituir o armazenamento em CSV pelo armazenamento em banco de dados.
+
+### Conceitos trabalhados
+
+- Biblioteca de conexão;
+- Conexão;
+- Cursor;
+- Execução de comandos SQL;
+- Consultas parametrizadas;
+- `commit`;
+- Encerramento da conexão.
+
+### Atividade prática
+
+Criar um módulo Python que permita:
+
+- Conectar ao banco;
+- Testar a conexão;
+- Inserir um equipamento;
+- Consultar equipamentos;
+- Encerrar corretamente a conexão.
+
+### Produto da unidade
+
+Primeiro programa Python conectado ao PostgreSQL.
+
+## Unidade 13 — Persistência das leituras simuladas
+
+**Problema:** o dispositivo de coleta deve enviar os dados diretamente para o banco.
+
+### Atividade prática
+
+Adaptar o simulador para:
+
+1. Gerar uma leitura;
+2. Identificar o sensor;
+3. Registrar data e hora;
+4. Inserir a leitura no PostgreSQL;
+5. Confirmar o armazenamento;
+6. Consultar a leitura gravada.
+
+### Sensores simulados
+
+- Temperatura;
+- Pressão;
+- Nível;
+- Vibração.
+
+### Produto da unidade
+
+Simulador de sensores com persistência real no PostgreSQL.
+
+## Unidade 14 — Dispositivo de coleta de dados
+
+**Problema:** uma planta possui vários dispositivos independentes de aquisição de dados.
+
+### Conceitos trabalhados
+
+- Classes de coleta;
+- Associação entre dispositivo e sensores;
+- Identificação de dispositivos;
+- Ciclos de coleta;
+- Simulação de comunicação;
+- Persistência das leituras.
+
+### Atividade prática
+
+Criar uma classe `DispositivoColeta` que:
+
+- Possua um identificador;
+- Esteja associada a um setor;
+- Administre vários sensores;
+- Realize ciclos de coleta;
+- Envie leituras para o banco;
+- Registre falhas de comunicação.
+
+### Produto da unidade
+
+Simulação de um dispositivo de aquisição de dados industrial.
+
+## Unidade 15 — Geração automática de alarmes
+
+**Problema:** o sistema deve gerar um alarme sempre que uma leitura ultrapassar os limites configurados.
+
+### Atividade prática
+
+Ao registrar uma leitura, o sistema deverá:
+
+1. Consultar os limites do sensor;
+2. Comparar o valor medido;
+3. Classificar o estado;
+4. Registrar o alarme, se necessário;
+5. Associar o evento ao equipamento;
+6. Exibir uma mensagem ao operador.
+
+### Situações a considerar
+
+- Leitura normal;
+- Valor acima do limite;
+- Valor abaixo do limite;
+- Sensor sem resposta;
+- Valor inválido;
+- Falha de comunicação;
+- Equipamento desativado.
+
+### Produto da unidade
+
+Sistema automático de detecção e registro de alarmes.
+
+## Unidade 16 — Histórico e relatórios operacionais
+
+**Problema:** o supervisor precisa consultar o histórico de cada equipamento e identificar situações críticas.
+
+### Atividade prática
+
+Desenvolver funções Python para gerar:
+
+- Histórico de um sensor;
+- Histórico de um equipamento;
+- Alarmes de determinado período;
+- Média das leituras por hora;
+- Maior e menor leitura;
+- Sensores sem coleta recente;
+- Equipamentos com maior número de alarmes.
+
+### Produto da unidade
+
+Módulo de consultas e relatórios operacionais.
+
+## Unidade 17 — Sistema CRUD de monitoramento
+
+**Problema:** os usuários precisam utilizar o sistema sem executar SQL diretamente.
+
+### Funcionalidades
+
+- Cadastrar equipamento;
+- Cadastrar sensor;
+- Cadastrar dispositivo de coleta;
+- Registrar leitura manual;
+- Executar coleta simulada;
+- Consultar histórico;
+- Listar alarmes;
+- Atualizar limites;
+- Desativar equipamento;
+- Gerar relatório.
+
+### Conceitos trabalhados
+
+- CRUD;
+- Menus;
+- Funções;
+- Classes;
+- Consultas parametrizadas;
+- Tratamento de exceções.
+
+### Produto da unidade
+
+Aplicação de terminal integrada ao PostgreSQL.
+
+## Unidade 18 — Testes, transações e preparação do projeto
+
+**Problema:** o sistema funciona em condições normais, mas precisa lidar com falhas reais de operação.
+
+### Testes práticos
+
+- Banco indisponível;
+- Sensor inexistente;
+- Equipamento desativado;
+- Valor fora da faixa;
+- Falha durante a gravação;
+- Cadastro duplicado;
+- Exclusão de registro relacionado;
+- Falha de comunicação com dispositivo.
+
+### Conceitos trabalhados
+
+- `commit`;
+- `rollback`;
+- Tratamento de erros de conexão;
+- Validação de dados;
+- Testes funcionais;
+- Organização do projeto.
+
+### Preparação do projeto final
+
+Cada equipe deverá definir:
+
+- Problema industrial;
+- Usuários do sistema;
+- Equipamentos;
+- Sensores;
+- Dispositivos de coleta;
+- Dados coletados;
+- Tabelas do banco;
+- Funcionalidades;
+- Forma de demonstração.
+
+### Produto da unidade
+
+- Sistema-base estável;
+- Especificação do projeto final;
+- Equipes formadas;
+- Divisão de responsabilidades.
+
+# Módulo 5 — Projeto final
+
+## Unidade 19 — Desenvolvimento do projeto final
+
+**Objetivo:** desenvolver, integrar e testar a solução proposta pela equipe.
+
+### Possíveis temas
+
+- Monitoramento de temperatura de motores;
+- Controle e histórico do nível de um tanque;
+- Monitoramento de pressão em uma linha;
+- Sistema de alarmes para uma esteira;
+- Monitoramento de vibração;
+- Registro de consumo energético;
+- Sistema de manutenção preventiva;
+- Monitoramento de uma estação de bombeamento;
+- Rastreamento de produção por lote.
+
+### Requisitos mínimos
+
+O projeto deverá possuir:
+
+- Problema relacionado à automação industrial;
+- Aplicação desenvolvida em Python;
+- Uso de funções e/ou classes;
+- Banco de dados PostgreSQL;
+- Cadastro de equipamentos ou dispositivos;
+- Cadastro de sensores ou variáveis;
+- Simulação ou entrada de dados de coleta;
+- Registro de leituras;
+- Identificação ou registro de alarmes;
+- Pelo menos três consultas relevantes;
+- Tratamento de erros;
+- Demonstração funcional.
+
+### Atividades da unidade
+
+- Planejamento final;
+- Desenvolvimento;
+- Integração;
+- Testes;
+- Correção de falhas;
+- Preparação da demonstração.
+
+## Unidade 20 — Apresentação e avaliação do projeto
+
+### Atividades
+
+- Execução dos testes finais;
+- Correção de falhas;
+- Apresentação das equipes;
+- Demonstração do sistema;
+- Explicação da modelagem do banco;
+- Demonstração da coleta simulada;
+- Apresentação das consultas;
+- Discussão das limitações;
+- Propostas de melhorias futuras.
+
+### Entregas
+
+- Código-fonte Python;
+- Script SQL de criação do banco;
+- Dados de teste;
+- Modelo das tabelas;
+- Manual breve de execução;
+- Relatório técnico;
+- Apresentação ou demonstração funcional.
+
+### Perguntas que a equipe deverá responder
+
+- Qual problema foi escolhido?
+- Quem utilizará o sistema?
+- Quais dados são coletados?
+- Como os dados são armazenados?
+- Como os alarmes são identificados?
+- Quais consultas são importantes?
+- Como o sistema lida com falhas?
+- Quais melhorias poderiam ser implementadas?
+
+# Avaliação da disciplina
+
+## Instrumentos avaliativos
+
+| Atividade | Percentual sugerido |
+|---|---:|
+| Atividades práticas de Python — unidades 1 a 6 | 20% |
+| Simulação orientada a objetos — unidades 7 e 8 | 15% |
+| Modelagem e SQL — unidades 9 a 11 | 20% |
+| Integração Python + PostgreSQL — unidades 12 a 18 | 25% |
+| Projeto final — unidades 19 e 20 | 20% |
+
+## O que será avaliado?
+
+- Compreensão do problema;
+- Funcionamento da solução;
+- Organização do código;
+- Uso adequado de Python;
+- Uso adequado do PostgreSQL;
+- Modelagem dos dados;
+- Integração entre aplicação e banco;
+- Tratamento de erros;
+- Qualidade dos testes;
+- Capacidade de explicar as decisões;
+- Trabalho em equipe;
+- Comunicação técnica.
+
+## Avaliação no IFPR
+
+A avaliação será:
+
+- Diagnóstica;
+- Contínua;
+- Inclusiva;
+- Processual;
+- Formativa;
+- Baseada em diferentes instrumentos.
+
+Poderão ser utilizados:
+
+- Exercícios práticos;
+- Trabalhos individuais;
+- Trabalhos em equipe;
+- Relatórios;
+- Demonstrações em laboratório;
+- Resolução de problemas;
+- Projetos;
+- Seminários;
+- Autoavaliação;
+- Avaliação por pares.
+
+## Conceitos de aprendizagem
+
+- **Conceito A:** aprendizagem plena;
+- **Conceito B:** aprendizagem parcialmente plena;
+- **Conceito C:** aprendizagem suficiente;
+- **Conceito D:** aprendizagem insuficiente.
+
+> O objetivo não é apenas fazer o programa funcionar, mas compreender o problema, testar a solução e justificar as decisões técnicas.
+
+# Regras de trabalho
+
+## Durante as atividades práticas
+
+- Trabalhe de forma colaborativa;
+- Teste o código frequentemente;
+- Registre os erros encontrados;
+- Faça pequenas alterações por vez;
+- Comente as decisões importantes;
+- Não copie soluções sem compreender;
+- Utilize nomes claros para variáveis e funções;
+- Mantenha cópias do projeto;
+- Documente o que foi desenvolvido.
+
+## Critérios para um bom projeto
+
+Um bom projeto:
+
+- Resolve um problema claro;
+- Possui usuários definidos;
+- Utiliza dados coerentes;
+- Simula ou representa uma situação industrial;
+- Persiste os dados corretamente;
+- Produz informações úteis;
+- Trata situações de erro;
+- Pode ser demonstrado;
+- Está organizado e documentado;
+- Pode ser ampliado futuramente.
+
+# Encerramento
+
+## A lógica da disciplina
+
+> **Problema → hipótese de solução → conceito necessário → implementação → teste → melhoria → demonstração**
+
+## O que vamos construir?
+
+Ao final da disciplina, cada estudante deverá ter participado da construção de uma solução que percorre todo o caminho:
+
+```text
+Leitura do sensor
+     ↓
+Processamento em Python
+     ↓
+Classificação do estado
+     ↓
+Geração de alarmes
+     ↓
+Registro no PostgreSQL
+     ↓
+Consulta do histórico
+     ↓
+Relatório para tomada de decisão
+```
+
+## Resultado esperado
+
+Ao finalizar a disciplina, você deverá ser capaz de desenvolver uma aplicação que:
+
+- Receba ou simule dados de sensores;
+- Processe as informações;
+- Identifique condições anormais;
+- Armazene os dados;
+- Consulte históricos;
+- Gere relatórios;
+- Apoie a operação e a manutenção de sistemas industriais.
+
+## Pergunta orientadora
+
+> **Como transformar dados de sensores em informações úteis para operar, manter e melhorar um processo industrial?**

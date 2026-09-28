@@ -1,0 +1,2660 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>aula_05</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="aula_05_files/libs/clipboard/clipboard.min.js"></script>
+<script src="aula_05_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="aula_05_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="aula_05_files/libs/quarto-html/popper.min.js"></script>
+<script src="aula_05_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="aula_05_files/libs/quarto-html/anchor.min.js"></script>
+<link href="aula_05_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="aula_05_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="aula_05_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="aula_05_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="aula_05_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<p><strong>Aula 5 — Organização de leituras com dicionários</strong></p>
+<p><strong>Componente curricular</strong></p>
+<p><strong>Linguagens de Programação e Banco de Dados</strong></p>
+<p><strong>Curso</strong></p>
+<p><strong>Curso Superior de Tecnologia em Automação Industrial</strong></p>
+<p><strong>Unidade curricular</strong></p>
+<p><strong>Estruturas de dados aplicadas ao histórico de sensores</strong></p>
+<p><strong>Duração</strong></p>
+<p><strong>4 horas-aula</strong></p>
+<p><strong>1. Tema da aula</strong></p>
+<p>Nesta aula, o histórico de leituras será reorganizado utilizando <strong>dicionários</strong> e <strong>listas de dicionários</strong>.</p>
+<p>Na Aula 4, as informações foram armazenadas em listas separadas:</p>
+<blockquote class="blockquote">
+<p>historico_ciclos = []</p>
+<p>historico_temperatura = []</p>
+<p>historico_pressao = []</p>
+<p>historico_corrente = []</p>
+<p>historico_estados = []</p>
+</blockquote>
+<p>Esse modelo funciona, mas exige que todas as listas permaneçam alinhadas. Se uma informação for inserida em uma posição incorreta, os dados poderão ficar associados ao ciclo errado.</p>
+<p>Na Aula 5, cada leitura será representada como um registro completo:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 72.5,</p>
+<p>"pressao": 6.8,</p>
+<p>"corrente": 12.4,</p>
+<p>"estado": "ATENÇÃO"</p>
+<p>}</p>
+</blockquote>
+<p>As leituras serão armazenadas em uma única lista:</p>
+<blockquote class="blockquote">
+<p>historico = []</p>
+<p>historico.append(leitura)</p>
+</blockquote>
+<p><strong>2. Situação-problema</strong></p>
+<p>O sistema de monitoramento precisa armazenar as leituras de um motor industrial.</p>
+<p>Cada leitura deve conter:</p>
+<p>• Número do ciclo;</p>
+<p>• Código do equipamento;</p>
+<p>• Dispositivo de coleta;</p>
+<p>• Temperatura;</p>
+<p>• Pressão;</p>
+<p>• Corrente;</p>
+<p>• Estado da temperatura;</p>
+<p>• Estado da pressão;</p>
+<p>• Estado da corrente;</p>
+<p>• Estado geral;</p>
+<p>• Indicação de situação crítica.</p>
+<p>O supervisor deseja consultar uma leitura completa sem precisar acessar várias listas diferentes.</p>
+<p>No modelo anterior, para exibir uma leitura, era necessário utilizar vários índices:</p>
+<blockquote class="blockquote">
+<p>print(historico_ciclos[indice])</p>
+<p>print(historico_temperatura[indice])</p>
+<p>print(historico_pressao[indice])</p>
+<p>print(historico_corrente[indice])</p>
+<p>print(historico_estados[indice])</p>
+</blockquote>
+<p>Com dicionários, todas as informações da leitura ficam agrupadas:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 72.5,</p>
+<p>"pressao": 6.8,</p>
+<p>"corrente": 12.4,</p>
+<p>"estado_geral": "ATENÇÃO"</p>
+<p>}</p>
+</blockquote>
+<p><strong>3. Objetivos da aula</strong></p>
+<p>Ao final da aula, o estudante deverá ser capaz de:</p>
+<p>• Criar dicionários em Python;</p>
+<p>• Diferenciar chaves e valores;</p>
+<p>• Acessar valores por meio de chaves;</p>
+<p>• Inserir e alterar informações em um dicionário;</p>
+<p>• Criar uma lista de dicionários;</p>
+<p>• Armazenar registros completos de leituras;</p>
+<p>• Percorrer uma lista de dicionários com for;</p>
+<p>• Filtrar registros por estado;</p>
+<p>• Identificar leituras críticas;</p>
+<p>• Calcular estatísticas a partir de uma lista de registros;</p>
+<p>• Organizar dados para futura gravação em arquivo ou banco de dados.</p>
+<p><strong>4. Produto final da aula</strong></p>
+<p>Ao final da aula, cada estudante ou dupla deverá possuir um programa que:</p>
+<p>1. Simule vários ciclos de coleta;</p>
+<p>2. Crie um dicionário para cada leitura;</p>
+<p>3. Armazene os dicionários em uma lista;</p>
+<p>4. Exiba os registros completos;</p>
+<p>5. Filtre leituras em situação de alarme;</p>
+<p>6. Identifique ciclos críticos;</p>
+<p>7. Calcule estatísticas;</p>
+<p>8. Mostre um resumo organizado;</p>
+<p>9. Preserve os dados em uma estrutura adequada para as próximas aulas.</p>
+<p><strong>5. Conhecimentos utilizados</strong></p>
+<p>Esta aula utilizará:</p>
+<p>• Variáveis;</p>
+<p>• Tipos de dados;</p>
+<p>• Listas;</p>
+<p>• Dicionários;</p>
+<p>• Estruturas condicionais;</p>
+<p>• Estruturas de repetição;</p>
+<p>• Funções;</p>
+<p>• Operadores relacionais;</p>
+<p>• Operadores lógicos;</p>
+<p>• Simulação com random;</p>
+<p>• Formatação de textos com f-strings.</p>
+<p><strong>6. Organização da aula</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 32%">
+<col style="width: 32%">
+<col style="width: 32%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Etapa</td>
+<td style="text-align: left;">Atividade</td>
+<td style="text-align: left;">Tempo sugerido</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">Retomada da Aula 4</td>
+<td style="text-align: left;">20 min</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">Introdução aos dicionários</td>
+<td style="text-align: left;">30 min</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">Criação e consulta de registros</td>
+<td style="text-align: left;">30 min</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">Lista de dicionários</td>
+<td style="text-align: left;">35 min</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">Integração com o simulador</td>
+<td style="text-align: left;">50 min</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">Exibição e filtragem do histórico</td>
+<td style="text-align: left;">35 min</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">Estatísticas com registros</td>
+<td style="text-align: left;">35 min</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">Desafio de melhoria</td>
+<td style="text-align: left;">35 min</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">Testes e fechamento</td>
+<td style="text-align: left;">30 min</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Total</td>
+<td style="text-align: left;"></td>
+<td style="text-align: left;">300 min</td>
+</tr>
+</tbody>
+</table>
+<p><strong>7. Retomada da Aula 4</strong></p>
+<p>Na Aula 4, o programa utilizava listas paralelas para armazenar o histórico:</p>
+<blockquote class="blockquote">
+<p>historico_ciclos = []</p>
+<p>historico_temperatura = []</p>
+<p>historico_pressao = []</p>
+<p>historico_corrente = []</p>
+<p>historico_estados = []</p>
+</blockquote>
+<p>Durante cada ciclo, os valores eram adicionados:</p>
+<blockquote class="blockquote">
+<p>historico_ciclos.append(numero_ciclo)</p>
+<p>historico_temperatura.append(temperatura)</p>
+<p>historico_pressao.append(pressao)</p>
+<p>historico_corrente.append(corrente)</p>
+<p>historico_estados.append(estado_geral)</p>
+</blockquote>
+<p>Para exibir uma leitura completa, era necessário utilizar o mesmo índice em várias listas:</p>
+<blockquote class="blockquote">
+<p>for indice in range(len(historico_ciclos)):</p>
+<p>print(f"Ciclo: {historico_ciclos[indice]}")</p>
+<p>print(</p>
+<p>f"Temperatura: "</p>
+<p>f"{historico_temperatura[indice]:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Pressão: "</p>
+<p>f"{historico_pressao[indice]:.2f} bar"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Corrente: "</p>
+<p>f"{historico_corrente[indice]:.2f} A"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Estado: "</p>
+<p>f"{historico_estados[indice]}"</p>
+<p>)</p>
+</blockquote>
+<p>Esse modelo pode gerar problemas se:</p>
+<p>• Uma lista receber um valor e outra não;</p>
+<p>• Um valor for inserido em posição incorreta;</p>
+<p>• Uma leitura inválida for armazenada parcialmente;</p>
+<p>• O índice utilizado não for o mesmo em todas as listas;</p>
+<p>• Novos campos precisarem ser adicionados ao registro.</p>
+<p>Na Aula 5, todos os dados de uma leitura serão armazenados juntos.</p>
+<p><strong>8. O que é um dicionário?</strong></p>
+<p>Um dicionário é uma estrutura de dados formada por pares de:</p>
+<p>• Chave;</p>
+<p>• Valor.</p>
+<p>Exemplo:</p>
+<blockquote class="blockquote">
+<p>equipamento = {</p>
+<p>"codigo": "M-01",</p>
+<p>"tipo": "Motor",</p>
+<p>"setor": "Produção"</p>
+<p>}</p>
+</blockquote>
+<p>Nesse exemplo:</p>
+<p>• "codigo" é uma chave;</p>
+<p>• "M-01" é o valor associado à chave;</p>
+<p>• "tipo" é uma chave;</p>
+<p>• "Motor" é o valor associado à chave;</p>
+<p>• "setor" é uma chave;</p>
+<p>• "Produção" é o valor associado à chave.</p>
+<p>A estrutura geral é:</p>
+<blockquote class="blockquote">
+<p>dicionario = {</p>
+<p>"chave": valor,</p>
+<p>"outra_chave": outro_valor</p>
+<p>}</p>
+</blockquote>
+<p><strong>9. Criando um dicionário de leitura</strong></p>
+<p>Crie um dicionário para representar uma leitura:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 72.5,</p>
+<p>"pressao": 6.8,</p>
+<p>"corrente": 12.4,</p>
+<p>"estado_geral": "ATENÇÃO"</p>
+<p>}</p>
+</blockquote>
+<p>Exiba o dicionário completo:</p>
+<blockquote class="blockquote">
+<p>print(leitura)</p>
+</blockquote>
+<p>Resultado possível:</p>
+<blockquote class="blockquote">
+<p>{</p>
+<p>'ciclo': 1,</p>
+<p>'temperatura': 72.5,</p>
+<p>'pressao': 6.8,</p>
+<p>'corrente': 12.4,</p>
+<p>'estado_geral': 'ATENÇÃO'</p>
+<p>}</p>
+</blockquote>
+<p>O dicionário pode conter valores de diferentes tipos:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 72.5,</p>
+<p>"pressao": 6.8,</p>
+<p>"corrente": 12.4,</p>
+<p>"estado_geral": "ATENÇÃO",</p>
+<p>"emergencia": False</p>
+<p>}</p>
+</blockquote>
+<p><strong>10. Acessando valores por meio de chaves</strong></p>
+<p>Para acessar um valor, utilize a chave entre colchetes:</p>
+<blockquote class="blockquote">
+<p>print(leitura["ciclo"])</p>
+<p>print(leitura["temperatura"])</p>
+<p>print(leitura["estado_geral"])</p>
+</blockquote>
+<p>Para exibir uma leitura formatada:</p>
+<blockquote class="blockquote">
+<p>print(f"Ciclo: {leitura['ciclo']}")</p>
+<p>print(</p>
+<p>f"Temperatura: "</p>
+<p>f"{leitura['temperatura']:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Pressão: "</p>
+<p>f"{leitura['pressao']:.2f} bar"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Corrente: "</p>
+<p>f"{leitura['corrente']:.2f} A"</p>
+<p>)</p>
+<p>print(f"Estado: {leitura['estado_geral']}")</p>
+</blockquote>
+<p><strong>Atenção</strong></p>
+<p>A chave precisa existir no dicionário.</p>
+<p>O código abaixo gera erro:</p>
+<blockquote class="blockquote">
+<p>print(leitura["umidade"])</p>
+</blockquote>
+<p>Para verificar se uma chave existe:</p>
+<blockquote class="blockquote">
+<p>if "umidade" in leitura:</p>
+<p>print(leitura["umidade"])</p>
+<p>else:</p>
+<p>print("A chave umidade não existe.")</p>
+</blockquote>
+<p><strong>11. Inserindo novos campos</strong></p>
+<p>Um novo campo pode ser criado atribuindo um valor a uma nova chave:</p>
+<blockquote class="blockquote">
+<p>leitura["equipamento"] = "M-01"</p>
+<p>leitura["dispositivo"] = "CLP-SIM-01"</p>
+</blockquote>
+<p>O dicionário passará a conter:</p>
+<blockquote class="blockquote">
+<p>{</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 72.5,</p>
+<p>"pressao": 6.8,</p>
+<p>"corrente": 12.4,</p>
+<p>"estado_geral": "ATENÇÃO",</p>
+<p>"equipamento": "M-01",</p>
+<p>"dispositivo": "CLP-SIM-01"</p>
+<p>}</p>
+</blockquote>
+<p>Também é possível adicionar o resultado de uma avaliação:</p>
+<blockquote class="blockquote">
+<p>leitura["temperatura_acima_limite"] = True</p>
+</blockquote>
+<p>Ou armazenar uma observação:</p>
+<blockquote class="blockquote">
+<p>leitura["observacao"] = "Verificar sistema de refrigeração"</p>
+</blockquote>
+<p><strong>12. Alterando valores</strong></p>
+<p>Para alterar um valor existente:</p>
+<blockquote class="blockquote">
+<p>leitura["estado_geral"] = "ALARME"</p>
+</blockquote>
+<p>A temperatura também pode ser atualizada:</p>
+<blockquote class="blockquote">
+<p>leitura["temperatura"] = 84.0</p>
+</blockquote>
+<p>Exemplo:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 72.5,</p>
+<p>"estado_geral": "ATENÇÃO"</p>
+<p>}</p>
+<p>leitura["temperatura"] = 84.0</p>
+<p>leitura["estado_geral"] = "ALARME"</p>
+<p>print(leitura)</p>
+</blockquote>
+<p><strong>13. Removendo campos</strong></p>
+<p>Para remover uma chave e seu valor:</p>
+<blockquote class="blockquote">
+<p>del leitura["observacao"]</p>
+</blockquote>
+<p>Outra forma é utilizar pop():</p>
+<blockquote class="blockquote">
+<p>observacao = leitura.pop("observacao")</p>
+</blockquote>
+<p>O valor removido poderá ser armazenado na variável:</p>
+<blockquote class="blockquote">
+<p>print(observacao)</p>
+</blockquote>
+<p>Antes de remover uma chave, verifique se ela existe:</p>
+<blockquote class="blockquote">
+<p>if "observacao" in leitura:</p>
+<p>del leitura["observacao"]</p>
+</blockquote>
+<p><strong>14. Desafio 1 — Criando um registro simples</strong></p>
+<p>Crie um dicionário que represente uma leitura:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 75.0,</p>
+<p>"pressao": 7.2,</p>
+<p>"corrente": 13.5,</p>
+<p>"estado_geral": "ATENÇÃO"</p>
+<p>}</p>
+</blockquote>
+<p>Exiba cada informação:</p>
+<blockquote class="blockquote">
+<p>print(f"Ciclo: {leitura['ciclo']}")</p>
+<p>print(</p>
+<p>f"Temperatura: "</p>
+<p>f"{leitura['temperatura']:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Pressão: "</p>
+<p>f"{leitura['pressao']:.2f} bar"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Corrente: "</p>
+<p>f"{leitura['corrente']:.2f} A"</p>
+<p>)</p>
+<p>print(f"Estado: {leitura['estado_geral']}")</p>
+</blockquote>
+<p><strong>Atividade</strong></p>
+<p>Adicione ao dicionário:</p>
+<p>• Código do equipamento;</p>
+<p>• Dispositivo de coleta;</p>
+<p>• Estado da temperatura;</p>
+<p>• Estado da pressão;</p>
+<p>• Estado da corrente;</p>
+<p>• Indicação de emergência.<br>
+leitura["equipamento"] = "M-01"<br>
+leitura["dispositivo"] = "CLP-SIM-01"leitura["status<em><br>
+temperatura"] = "ATENÇÃO"leitura["status</em><br>
+pressao"] = "ATENÇÃO"<br>
+leitura["status_corrente"] = "ATENÇÃO"leitura["emergencia"] = False</p>
+<p><strong>15. Lista de dicionários</strong></p>
+<p>Uma lista pode armazenar vários dicionários.</p>
+<blockquote class="blockquote">
+<p>historico = []</p>
+</blockquote>
+<p>Crie o primeiro registro:</p>
+<blockquote class="blockquote">
+<p>leitura_1 = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 72.5,</p>
+<p>"pressao": 6.8,</p>
+<p>"corrente": 12.4,</p>
+<p>"estado_geral": "NORMAL"</p>
+<p>}</p>
+</blockquote>
+<p>Adicione o registro à lista:</p>
+<blockquote class="blockquote">
+<p>historico.append(leitura_1)</p>
+</blockquote>
+<p>Crie o segundo registro:</p>
+<blockquote class="blockquote">
+<p>leitura_2 = {</p>
+<p>"ciclo": 2,</p>
+<p>"temperatura": 81.0,</p>
+<p>"pressao": 8.2,</p>
+<p>"corrente": 15.5,</p>
+<p>"estado_geral": "ALARME"</p>
+<p>}</p>
+</blockquote>
+<p>Adicione o segundo registro:</p>
+<blockquote class="blockquote">
+<p>historico.append(leitura_2)</p>
+</blockquote>
+<p>Exiba o histórico:</p>
+<blockquote class="blockquote">
+<p>print(historico)</p>
+</blockquote>
+<p><strong>16. Acessando registros específicos</strong></p>
+<p>Para acessar o primeiro registro:</p>
+<blockquote class="blockquote">
+<p>print(historico[0])</p>
+</blockquote>
+<p>Para acessar o segundo registro:</p>
+<blockquote class="blockquote">
+<p>print(historico[1])</p>
+</blockquote>
+<p>Para acessar a temperatura do primeiro registro:</p>
+<blockquote class="blockquote">
+<p>print(historico[0]["temperatura"])</p>
+</blockquote>
+<p>Para acessar o estado do segundo registro:</p>
+<blockquote class="blockquote">
+<p>print(historico[1]["estado_geral"])</p>
+</blockquote>
+<p>Para acessar a última leitura:</p>
+<blockquote class="blockquote">
+<p>print(historico[-1])</p>
+</blockquote>
+<p>Para acessar a temperatura da última leitura:</p>
+<blockquote class="blockquote">
+<p>print(historico[-1]["temperatura"])</p>
+</blockquote>
+<p>A estrutura possui dois níveis de acesso:</p>
+<blockquote class="blockquote">
+<p>historico[indice]["chave"]</p>
+</blockquote>
+<p>Exemplo:</p>
+<blockquote class="blockquote">
+<p>historico[0]["pressao"]</p>
+</blockquote>
+<p><strong>17. Percorrendo uma lista de dicionários</strong></p>
+<p>Utilize for para percorrer os registros:</p>
+<blockquote class="blockquote">
+<p>for leitura in historico:</p>
+<p>print(leitura)</p>
+</blockquote>
+<p>Para exibir os campos individualmente:</p>
+<blockquote class="blockquote">
+<p>for leitura in historico:</p>
+<p>print()</p>
+<p>print(f"Ciclo: {leitura['ciclo']}")</p>
+<p>print(</p>
+<p>f"Temperatura: "</p>
+<p>f"{leitura['temperatura']:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Pressão: "</p>
+<p>f"{leitura['pressao']:.2f} bar"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Corrente: "</p>
+<p>f"{leitura['corrente']:.2f} A"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Estado: "</p>
+<p>f"{leitura['estado_geral']}"</p>
+<p>)</p>
+</blockquote>
+<p><strong>18. Desafio 2 — Criando vários registros</strong></p>
+<p>Crie uma lista chamada historico:</p>
+<blockquote class="blockquote">
+<p>historico = []</p>
+</blockquote>
+<p>Depois, crie três registros:</p>
+<blockquote class="blockquote">
+<p>leitura_1 = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 65.0,</p>
+<p>"pressao": 6.0,</p>
+<p>"corrente": 11.5,</p>
+<p>"estado_geral": "NORMAL"</p>
+<p>}</p>
+<p>leitura_2 = {</p>
+<p>"ciclo": 2,</p>
+<p>"temperatura": 76.0,</p>
+<p>"pressao": 7.5,</p>
+<p>"corrente": 13.2,</p>
+<p>"estado_geral": "ATENÇÃO"</p>
+<p>}</p>
+<p>leitura_3 = {</p>
+<p>"ciclo": 3,</p>
+<p>"temperatura": 85.0,</p>
+<p>"pressao": 8.5,</p>
+<p>"corrente": 16.0,</p>
+<p>"estado_geral": "ALARME"</p>
+<p>}</p>
+</blockquote>
+<p>Adicione os registros:</p>
+<blockquote class="blockquote">
+<p>historico.append(leitura_1)</p>
+<p>historico.append(leitura_2)</p>
+<p>historico.append(leitura_3)</p>
+</blockquote>
+<p>Exiba todos os registros:</p>
+<blockquote class="blockquote">
+<p>for leitura in historico:</p>
+<p>print(</p>
+<p>f"Ciclo {leitura['ciclo']}: "</p>
+<p>f"{leitura['estado_geral']}"</p>
+<p>)</p>
+</blockquote>
+<p><strong>19. Criando registros diretamente com append()</strong></p>
+<p>Também é possível criar o dicionário diretamente dentro do append():</p>
+<blockquote class="blockquote">
+<p>historico = []</p>
+<p>historico.append({</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 65.0,</p>
+<p>"pressao": 6.0,</p>
+<p>"corrente": 11.5,</p>
+<p>"estado_geral": "NORMAL"</p>
+<p>})</p>
+<p>historico.append({</p>
+<p>"ciclo": 2,</p>
+<p>"temperatura": 76.0,</p>
+<p>"pressao": 7.5,</p>
+<p>"corrente": 13.2,</p>
+<p>"estado_geral": "ATENÇÃO"</p>
+<p>})</p>
+<p>historico.append({</p>
+<p>"ciclo": 3,</p>
+<p>"temperatura": 85.0,</p>
+<p>"pressao": 8.5,</p>
+<p>"corrente": 16.0,</p>
+<p>"estado_geral": "ALARME"</p>
+<p>})</p>
+</blockquote>
+<p>Essa forma é útil quando os dados já estão disponíveis.</p>
+<p><strong>20. Criando registros dentro de um laço</strong></p>
+<p>O dicionário pode ser criado dentro do laço de simulação:</p>
+<blockquote class="blockquote">
+<p>import random</p>
+<p>historico = []</p>
+<p>for ciclo in range(5):</p>
+<p>numero_ciclo = ciclo + 1</p>
+<p>temperatura = random.randint(60, 95)</p>
+<p>pressao = random.uniform(5.0, 10.0)</p>
+<p>corrente = random.uniform(10.0, 20.0)</p>
+<p>leitura = {</p>
+<p>"ciclo": numero_ciclo,</p>
+<p>"temperatura": temperatura,</p>
+<p>"pressao": pressao,</p>
+<p>"corrente": corrente,</p>
+<p>"estado_geral": "EM ANÁLISE"</p>
+<p>}</p>
+<p>historico.append(leitura)</p>
+<p>for leitura in historico:</p>
+<p>print(leitura)</p>
+</blockquote>
+<p><strong>21. Incluindo os estados dos sensores</strong></p>
+<p>O registro pode armazenar o estado de cada sensor:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": numero_ciclo,</p>
+<p>"temperatura": temperatura,</p>
+<p>"pressao": pressao,</p>
+<p>"corrente": corrente,</p>
+<p>"status_temperatura": status_temperatura,</p>
+<p>"status_pressao": status_pressao,</p>
+<p>"status_corrente": status_corrente,</p>
+<p>"estado_geral": estado_geral</p>
+<p>}</p>
+</blockquote>
+<p>Também pode armazenar informações booleanas:</p>
+<blockquote class="blockquote">
+<p>leitura["temperatura_acima_limite"] = (</p>
+<p>temperatura &gt; limite_temperatura</p>
+<p>)</p>
+<p>leitura["pressao_acima_limite"] = (</p>
+<p>pressao &gt; limite_pressao</p>
+<p>)</p>
+<p>leitura["corrente_acima_limite"] = (</p>
+<p>corrente &gt; limite_corrente</p>
+<p>)</p>
+<p>leitura["situacao_critica"] = situacao_critica</p>
+</blockquote>
+<p><strong>22. Modelo completo de um registro</strong></p>
+<p>Um registro completo poderá possuir a seguinte estrutura:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": numero_ciclo,</p>
+<p>"equipamento": codigo_equipamento,</p>
+<p>"dispositivo": dispositivo_coleta,</p>
+<p>"temperatura": temperatura,</p>
+<p>"pressao": pressao,</p>
+<p>"corrente": corrente,</p>
+<p>"status_temperatura": status_temperatura,</p>
+<p>"status_pressao": status_pressao,</p>
+<p>"status_corrente": status_corrente,</p>
+<p>"estado_geral": estado_geral,</p>
+<p>"temperatura_acima_limite": (</p>
+<p>temperatura &gt; limite_temperatura</p>
+<p>),</p>
+<p>"pressao_acima_limite": (</p>
+<p>pressao &gt; limite_pressao</p>
+<p>),</p>
+<p>"corrente_acima_limite": (</p>
+<p>corrente &gt; limite_corrente</p>
+<p>),</p>
+<p>"situacao_critica": situacao_critica</p>
+<p>}</p>
+</blockquote>
+<p><strong>23. Desafio 3 — Integrando com o simulador</strong></p>
+<p>Utilize o programa da Aula 4.</p>
+<p>Substitua as listas paralelas:</p>
+<blockquote class="blockquote">
+<p>historico_ciclos = []</p>
+<p>historico_temperatura = []</p>
+<p>historico_pressao = []</p>
+<p>historico_corrente = []</p>
+<p>historico_estados = []</p>
+</blockquote>
+<p>Por uma única lista:</p>
+<blockquote class="blockquote">
+<p>historico = []</p>
+</blockquote>
+<p>Depois da classificação do estado geral, crie o registro:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": numero_ciclo,</p>
+<p>"equipamento": codigo_equipamento,</p>
+<p>"dispositivo": dispositivo_coleta,</p>
+<p>"temperatura": temperatura,</p>
+<p>"pressao": pressao,</p>
+<p>"corrente": corrente,</p>
+<p>"status_temperatura": status_temperatura,</p>
+<p>"status_pressao": status_pressao,</p>
+<p>"status_corrente": status_corrente,</p>
+<p>"estado_geral": estado_geral,</p>
+<p>"situacao_critica": situacao_critica</p>
+<p>}</p>
+</blockquote>
+<p>Adicione o registro ao histórico:</p>
+<blockquote class="blockquote">
+<p>historico.append(leitura)</p>
+</blockquote>
+<p>A partir desse ponto, as informações deverão ser consultadas no dicionário.</p>
+<p><strong>24. Exibindo o histórico integrado</strong></p>
+<p>Depois do laço principal:</p>
+<blockquote class="blockquote">
+<p>print()</p>
+<p>print("==========================================")</p>
+<p>print(" HISTÓRICO DE LEITURAS")</p>
+<p>print("==========================================")</p>
+<p>for leitura in historico:</p>
+<p>print()</p>
+<p>print(f"Ciclo: {leitura['ciclo']}")</p>
+<p>print(</p>
+<p>f"Equipamento: "</p>
+<p>f"{leitura['equipamento']}"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Dispositivo: "</p>
+<p>f"{leitura['dispositivo']}"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Temperatura: "</p>
+<p>f"{leitura['temperatura']:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Status da temperatura: "</p>
+<p>f"{leitura['status_temperatura']}"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Pressão: "</p>
+<p>f"{leitura['pressao']:.2f} bar"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Status da pressão: "</p>
+<p>f"{leitura['status_pressao']}"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Corrente: "</p>
+<p>f"{leitura['corrente']:.2f} A"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Status da corrente: "</p>
+<p>f"{leitura['status_corrente']}"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Estado geral: "</p>
+<p>f"{leitura['estado_geral']}"</p>
+<p>)</p>
+</blockquote>
+<p><strong>25. Filtrando registros</strong></p>
+<p>Para exibir somente leituras em alarme:</p>
+<blockquote class="blockquote">
+<p>for leitura in historico:</p>
+<p>if leitura["estado_geral"] == "ALARME":</p>
+<p>print(</p>
+<p>f"Ciclo em alarme: "</p>
+<p>f"{leitura['ciclo']}"</p>
+<p>)</p>
+</blockquote>
+<p>Para exibir situações de alarme ou emergência:</p>
+<blockquote class="blockquote">
+<p>for leitura in historico:</p>
+<p>if (</p>
+<p>leitura["estado_geral"] == "ALARME"</p>
+<p>or leitura["estado_geral"] == "EMERGÊNCIA"</p>
+<p>):</p>
+<p>print(</p>
+<p>f"Ciclo crítico: "</p>
+<p>f"{leitura['ciclo']}"</p>
+<p>)</p>
+</blockquote>
+<p>Para exibir registros com temperatura acima do limite:</p>
+<blockquote class="blockquote">
+<p>for leitura in historico:</p>
+<p>if leitura["temperatura"] &gt; limite_temperatura:</p>
+<p>print(</p>
+<p>f"Ciclo {leitura['ciclo']}: "</p>
+<p>f"{leitura['temperatura']:.2f} °C"</p>
+<p>)</p>
+</blockquote>
+<p>Para exibir somente situações críticas:</p>
+<blockquote class="blockquote">
+<p>for leitura in historico:</p>
+<p>if leitura["situacao_critica"]:</p>
+<p>print(</p>
+<p>f"Situação crítica no ciclo "</p>
+<p>f"{leitura['ciclo']}"</p>
+<p>)</p>
+</blockquote>
+<p><strong>26. Calculando estatísticas com uma lista de dicionários</strong></p>
+<p>Para calcular a menor temperatura:</p>
+<blockquote class="blockquote">
+<p>if len(historico) &gt; 0:</p>
+<p>menor_temperatura = min(</p>
+<p>leitura["temperatura"]</p>
+<p>for leitura in historico</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Menor temperatura: "</p>
+<p>f"{menor_temperatura:.2f} °C"</p>
+<p>)</p>
+</blockquote>
+<p>Para calcular a maior temperatura:</p>
+<blockquote class="blockquote">
+<p>maior_temperatura = max(</p>
+<p>leitura["temperatura"]</p>
+<p>for leitura in historico</p>
+<p>)</p>
+</blockquote>
+<p>Para calcular a média:</p>
+<blockquote class="blockquote">
+<p>soma_temperaturas = sum(</p>
+<p>leitura["temperatura"]</p>
+<p>for leitura in historico</p>
+<p>)</p>
+<p>media_temperatura = (</p>
+<p>soma_temperaturas</p>
+<p>/ len(historico)</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Média da temperatura: "</p>
+<p>f"{media_temperatura:.2f} °C"</p>
+<p>)</p>
+</blockquote>
+<p>A mesma lógica pode ser utilizada para pressão e corrente:</p>
+<blockquote class="blockquote">
+<p>menor_pressao = min(</p>
+<p>leitura["pressao"]</p>
+<p>for leitura in historico</p>
+<p>)</p>
+<p>maior_pressao = max(</p>
+<p>leitura["pressao"]</p>
+<p>for leitura in historico</p>
+<p>)</p>
+<p>media_pressao = sum(</p>
+<p>leitura["pressao"]</p>
+<p>for leitura in historico</p>
+<p>) / len(historico)</p>
+<p>menor_corrente = min(</p>
+<p>leitura["corrente"]</p>
+<p>for leitura in historico</p>
+<p>)</p>
+<p>maior_corrente = max(</p>
+<p>leitura["corrente"]</p>
+<p>for leitura in historico</p>
+<p>)</p>
+<p>media_corrente = sum(</p>
+<p>leitura["corrente"]</p>
+<p>for leitura in historico</p>
+<p>) / len(historico)</p>
+</blockquote>
+<p><strong>27. Contando ocorrências com dicionários</strong></p>
+<p>Para contar leituras acima do limite:</p>
+<blockquote class="blockquote">
+<p>leituras_temperatura_alta = 0</p>
+<p>for leitura in historico:</p>
+<p>if leitura["temperatura"] &gt; limite_temperatura:</p>
+<p>leituras_temperatura_alta += 1</p>
+</blockquote>
+<p>Para contar estados gerais:</p>
+<blockquote class="blockquote">
+<p>quantidade_normal = 0</p>
+<p>quantidade_atencao = 0</p>
+<p>quantidade_alarme = 0</p>
+<p>quantidade_emergencia = 0</p>
+<p>for leitura in historico:</p>
+<p>estado = leitura["estado_geral"]</p>
+<p>if estado == "NORMAL":</p>
+<p>quantidade_normal += 1</p>
+<p>elif estado == "ATENÇÃO":</p>
+<p>quantidade_atencao += 1</p>
+<p>elif estado == "ALARME":</p>
+<p>quantidade_alarme += 1</p>
+<p>elif estado == "EMERGÊNCIA":</p>
+<p>quantidade_emergencia += 1</p>
+</blockquote>
+<p>Exibição:</p>
+<blockquote class="blockquote">
+<p>print(f"Normais: {quantidade_normal}")</p>
+<p>print(f"Atenção: {quantidade_atencao}")</p>
+<p>print(f"Alarmes: {quantidade_alarme}")</p>
+<p>print(f"Emergências: {quantidade_emergencia}")</p>
+</blockquote>
+<p><strong>28. Encontrando a leitura de maior temperatura</strong></p>
+<p>A função max() pode ser utilizada com uma chave:</p>
+<blockquote class="blockquote">
+<p>if len(historico) &gt; 0:</p>
+<p>leitura_maior_temperatura = max(</p>
+<p>historico,</p>
+<p>key=lambda leitura: leitura["temperatura"]</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Maior temperatura: "</p>
+<p>f"{leitura_maior_temperatura['temperatura']:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Ciclo: "</p>
+<p>f"{leitura_maior_temperatura['ciclo']}"</p>
+<p>)</p>
+</blockquote>
+<p>O parâmetro key informa qual valor deve ser utilizado na comparação.</p>
+<p>A mesma lógica pode ser aplicada à pressão:</p>
+<blockquote class="blockquote">
+<p>leitura_maior_pressao = max(</p>
+<p>historico,</p>
+<p>key=lambda leitura: leitura["pressao"]</p>
+<p>)</p>
+</blockquote>
+<p>E à corrente:</p>
+<blockquote class="blockquote">
+<p>leitura_maior_corrente = max(</p>
+<p>historico,</p>
+<p>key=lambda leitura: leitura["corrente"]</p>
+<p>)</p>
+</blockquote>
+<p><strong>29. Ordenando registros</strong></p>
+<p>Para ordenar as leituras por temperatura:</p>
+<blockquote class="blockquote">
+<p>historico_ordenado = sorted(</p>
+<p>historico,</p>
+<p>key=lambda leitura: leitura["temperatura"]</p>
+<p>)</p>
+</blockquote>
+<p>Para ordenar da maior para a menor temperatura:</p>
+<blockquote class="blockquote">
+<p>historico_ordenado = sorted(</p>
+<p>historico,</p>
+<p>key=lambda leitura: leitura["temperatura"],</p>
+<p>reverse=True</p>
+<p>)</p>
+</blockquote>
+<p>Exibição:</p>
+<blockquote class="blockquote">
+<p>for leitura in historico_ordenado:</p>
+<p>print(</p>
+<p>f"Ciclo {leitura['ciclo']}: "</p>
+<p>f"{leitura['temperatura']:.2f} °C"</p>
+<p>)</p>
+</blockquote>
+<p><strong>30. Desafio 4 — Filtrando e ordenando leituras críticas</strong></p>
+<p>Crie uma lista somente com as leituras críticas:</p>
+<blockquote class="blockquote">
+<p>leituras_criticas = []</p>
+<p>for leitura in historico:</p>
+<p>if (</p>
+<p>leitura["estado_geral"] == "ALARME"</p>
+<p>or leitura["estado_geral"] == "EMERGÊNCIA"</p>
+<p>):</p>
+<p>leituras_criticas.append(leitura)</p>
+</blockquote>
+<p>Ordene as leituras críticas pela temperatura:</p>
+<blockquote class="blockquote">
+<p>leituras_criticas_ordenadas = sorted(</p>
+<p>leituras_criticas,</p>
+<p>key=lambda leitura: leitura["temperatura"],</p>
+<p>reverse=True</p>
+<p>)</p>
+</blockquote>
+<p>Exiba:</p>
+<blockquote class="blockquote">
+<p>for leitura in leituras_criticas_ordenadas:</p>
+<p>print(</p>
+<p>f"Ciclo: {leitura['ciclo']}"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Temperatura: "</p>
+<p>f"{leitura['temperatura']:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Estado: "</p>
+<p>f"{leitura['estado_geral']}"</p>
+<p>)</p>
+<p>print()</p>
+</blockquote>
+<p><strong>31. Desafio 5 — Criando uma função para exibir leituras</strong></p>
+<p>Crie uma função para exibir um registro:</p>
+<blockquote class="blockquote">
+<p>def exibir_leitura(leitura):</p>
+<p>print()</p>
+<p>print(f"Ciclo: {leitura['ciclo']}")</p>
+<p>print(</p>
+<p>f"Temperatura: "</p>
+<p>f"{leitura['temperatura']:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Pressão: "</p>
+<p>f"{leitura['pressao']:.2f} bar"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Corrente: "</p>
+<p>f"{leitura['corrente']:.2f} A"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Status geral: "</p>
+<p>f"{leitura['estado_geral']}"</p>
+<p>)</p>
+</blockquote>
+<p>Utilize a função:</p>
+<blockquote class="blockquote">
+<p>for leitura in historico:</p>
+<p>exibir_leitura(leitura)</p>
+</blockquote>
+<p><strong>32. Desafio 6 — Criando funções de análise</strong></p>
+<p>Crie uma função para obter a média da temperatura:</p>
+<blockquote class="blockquote">
+<p>def calcular_media_temperatura(historico):</p>
+<p>if len(historico) == 0:</p>
+<p>return 0</p>
+<p>soma = sum(</p>
+<p>leitura["temperatura"]</p>
+<p>for leitura in historico</p>
+<p>)</p>
+<p>return soma / len(historico)</p>
+</blockquote>
+<p>Utilize a função:</p>
+<blockquote class="blockquote">
+<p>media = calcular_media_temperatura(historico)</p>
+<p>print(</p>
+<p>f"Média da temperatura: "</p>
+<p>f"{media:.2f} °C"</p>
+<p>)</p>
+</blockquote>
+<p>Crie uma função para contar leituras acima do limite:</p>
+<blockquote class="blockquote">
+<p>def contar_temperaturas_altas(</p>
+<p>historico,</p>
+<p>limite</p>
+<p>):</p>
+<p>contador = 0</p>
+<p>for leitura in historico:</p>
+<p>if leitura["temperatura"] &gt; limite:</p>
+<p>contador += 1</p>
+<p>return contador</p>
+</blockquote>
+<p>Utilize a função:</p>
+<blockquote class="blockquote">
+<p>quantidade = contar_temperaturas_altas(</p>
+<p>historico,</p>
+<p>limite_temperatura</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Temperaturas acima do limite: "</p>
+<p>f"{quantidade}"</p>
+<p>)</p>
+</blockquote>
+<p><strong>33. Programa completo de referência</strong></p>
+<p>Crie um arquivo chamado:</p>
+<blockquote class="blockquote">
+<p>aula_05_dicionarios.py</p>
+</blockquote>
+<p>Utilize o programa abaixo como referência.</p>
+<blockquote class="blockquote">
+<p>import random</p>
+<p>print("==========================================")</p>
+<p>print(" SIMULADOR COM LISTA DE DICIONÁRIOS")</p>
+<p>print("==========================================")</p>
+<p>codigo_equipamento = "M-01"</p>
+<p>dispositivo_coleta = "CLP-SIM-01"</p>
+<p>quantidade_ciclos = 20</p>
+<p>limite_temperatura = 80</p>
+<p>limite_pressao = 8</p>
+<p>limite_corrente = 15</p>
+<p>historico = []</p>
+<p>ciclos_normais = 0</p>
+<p>ciclos_atencao = 0</p>
+<p>ciclos_alarme = 0</p>
+<p>ciclos_emergencia = 0</p>
+<p>ciclos_realizados = 0</p>
+<p>leituras_ignoradas = 0</p>
+<p>print(f"Equipamento: {codigo_equipamento}")</p>
+<p>print(f"Dispositivo: {dispositivo_coleta}")</p>
+<p>print(f"Ciclos planejados: {quantidade_ciclos}")</p>
+<p>for ciclo in range(quantidade_ciclos):</p>
+<p>numero_ciclo = ciclo + 1</p>
+<p>print()</p>
+<p>print(</p>
+<p>f"========== CICLO "</p>
+<p>f"{numero_ciclo} =========="</p>
+<p>)</p>
+<p>if numero_ciclo == 5:</p>
+<p>print(</p>
+<p>"Falha de comunicação "</p>
+<p>"com o sensor."</p>
+<p>)</p>
+<p>leituras_ignoradas += 1</p>
+<p>continue</p>
+<p>temperatura = random.randint(60, 95)</p>
+<p>pressao = random.uniform(5.0, 10.0)</p>
+<p>corrente = random.uniform(10.0, 20.0)</p>
+<p>ciclos_realizados += 1</p>
+<p>if temperatura &lt; 70:</p>
+<p>status_temperatura = "NORMAL"</p>
+<p>elif temperatura &lt;= limite_temperatura:</p>
+<p>status_temperatura = "ATENÇÃO"</p>
+<p>else:</p>
+<p>status_temperatura = "ALARME"</p>
+<p>if pressao &lt; 7:</p>
+<p>status_pressao = "NORMAL"</p>
+<p>elif pressao &lt;= limite_pressao:</p>
+<p>status_pressao = "ATENÇÃO"</p>
+<p>else:</p>
+<p>status_pressao = "ALARME"</p>
+<p>if corrente &lt; 13:</p>
+<p>status_corrente = "NORMAL"</p>
+<p>elif corrente &lt;= limite_corrente:</p>
+<p>status_corrente = "ATENÇÃO"</p>
+<p>else:</p>
+<p>status_corrente = "ALARME"</p>
+<p>situacao_critica = (</p>
+<p>temperatura &gt; 90</p>
+<p>or pressao &gt; 10</p>
+<p>or corrente &gt; 18</p>
+<p>)</p>
+<p>existe_alarme = (</p>
+<p>status_temperatura == "ALARME"</p>
+<p>or status_pressao == "ALARME"</p>
+<p>or status_corrente == "ALARME"</p>
+<p>)</p>
+<p>existe_atencao = (</p>
+<p>status_temperatura == "ATENÇÃO"</p>
+<p>or status_pressao == "ATENÇÃO"</p>
+<p>or status_corrente == "ATENÇÃO"</p>
+<p>)</p>
+<p>if situacao_critica:</p>
+<p>estado_geral = "EMERGÊNCIA"</p>
+<p>elif existe_alarme:</p>
+<p>estado_geral = "ALARME"</p>
+<p>elif existe_atencao:</p>
+<p>estado_geral = "ATENÇÃO"</p>
+<p>else:</p>
+<p>estado_geral = "NORMAL"</p>
+<p>leitura = {</p>
+<p>"ciclo": numero_ciclo,</p>
+<p>"equipamento": codigo_equipamento,</p>
+<p>"dispositivo": dispositivo_coleta,</p>
+<p>"temperatura": temperatura,</p>
+<p>"pressao": pressao,</p>
+<p>"corrente": corrente,</p>
+<p>"status_temperatura": status_temperatura,</p>
+<p>"status_pressao": status_pressao,</p>
+<p>"status_corrente": status_corrente,</p>
+<p>"estado_geral": estado_geral,</p>
+<p>"situacao_critica": situacao_critica</p>
+<p>}</p>
+<p>historico.append(leitura)</p>
+<p>if estado_geral == "NORMAL":</p>
+<p>ciclos_normais += 1</p>
+<p>elif estado_geral == "ATENÇÃO":</p>
+<p>ciclos_atencao += 1</p>
+<p>elif estado_geral == "ALARME":</p>
+<p>ciclos_alarme += 1</p>
+<p>elif estado_geral == "EMERGÊNCIA":</p>
+<p>ciclos_emergencia += 1</p>
+<p>print(</p>
+<p>f"Temperatura: "</p>
+<p>f"{temperatura:.2f} °C - "</p>
+<p>f"{status_temperatura}"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Pressão: "</p>
+<p>f"{pressao:.2f} bar - "</p>
+<p>f"{status_pressao}"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Corrente: "</p>
+<p>f"{corrente:.2f} A - "</p>
+<p>f"{status_corrente}"</p>
+<p>)</p>
+<p>print(f"Estado geral: {estado_geral}")</p>
+<p>if estado_geral == "EMERGÊNCIA":</p>
+<p>print(</p>
+<p>"PARADA DE EMERGÊNCIA "</p>
+<p>"ATIVADA."</p>
+<p>)</p>
+<p>break</p>
+<p>print()</p>
+<p>print("==========================================")</p>
+<p>print(" RESUMO DA COLETA")</p>
+<p>print("==========================================")</p>
+<p>print(f"Equipamento: {codigo_equipamento}")</p>
+<p>print(f"Dispositivo: {dispositivo_coleta}")</p>
+<p>print(f"Ciclos planejados: {quantidade_ciclos}")</p>
+<p>print(f"Ciclos realizados: {ciclos_realizados}")</p>
+<p>print(f"Leituras ignoradas: {leituras_ignoradas}")</p>
+<p>print(f"Leituras armazenadas: {len(historico)}")</p>
+<p>print(f"Ciclos normais: {ciclos_normais}")</p>
+<p>print(f"Ciclos em atenção: {ciclos_atencao}")</p>
+<p>print(f"Ciclos em alarme: {ciclos_alarme}")</p>
+<p>print(</p>
+<p>f"Ciclos em emergência: "</p>
+<p>f"{ciclos_emergencia}"</p>
+<p>)</p>
+<p>if len(historico) &gt; 0:</p>
+<p>temperaturas = [</p>
+<p>leitura["temperatura"]</p>
+<p>for leitura in historico</p>
+<p>]</p>
+<p>pressoes = [</p>
+<p>leitura["pressao"]</p>
+<p>for leitura in historico</p>
+<p>]</p>
+<p>correntes = [</p>
+<p>leitura["corrente"]</p>
+<p>for leitura in historico</p>
+<p>]</p>
+<p>menor_temperatura = min(temperaturas)</p>
+<p>maior_temperatura = max(temperaturas)</p>
+<p>media_temperatura = (</p>
+<p>sum(temperaturas)</p>
+<p>/ len(temperaturas)</p>
+<p>)</p>
+<p>menor_pressao = min(pressoes)</p>
+<p>maior_pressao = max(pressoes)</p>
+<p>media_pressao = (</p>
+<p>sum(pressoes)</p>
+<p>/ len(pressoes)</p>
+<p>)</p>
+<p>menor_corrente = min(correntes)</p>
+<p>maior_corrente = max(correntes)</p>
+<p>media_corrente = (</p>
+<p>sum(correntes)</p>
+<p>/ len(correntes)</p>
+<p>)</p>
+<p>print()</p>
+<p>print("==========================================")</p>
+<p>print(" ESTATÍSTICAS DO HISTÓRICO")</p>
+<p>print("==========================================")</p>
+<p>print(</p>
+<p>f"Leituras armazenadas: "</p>
+<p>f"{len(historico)}"</p>
+<p>)</p>
+<p>print()</p>
+<p>print("TEMPERATURA")</p>
+<p>print(</p>
+<p>f"Mínima: "</p>
+<p>f"{menor_temperatura:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Máxima: "</p>
+<p>f"{maior_temperatura:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Média: "</p>
+<p>f"{media_temperatura:.2f} °C"</p>
+<p>)</p>
+<p>print()</p>
+<p>print("PRESSÃO")</p>
+<p>print(</p>
+<p>f"Mínima: "</p>
+<p>f"{menor_pressao:.2f} bar"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Máxima: "</p>
+<p>f"{maior_pressao:.2f} bar"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Média: "</p>
+<p>f"{media_pressao:.2f} bar"</p>
+<p>)</p>
+<p>print()</p>
+<p>print("CORRENTE")</p>
+<p>print(</p>
+<p>f"Mínima: "</p>
+<p>f"{menor_corrente:.2f} A"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Máxima: "</p>
+<p>f"{maior_corrente:.2f} A"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Média: "</p>
+<p>f"{media_corrente:.2f} A"</p>
+<p>)</p>
+<p>leituras_criticas = []</p>
+<p>for leitura in historico:</p>
+<p>if (</p>
+<p>leitura["estado_geral"] == "ALARME"</p>
+<p>or leitura["estado_geral"] == "EMERGÊNCIA"</p>
+<p>):</p>
+<p>leituras_criticas.append(leitura)</p>
+<p>print()</p>
+<p>print("LEITURAS CRÍTICAS")</p>
+<p>print("------------------------------------------")</p>
+<p>for leitura in leituras_criticas:</p>
+<p>print(</p>
+<p>f"Ciclo: "</p>
+<p>f"{leitura['ciclo']}"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Temperatura: "</p>
+<p>f"{leitura['temperatura']:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Pressão: "</p>
+<p>f"{leitura['pressao']:.2f} bar"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Corrente: "</p>
+<p>f"{leitura['corrente']:.2f} A"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Estado: "</p>
+<p>f"{leitura['estado_geral']}"</p>
+<p>)</p>
+<p>print()</p>
+<p>leitura_maior_temperatura = max(</p>
+<p>historico,</p>
+<p>key=lambda leitura: leitura["temperatura"]</p>
+<p>)</p>
+<p>print()</p>
+<p>print(</p>
+<p>f"Maior temperatura: "</p>
+<p>f"{leitura_maior_temperatura['temperatura']:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Ciclo: "</p>
+<p>f"{leitura_maior_temperatura['ciclo']}"</p>
+<p>)</p>
+<p>if len(historico) &gt;= 2:</p>
+<p>primeira_temperatura = (</p>
+<p>historico[0]["temperatura"]</p>
+<p>)</p>
+<p>ultima_temperatura = (</p>
+<p>historico[-1]["temperatura"]</p>
+<p>)</p>
+<p>variacao = (</p>
+<p>ultima_temperatura</p>
+<p>- primeira_temperatura</p>
+<p>)</p>
+<p>if variacao &gt; 0:</p>
+<p>tendencia = "AUMENTO"</p>
+<p>elif variacao &lt; 0:</p>
+<p>tendencia = "REDUÇÃO"</p>
+<p>else:</p>
+<p>tendencia = "ESTÁVEL"</p>
+<p>print()</p>
+<p>print("TENDÊNCIA DA TEMPERATURA")</p>
+<p>print("------------------------------------------")</p>
+<p>print(</p>
+<p>f"Primeira leitura: "</p>
+<p>f"{primeira_temperatura:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Última leitura: "</p>
+<p>f"{ultima_temperatura:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Variação: "</p>
+<p>f"{variacao:.2f} °C"</p>
+<p>)</p>
+<p>print(f"Tendência: {tendencia}")</p>
+<p>else:</p>
+<p>print()</p>
+<p>print("Nenhuma leitura foi armazenada.")</p>
+<p>print()</p>
+<p>print("==========================================")</p>
+<p>print(" FIM DA ANÁLISE")</p>
+<p>print("==========================================")</p>
+</blockquote>
+<p><strong>34. Testes controlados</strong></p>
+<p><strong>Teste 1 — Registro simples</strong></p>
+<p>Utilize:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 72.0,</p>
+<p>"pressao": 6.5,</p>
+<p>"corrente": 12.0,</p>
+<p>"estado_geral": "NORMAL"</p>
+<p>}</p>
+</blockquote>
+<p>Verifique:</p>
+<p>• Se todas as chaves foram criadas;</p>
+<p>• Se os valores podem ser acessados;</p>
+<p>• Se os valores podem ser alterados;</p>
+<p>• Se uma nova chave pode ser adicionada.</p>
+<p><strong>Teste 2 — Lista de registros</strong></p>
+<p>Utilize:</p>
+<blockquote class="blockquote">
+<p>historico = [</p>
+<p>{</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 65.0,</p>
+<p>"pressao": 6.0,</p>
+<p>"corrente": 11.0,</p>
+<p>"estado_geral": "NORMAL"</p>
+<p>},</p>
+<p>{</p>
+<p>"ciclo": 2,</p>
+<p>"temperatura": 82.0,</p>
+<p>"pressao": 8.5,</p>
+<p>"corrente": 16.0,</p>
+<p>"estado_geral": "ALARME"</p>
+<p>}</p>
+<p>]</p>
+</blockquote>
+<p>Verifique:</p>
+<p>• O tamanho da lista;</p>
+<p>• O primeiro registro;</p>
+<p>• O segundo registro;</p>
+<p>• A temperatura do segundo registro;</p>
+<p>• O estado geral do segundo registro.</p>
+<p><strong>Teste 3 — Filtragem</strong></p>
+<p>Crie uma lista somente com registros em alarme:</p>
+<blockquote class="blockquote">
+<p>leituras_alarme = []</p>
+<p>for leitura in historico:</p>
+<p>if leitura["estado_geral"] == "ALARME":</p>
+<p>leituras_alarme.append(leitura)</p>
+</blockquote>
+<p>Exiba o resultado.</p>
+<p><strong>Teste 4 — Maior temperatura</strong></p>
+<p>Utilize:</p>
+<blockquote class="blockquote">
+<p>leitura_maior = max(</p>
+<p>historico,</p>
+<p>key=lambda leitura: leitura["temperatura"]</p>
+<p>)</p>
+</blockquote>
+<p>Exiba o ciclo e a temperatura da leitura encontrada.</p>
+<p><strong>Teste 5 — Falha de comunicação</strong></p>
+<p>Ignore um dos ciclos e verifique:</p>
+<p>• Se o ciclo não foi armazenado;</p>
+<p>• Se a lista de registros permaneceu consistente;</p>
+<p>• Se os demais registros continuaram completos;</p>
+<p>• Se o número original do ciclo foi preservado.</p>
+<p><strong>35. Atividade de análise</strong></p>
+<p>Responda:</p>
+<p>1. Qual é a diferença entre uma lista e um dicionário?</p>
+<p>2. O que é uma chave?</p>
+<p>3. O que é um valor?</p>
+<p>4. Como acessar uma informação específica de um dicionário?</p>
+<p>5. Como criar uma lista de dicionários?</p>
+<p>6. Qual é a vantagem de armazenar uma leitura completa em um único dicionário?</p>
+<p>7. Qual problema pode ocorrer com listas paralelas?</p>
+<p>8. Como filtrar somente registros em alarme?</p>
+<p>9. Como encontrar o registro com a maior temperatura?</p>
+<p>10. Como calcular a média de uma variável armazenada em uma lista de dicionários?</p>
+<p>11. Por que o número original do ciclo deve ser armazenado no registro?</p>
+<p>12. Quais campos seriam necessários para gravar esse registro em um banco de dados?</p>
+<p>13. Como um dicionário poderia ser convertido em uma linha de arquivo CSV?</p>
+<p>14. Quais informações adicionais poderiam ser armazenadas em cada leitura?</p>
+<p><strong>36. Desafio final</strong></p>
+<p>Modifique o programa para incluir os seguintes campos em cada registro:</p>
+<p>• Data da leitura;</p>
+<p>• Horário da leitura;</p>
+<p>• Nome do operador;</p>
+<p>• Turno de trabalho;</p>
+<p>• Observação operacional.</p>
+<p>Exemplo:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": numero_ciclo,</p>
+<p>"equipamento": codigo_equipamento,</p>
+<p>"dispositivo": dispositivo_coleta,</p>
+<p>"temperatura": temperatura,</p>
+<p>"pressao": pressao,</p>
+<p>"corrente": corrente,</p>
+<p>"estado_geral": estado_geral,</p>
+<p>"data": "2026-09-04",</p>
+<p>"horario": "14:30:00",</p>
+<p>"operador": "Operador 01",</p>
+<p>"turno": "Tarde",</p>
+<p>"observacao": "Coleta automática"</p>
+<p>}</p>
+</blockquote>
+<p>Depois:</p>
+<p>1. Exiba os novos campos;</p>
+<p>2. Filtre registros de um determinado turno;</p>
+<p>3. Exiba somente registros com observação;</p>
+<p>4. Calcule estatísticas por turno;</p>
+<p>5. Identifique o registro mais crítico.</p>
+<p><strong>37. Entrega da atividade</strong></p>
+<p>Cada estudante ou dupla deverá entregar:</p>
+<p>• Arquivo aula_05_dicionarios.py;</p>
+<p>• Lista de dicionários contendo o histórico;</p>
+<p>• Registros com dados completos;</p>
+<p>• Exibição formatada do histórico;</p>
+<p>• Filtro de leituras críticas;</p>
+<p>• Identificação da maior temperatura;</p>
+<p>• Cálculo de estatísticas;</p>
+<p>• Testes controlados;</p>
+<p>• Respostas às questões de análise;</p>
+<p>• Implementação de pelo menos uma melhoria.</p>
+<p><strong>38. Critérios de avaliação</strong></p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 48%">
+<col style="width: 48%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Critério</td>
+<td style="text-align: left;">Pontuação</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Criação correta de dicionários</td>
+<td style="text-align: left;">1,5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Uso adequado de chaves e valores</td>
+<td style="text-align: left;">1,0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Criação da lista de dicionários</td>
+<td style="text-align: left;">1,5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Integração com o simulador</td>
+<td style="text-align: left;">2,0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Exibição e filtragem dos registros</td>
+<td style="text-align: left;">1,5</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cálculo das estatísticas</td>
+<td style="text-align: left;">1,0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Testes, organização e clareza do código</td>
+<td style="text-align: left;">1,0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Implementação de melhoria</td>
+<td style="text-align: left;">0,5</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Total</td>
+<td style="text-align: left;">10,0</td>
+</tr>
+</tbody>
+</table>
+<p><strong>39. Fechamento da aula</strong></p>
+<p><strong>Síntese dos conceitos</strong></p>
+<p>Nesta aula, o programa passou a:</p>
+<p>• Representar uma leitura como um dicionário;</p>
+<p>• Armazenar vários registros em uma lista;</p>
+<p>• Consultar valores por meio de chaves;</p>
+<p>• Percorrer</p>
+<p><strong>Aula 5 — Organização de leituras com dicionários</strong></p>
+<p><strong>Componente curricular</strong></p>
+<p><strong>Linguagens de Programação e Banco de Dados</strong></p>
+<p><strong>Curso</strong></p>
+<p><strong>Curso Superior de Tecnologia em Automação Industrial</strong></p>
+<p><strong>Unidade curricular</strong></p>
+<p><strong>Estruturas de dados aplicadas ao histórico de sensores</strong></p>
+<p><strong>Duração</strong></p>
+<p><strong>4 horas-aula</strong></p>
+<p><strong>1. Tema da aula</strong></p>
+<p>Nesta aula, o histórico de leituras será reorganizado utilizando <strong>dicionários</strong> e <strong>listas de dicionários</strong>.</p>
+<p>Na Aula 4, as informações foram armazenadas em listas separadas:</p>
+<blockquote class="blockquote">
+<p>historico_ciclos = []</p>
+<p>historico_temperatura = []</p>
+<p>historico_pressao = []</p>
+<p>historico_corrente = []</p>
+<p>historico_estados = []</p>
+</blockquote>
+<p>Esse modelo funciona, mas exige que todas as listas permaneçam alinhadas. Se uma informação for inserida em uma posição incorreta, os dados poderão ficar associados ao ciclo errado.</p>
+<p>Na Aula 5, cada leitura será representada como um registro completo:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 72.5,</p>
+<p>"pressao": 6.8,</p>
+<p>"corrente": 12.4,</p>
+<p>"estado": "ATENÇÃO"</p>
+<p>}</p>
+</blockquote>
+<p>As leituras serão armazenadas em uma única lista:</p>
+<blockquote class="blockquote">
+<p>historico = []</p>
+<p>historico.append(leitura)</p>
+</blockquote>
+<p><strong>2. Situação-problema</strong></p>
+<p>O sistema de monitoramento precisa armazenar as leituras de um motor industrial.</p>
+<p>Cada leitura deverá conter:</p>
+<p>• Número do ciclo;</p>
+<p>• Código do equipamento;</p>
+<p>• Dispositivo de coleta;</p>
+<p>• Temperatura;</p>
+<p>• Pressão;</p>
+<p>• Corrente;</p>
+<p>• Estado da temperatura;</p>
+<p>• Estado da pressão;</p>
+<p>• Estado da corrente;</p>
+<p>• Estado geral;</p>
+<p>• Indicação de situação crítica.</p>
+<p>O supervisor deseja consultar uma leitura completa sem precisar acessar várias listas diferentes.</p>
+<p>No modelo anterior, para exibir uma leitura, era necessário utilizar vários índices:</p>
+<blockquote class="blockquote">
+<p>print(historico_ciclos[indice])</p>
+<p>print(historico_temperatura[indice])</p>
+<p>print(historico_pressao[indice])</p>
+<p>print(historico_corrente[indice])</p>
+<p>print(historico_estados[indice])</p>
+</blockquote>
+<p>Com dicionários, todas as informações da leitura ficam agrupadas:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 72.5,</p>
+<p>"pressao": 6.8,</p>
+<p>"corrente": 12.4,</p>
+<p>"estado_geral": "ATENÇÃO"</p>
+<p>}</p>
+</blockquote>
+<p><strong>3. Objetivos da aula</strong></p>
+<p>Ao final da aula, o estudante deverá ser capaz de:</p>
+<p>• Criar dicionários em Python;</p>
+<p>• Diferenciar chaves e valores;</p>
+<p>• Acessar valores por meio de chaves;</p>
+<p>• Inserir e alterar informações em um dicionário;</p>
+<p>• Criar uma lista de dicionários;</p>
+<p>• Armazenar registros completos de leituras;</p>
+<p>• Percorrer uma lista de dicionários com for;</p>
+<p>• Filtrar registros por estado;</p>
+<p>• Identificar leituras críticas;</p>
+<p>• Calcular estatísticas a partir de uma lista de registros;</p>
+<p>• Organizar dados para futura gravação em arquivo ou banco de dados.</p>
+<p><strong>4. Produto final da aula</strong></p>
+<p>Ao final da aula, cada estudante ou dupla deverá possuir um programa que:</p>
+<p>1. Simule vários ciclos de coleta;</p>
+<p>2. Crie um dicionário para cada leitura;</p>
+<p>3. Armazene os dicionários em uma lista;</p>
+<p>4. Exiba os registros completos;</p>
+<p>5. Filtre leituras em situação de alarme;</p>
+<p>6. Identifique ciclos críticos;</p>
+<p>7. Calcule estatísticas;</p>
+<p>8. Mostre um resumo organizado;</p>
+<p>9. Preserve os dados em uma estrutura adequada para as próximas aulas.</p>
+<p><strong>5. Conhecimentos utilizados</strong></p>
+<p>Esta aula utilizará:</p>
+<p>• Variáveis;</p>
+<p>• Tipos de dados;</p>
+<p>• Listas;</p>
+<p>• Dicionários;</p>
+<p>• Estruturas condicionais;</p>
+<p>• Estruturas de repetição;</p>
+<p>• Funções;</p>
+<p>• Operadores relacionais;</p>
+<p>• Operadores lógicos;</p>
+<p>• Simulação com random;</p>
+<p>• Formatação de textos com f-strings.</p>
+<p><strong>6. Retomada da Aula 4</strong></p>
+<p>Na Aula 4, o programa utilizava listas paralelas para armazenar o histórico:</p>
+<blockquote class="blockquote">
+<p>historico_ciclos = []</p>
+<p>historico_temperatura = []</p>
+<p>historico_pressao = []</p>
+<p>historico_corrente = []</p>
+<p>historico_estados = []</p>
+</blockquote>
+<p>Durante cada ciclo, os valores eram adicionados:</p>
+<blockquote class="blockquote">
+<p>historico_ciclos.append(numero_ciclo)</p>
+<p>historico_temperatura.append(temperatura)</p>
+<p>historico_pressao.append(pressao)</p>
+<p>historico_corrente.append(corrente)</p>
+<p>historico_estados.append(estado_geral)</p>
+</blockquote>
+<p>Para exibir uma leitura completa, era necessário utilizar o mesmo índice em várias listas:</p>
+<blockquote class="blockquote">
+<p>for indice in range(len(historico_ciclos)):</p>
+<p>print(f"Ciclo: {historico_ciclos[indice]}")</p>
+<p>print(</p>
+<p>f"Temperatura: "</p>
+<p>f"{historico_temperatura[indice]:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Pressão: "</p>
+<p>f"{historico_pressao[indice]:.2f} bar"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Corrente: "</p>
+<p>f"{historico_corrente[indice]:.2f} A"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Estado: "</p>
+<p>f"{historico_estados[indice]}"</p>
+<p>)</p>
+</blockquote>
+<p>Esse modelo pode gerar problemas se:</p>
+<p>• Uma lista receber um valor e outra não;</p>
+<p>• Um valor for inserido em posição incorreta;</p>
+<p>• Uma leitura inválida for armazenada parcialmente;</p>
+<p>• O índice utilizado não for o mesmo em todas as listas;</p>
+<p>• Novos campos precisarem ser adicionados ao registro.</p>
+<p>Na Aula 5, todos os dados de uma leitura serão armazenados juntos.</p>
+<p><strong>7. O que é um dicionário?</strong></p>
+<p>Um dicionário é uma estrutura de dados formada por pares de:</p>
+<p>• Chave;</p>
+<p>• Valor.</p>
+<p>Exemplo:</p>
+<blockquote class="blockquote">
+<p>equipamento = {</p>
+<p>"codigo": "M-01",</p>
+<p>"tipo": "Motor",</p>
+<p>"setor": "Produção"</p>
+<p>}</p>
+</blockquote>
+<p>Nesse exemplo:</p>
+<p>• "codigo" é uma chave;</p>
+<p>• "M-01" é o valor associado à chave;</p>
+<p>• "tipo" é uma chave;</p>
+<p>• "Motor" é o valor associado à chave;</p>
+<p>• "setor" é uma chave;</p>
+<p>• "Produção" é o valor associado à chave.</p>
+<p>A estrutura geral é:</p>
+<blockquote class="blockquote">
+<p>dicionario = {</p>
+<p>"chave": valor,</p>
+<p>"outra_chave": outro_valor</p>
+<p>}</p>
+</blockquote>
+<p><strong>8. Criando um dicionário de leitura</strong></p>
+<p>Crie um dicionário para representar uma leitura:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 72.5,</p>
+<p>"pressao": 6.8,</p>
+<p>"corrente": 12.4,</p>
+<p>"estado_geral": "ATENÇÃO"</p>
+<p>}</p>
+</blockquote>
+<p>Exiba o dicionário completo:</p>
+<blockquote class="blockquote">
+<p>print(leitura)</p>
+</blockquote>
+<p>Resultado possível:</p>
+<blockquote class="blockquote">
+<p>{</p>
+<p>'ciclo': 1,</p>
+<p>'temperatura': 72.5,</p>
+<p>'pressao': 6.8,</p>
+<p>'corrente': 12.4,</p>
+<p>'estado_geral': 'ATENÇÃO'</p>
+<p>}</p>
+</blockquote>
+<p>O dicionário pode conter valores de diferentes tipos:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 72.5,</p>
+<p>"pressao": 6.8,</p>
+<p>"corrente": 12.4,</p>
+<p>"estado_geral": "ATENÇÃO",</p>
+<p>"emergencia": False</p>
+<p>}</p>
+</blockquote>
+<p><strong>9. Acessando valores por meio de chaves</strong></p>
+<p>Para acessar um valor, utilize a chave entre colchetes:</p>
+<blockquote class="blockquote">
+<p>print(leitura["ciclo"])</p>
+<p>print(leitura["temperatura"])</p>
+<p>print(leitura["estado_geral"])</p>
+</blockquote>
+<p>Para exibir uma leitura formatada:</p>
+<blockquote class="blockquote">
+<p>print(f"Ciclo: {leitura['ciclo']}")</p>
+<p>print(</p>
+<p>f"Temperatura: "</p>
+<p>f"{leitura['temperatura']:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Pressão: "</p>
+<p>f"{leitura['pressao']:.2f} bar"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Corrente: "</p>
+<p>f"{leitura['corrente']:.2f} A"</p>
+<p>)</p>
+<p>print(f"Estado: {leitura['estado_geral']}")</p>
+</blockquote>
+<p><strong>Verificando se uma chave existe</strong></p>
+<p>A chave precisa existir no dicionário.</p>
+<p>O código abaixo gera erro:</p>
+<blockquote class="blockquote">
+<p>print(leitura["umidade"])</p>
+</blockquote>
+<p>Para verificar se uma chave existe:</p>
+<blockquote class="blockquote">
+<p>if "umidade" in leitura:</p>
+<p>print(leitura["umidade"])</p>
+<p>else:</p>
+<p>print("A chave umidade não existe.")</p>
+</blockquote>
+<p>Também é possível utilizar get():</p>
+<blockquote class="blockquote">
+<p>umidade = leitura.get("umidade")</p>
+<p>if umidade is None:</p>
+<p>print("Umidade não cadastrada.")</p>
+<p>else:</p>
+<p>print(f"Umidade: {umidade}")</p>
+</blockquote>
+<p><strong>10. Inserindo novos campos</strong></p>
+<p>Um novo campo pode ser criado atribuindo um valor a uma nova chave:</p>
+<blockquote class="blockquote">
+<p>leitura["equipamento"] = "M-01"</p>
+<p>leitura["dispositivo"] = "CLP-SIM-01"</p>
+</blockquote>
+<p>O dicionário passará a conter os novos campos.</p>
+<p>Também é possível adicionar o resultado de uma avaliação:</p>
+<blockquote class="blockquote">
+<p>leitura["temperatura_acima_limite"] = True</p>
+</blockquote>
+<p>Ou armazenar uma observação:</p>
+<blockquote class="blockquote">
+<p>leitura["observacao"] = (</p>
+<p>"Verificar sistema de refrigeração"</p>
+<p>)</p>
+</blockquote>
+<p><strong>11. Alterando valores</strong></p>
+<p>Para alterar um valor existente:</p>
+<blockquote class="blockquote">
+<p>leitura["estado_geral"] = "ALARME"</p>
+</blockquote>
+<p>A temperatura também pode ser atualizada:</p>
+<blockquote class="blockquote">
+<p>leitura["temperatura"] = 84.0</p>
+</blockquote>
+<p>Exemplo completo:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 72.5,</p>
+<p>"estado_geral": "ATENÇÃO"</p>
+<p>}</p>
+<p>leitura["temperatura"] = 84.0</p>
+<p>leitura["estado_geral"] = "ALARME"</p>
+<p>print(leitura)</p>
+</blockquote>
+<p><strong>12. Removendo campos</strong></p>
+<p>Para remover uma chave e seu valor:</p>
+<blockquote class="blockquote">
+<p>del leitura["observacao"]</p>
+</blockquote>
+<p>Outra forma é utilizar pop():</p>
+<blockquote class="blockquote">
+<p>observacao = leitura.pop("observacao")</p>
+<p>print(observacao)</p>
+</blockquote>
+<p>Antes de remover uma chave, verifique se ela existe:</p>
+<blockquote class="blockquote">
+<p>if "observacao" in leitura:</p>
+<p>del leitura["observacao"]</p>
+</blockquote>
+<p><strong>13. Desafio 1 — Criando um registro simples</strong></p>
+<p>Crie um dicionário que represente uma leitura:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 75.0,</p>
+<p>"pressao": 7.2,</p>
+<p>"corrente": 13.5,</p>
+<p>"estado_geral": "ATENÇÃO"</p>
+<p>}</p>
+</blockquote>
+<p>Exiba cada informação:</p>
+<blockquote class="blockquote">
+<p>print(f"Ciclo: {leitura['ciclo']}")</p>
+<p>print(</p>
+<p>f"Temperatura: "</p>
+<p>f"{leitura['temperatura']:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Pressão: "</p>
+<p>f"{leitura['pressao']:.2f} bar"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Corrente: "</p>
+<p>f"{leitura['corrente']:.2f} A"</p>
+<p>)</p>
+<p>print(f"Estado: {leitura['estado_geral']}")</p>
+</blockquote>
+<p>Adicione ao dicionário:</p>
+<p>• Código do equipamento;</p>
+<p>• Dispositivo de coleta;</p>
+<p>• Estado da temperatura;</p>
+<p>• Estado da pressão;</p>
+<p>• Estado da corrente;</p>
+<p>• Indicação de emergência.</p>
+<blockquote class="blockquote">
+<p>leitura["equipamento"] = "M-01"</p>
+<p>leitura["dispositivo"] = "CLP-SIM-01"</p>
+<p>leitura["status_temperatura"] = "ATENÇÃO"</p>
+<p>leitura["status_pressao"] = "ATENÇÃO"</p>
+<p>leitura["status_corrente"] = "ATENÇÃO"</p>
+<p>leitura["emergencia"] = False</p>
+</blockquote>
+<p><strong>14. Lista de dicionários</strong></p>
+<p>Uma lista pode armazenar vários dicionários:</p>
+<blockquote class="blockquote">
+<p>historico = []</p>
+</blockquote>
+<p>Crie o primeiro registro:</p>
+<blockquote class="blockquote">
+<p>leitura_1 = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 72.5,</p>
+<p>"pressao": 6.8,</p>
+<p>"corrente": 12.4,</p>
+<p>"estado_geral": "NORMAL"</p>
+<p>}</p>
+</blockquote>
+<p>Ad o registro à lista:</p>
+<blockquote class="blockquote">
+<p>historico.append(leitura_1)</p>
+</blockquote>
+<p>Crie o segundo registro:</p>
+<blockquote class="blockquote">
+<p>leitura_2 = {</p>
+<p>"ciclo": 2,</p>
+<p>"temperatura": 81.0,</p>
+<p>"pressao": 8.2,</p>
+<p>"corrente": 15.5,</p>
+<p>"estado_geral": "ALARME"</p>
+<p>}</p>
+</blockquote>
+<p>Adicione o segundo registro:</p>
+<blockquote class="blockquote">
+<p>historico.append(leitura_2)</p>
+</blockquote>
+<p>Exiba o histórico:</p>
+<blockquote class="blockquote">
+<p>print(historico)</p>
+</blockquote>
+<p><strong>15. Acessando registros específicos</strong></p>
+<p>Para acessar o primeiro registro:</p>
+<blockquote class="blockquote">
+<p>print(historico[0])</p>
+</blockquote>
+<p>Para acessar o segundo registro:</p>
+<blockquote class="blockquote">
+<p>print(historico[1])</p>
+</blockquote>
+<p>Para acessar a temperatura do primeiro registro:</p>
+<blockquote class="blockquote">
+<p>print(historico[0]["temperatura"])</p>
+</blockquote>
+<p>Para acessar o estado do segundo registro:</p>
+<blockquote class="blockquote">
+<p>print(historico[1]["estado_geral"])</p>
+</blockquote>
+<p>Para acessar a última leitura:</p>
+<blockquote class="blockquote">
+<p>print(historico[-1])</p>
+</blockquote>
+<p>Para acessar a temperatura da última leitura:</p>
+<blockquote class="blockquote">
+<p>print(historico[-1]["temperatura"])</p>
+</blockquote>
+<p>A estrutura possui dois níveis de acesso:</p>
+<blockquote class="blockquote">
+<p>historico[indice]["chave"]</p>
+</blockquote>
+<p>Exemplo:</p>
+<blockquote class="blockquote">
+<p>historico[]["pressao"]</p>
+</blockquote>
+<p><strong>16. Percorrendo uma lista de dicionários</strong></p>
+<p>Utilize for para percorrer os registros:</p>
+<blockquote class="blockquote">
+<p>for leitura in historico:</p>
+<p>print(leitura)</p>
+</blockquote>
+<p>Para exibir os campos individualmente:</p>
+<blockquote class="blockquote">
+<p>for leitura in historico:</p>
+<p>print()</p>
+<p>print(f"Ciclo: {leitura['ciclo']}")</p>
+<p>print(</p>
+<p>f"Temperatura: "</p>
+<p>f"{leitura['temperatura']:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Pressão: "</p>
+<p>f"{leitura['pressao']:.2f} bar"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Corrente: "</p>
+<p>f"{leitura['corrente']:.2f} A"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Estado: "</p>
+<p>f"{leitura['estado_geral']}"</p>
+<p>)</p>
+</blockquote>
+<p><strong>17. Desafio 2 — Criando vários registros</strong></p>
+<p>Crie uma lista chamada historico:</p>
+<blockquote class="blockquote">
+<p>historico = []</p>
+</blockquote>
+<p>Depois, crie três registros:</p>
+<blockquote class="blockquote">
+<p>leitura_1 = {</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 65.0,</p>
+<p>"pressao": 6.0,</p>
+<p>"corrente": 11.5,</p>
+<p>"estado_geral": "NORMAL"</p>
+<p>}</p>
+<p>leitura_2 = {</p>
+<p>"ciclo": 2,</p>
+<p>"temperatura": 76.0,</p>
+<p>"pressao": 7.5,</p>
+<p>"corrente": 13.2,</p>
+<p>"estadogeral": "ATENÇÃO"</p>
+<p>}</p>
+<p>leitura_3 = {</p>
+<p>"ciclo": 3,</p>
+<p>"temperatura": 85.0,</p>
+<p>"pressao": 8.5,</p>
+<p>"corrente": 16.0,</p>
+<p>"estado_geral": "ALARME"</p>
+<p>}</p>
+</blockquote>
+<p>Adicione os registros:</p>
+<blockquote class="blockquote">
+<p>historico.append(leitura_1)</p>
+<p>historico.append(leitura_2)</p>
+<p>historico.append(leitura_3)</p>
+</blockquote>
+<p>Exiba todos os registros:</p>
+<blockquote class="blockquote">
+<p>for leitura in historico:</p>
+<p>print(</p>
+<p>f"Ciclo {leitura['ciclo']}: "</p>
+<p>f"{leitura['estado_geral']}"</p>
+<p>)</p>
+</blockquote>
+<p><strong>18. Criando registros diretamente com append()</strong></p>
+<p>Também é possível criar o dicionário diretamente dentro do append():</p>
+<blockquote class="blockquote">
+<p>historico = []</p>
+<p>historico.append({</p>
+<p>"ciclo": 1,</p>
+<p>"temperatura": 65.0,</p>
+<p>"pressao": 6.0,</p>
+<p>"corrente": 11.5,</p>
+<p>"estado_geral": "NORMAL"</p>
+<p>})</p>
+<p>historico.append({</p>
+<p>"ciclo": 2,</p>
+<p>"temperatura": 76.0,</p>
+<p>"pressao": 7.5,</p>
+<p>"corrente": 13.2,</p>
+<p>"estado_geral": "ATENÇÃO"</p>
+<p>})</p>
+<p>historico.append({</p>
+<p>"ciclo": 3,</p>
+<p>"temperatura": 85.0,</p>
+<p>"pressao": 8.5,</p>
+<p>"corrente": 16.0,</p>
+<p>estado_geral": "ALARME"</p>
+<p>})</p>
+</blockquote>
+<p>Essa forma é útil quando os dados já estão disponíveis.</p>
+<p><strong>19. Criando registros dentro de um laço</strong></p>
+<p>O dicionário pode ser criado dentro do laço de simulação:</p>
+<blockquote class="blockquote">
+<p>import random</p>
+<p>historico = []</p>
+<p>for ciclo in range(5):</p>
+<p>numero_ciclo = ciclo + 1</p>
+<p>temperatura = random.randint(60, 95)</p>
+<p>pressao = random.uniform(5.0, 10.0)</p>
+<p>corrente = random.uniform(10.0, 20.0)</p>
+<p>leitura = {</p>
+<p>"ciclo": numero_ciclo,</p>
+<p>"temperatura": temperatura,</p>
+<p>"pressao": pressao,</p>
+<p>"corrente": corrente,</p>
+<p>"estado_geral": "EM ANÁLISE"</p>
+<p>}</p>
+<p>historico.append(leitura)</p>
+<p>for leitura in historico:</p>
+<p>print(leitura)</p>
+</blockquote>
+<p><strong>20. Incluindo os estados dos sensores</strong></p>
+<p>O registro pode armazenar o estado de cada sensor:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": numero_ciclo,</p>
+<p>"temperatura": temperatura,</p>
+<p>"pressao": pressao,</p>
+<p>"corrente": corrente,</p>
+<p>"status_temperatura": status_temperatura,</p>
+<p>"status_pressao": status_pressao,</p>
+<p>"status_corrente": status_corrente,</p>
+<p>"estado_geral": estado_geral</p>
+<p>}</p>
+</blockquote>
+<p>Também pode armazenar informações booleanas:</p>
+<blockquote class="blockquote">
+<p>leitura["temperatura_acima_limite"] = (</p>
+<p>temperatura &gt; limite_temperatura</p>
+<p>)</p>
+<p>leitura["pressao_acima_limite"] = (</p>
+<p>pressao &gt; limite_pressao</p>
+<p>)</p>
+<p>leitura["corrente_acima_limite"] = (</p>
+<p>corrente &gt; limite_corrente</p>
+<p>)</p>
+<p>leitura["situacao_critica"] = situacao_critica</p>
+</blockquote>
+<p><strong>21. Modelo completo de um registro</strong></p>
+<p>Um registro completo poderá possuir a seguinte estrutura:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": numero_ciclo,</p>
+<p>"equipamento": codigo_equipamento,</p>
+<p>"dispositivo": dispositivo_coleta,</p>
+<p>"temperatura": temperatura,</p>
+<p>"pressao": pressao,</p>
+<p>"corrente": corrente,</p>
+<p>"status_temperatura": status_temperatura,</p>
+<p>"status_pressao": status_pressao,</p>
+<p>"status_corrente": status_corrente,</p>
+<p>"estado_geral": estado_geral,</p>
+<p>"temperatura_acima_limite": (</p>
+<p>temperatura &gt; limite_temperatura</p>
+<p>),</p>
+<p>"pressao_acima_limite": (</p>
+<p>pressao &gt; limite_pressao</p>
+<p>),</p>
+<p>"corrente_acima_limite": (</p>
+<p>corrente &gt; limite_corrente</p>
+<p>),</p>
+<p>"situacao_critica": situacao_critica</p>
+<p>}</p>
+</blockquote>
+<p><strong>22. Desafio 3 — Integrando com o simulador</strong></p>
+<p>Utilize o programa da Aula 4.</p>
+<p>Substitua as listas paralelas:</p>
+<blockquote class="blockquote">
+<p>historico_ciclos = []</p>
+<p>historico_temperatura = []</p>
+<p>historico_pressao = []</p>
+<p>historico_corrente = []</p>
+<p>historico_estados = []</p>
+</blockquote>
+<p>Por uma única lista:</p>
+<blockquote class="blockquote">
+<p>historico = []</p>
+</blockquote>
+<p>Depois da classificação do estado geral, crie o registro:</p>
+<blockquote class="blockquote">
+<p>leitura = {</p>
+<p>"ciclo": numero_ciclo,</p>
+<p>"equipamento": codigo_equipamento,</p>
+<p>"dispositivo": dispositivo_coleta,</p>
+<p>"temperatura": temperatura,</p>
+<p>"pressao": pressao,</p>
+<p>"corrente": corrente,</p>
+<p>"status_temperatura": status_temperatura,</p>
+<p>"status_pressao": status_pressao,</p>
+<p>"status_corrente": status_corrente,</p>
+<p>"estado_geral": estado_geral,</p>
+<p>"situacao_critica": situacao_critica</p>
+<p>}</p>
+</blockquote>
+<p>Adicione o registro ao histórico:</p>
+<blockquote class="blockquote">
+<p>historico.append(leitura)</p>
+</blockquote>
+<p>A partir desse ponto, as informações deverão ser consultadas no dicionário.</p>
+<p><strong>23. Exibindo o histórico integrado</strong></p>
+<p>Depois do laço principal:</p>
+<blockquote class="blockquote">
+<p>print()</p>
+<p>print("==========================================")</p>
+<p>print(" HISTÓRICO DE LEITURAS")</p>
+<p>print("==========================================")</p>
+<p>for leitura in historico:</p>
+<p>print()</p>
+<p>print(f"Ciclo: {leitura['ciclo']}")</p>
+<p>print(</p>
+<p>f"Equipamento: "</p>
+<p>f"{leitura['equipamento']}"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Dispositivo: "</p>
+<p>f"{leitura['dispositivo']}"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Temperatura: "</p>
+<p>f"{leitura['temperatura']:.2f} °C"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Status da temperatura: "</p>
+<p>f"{leitura['status_temperatura']}"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Pressão: "</p>
+<p>f"{leitura['pressao']:.2f} bar"</p>
+<p>)</p>
+<p>print(</p>
+<p>f"Status</p>
+</blockquote>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

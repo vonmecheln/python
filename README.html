@@ -1,0 +1,1542 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>readme</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="README_files/libs/clipboard/clipboard.min.js"></script>
+<script src="README_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="README_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="README_files/libs/quarto-html/popper.min.js"></script>
+<script src="README_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="README_files/libs/quarto-html/anchor.min.js"></script>
+<link href="README_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="README_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="README_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="README_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="README_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="apresentação-da-disciplina" class="level1">
+<h1>Apresentação da disciplina</h1>
+<section id="identificação" class="level2">
+<h2 class="anchored" data-anchor-id="identificação">Identificação</h2>
+<ul>
+<li><strong>Componente curricular:</strong> Linguagens de Programação e Banco de Dados</li>
+<li><strong>Curso:</strong> Tecnologia em Automação Industrial</li>
+<li><strong>Período:</strong> 2º semestre</li>
+<li><strong>Carga horária:</strong> 80 horas-aula</li>
+<li><strong>Organização:</strong> 20 unidades de 4 horas-aula</li>
+<li><strong>Modalidade:</strong> presencial</li>
+<li><strong>Tecnologias principais:</strong> Python e PostgreSQL</li>
+</ul>
+</section>
+<section id="ementa" class="level2">
+<h2 class="anchored" data-anchor-id="ementa">Ementa</h2>
+<ul>
+<li>Programação orientada a objetos;</li>
+<li>Desenvolvimento de algoritmos;</li>
+<li>Bancos de dados relacionais;</li>
+<li>Modelagem de dados;</li>
+<li>Manipulação de dados utilizando SQL;</li>
+<li>Bancos de dados de séries temporais;</li>
+<li>Aplicações em sistemas industriais de controle e automação.</li>
+</ul>
+</section>
+<section id="onde-esta-disciplina-se-encaixa" class="level2">
+<h2 class="anchored" data-anchor-id="onde-esta-disciplina-se-encaixa">Onde esta disciplina se encaixa?</h2>
+<p>A disciplina articula conhecimentos de:</p>
+<ul>
+<li>Algoritmos de Programação;</li>
+<li>Instrumentação Industrial;</li>
+<li>Metrologia;</li>
+<li>Análise de Circuitos Elétricos;</li>
+<li>Automação Industrial;</li>
+<li>Sistemas Supervisórios;</li>
+<li>Redes Industriais;</li>
+<li>Sistemas Embarcados.</li>
+</ul>
+<blockquote class="blockquote">
+<p>O foco será transformar dados de sensores e equipamentos em informações úteis para a operação industrial.</p>
+</blockquote>
+</section>
+</section>
+<section id="como-vamos-trabalhar" class="level1">
+<h1>Como vamos trabalhar</h1>
+<section id="metodologia" class="level2">
+<h2 class="anchored" data-anchor-id="metodologia">Metodologia</h2>
+<p>As aulas serão baseadas em:</p>
+<ul>
+<li>Problemas de automação industrial;</li>
+<li>Projetos práticos;</li>
+<li>Simulações de sensores e equipamentos;</li>
+<li>Desenvolvimento incremental de sistemas;</li>
+<li>Testes e correção de falhas;</li>
+<li>Trabalho individual e em equipe;</li>
+<li>Demonstrações práticas.</li>
+</ul>
+</section>
+<section id="dinâmica-de-cada-unidade" class="level2">
+<h2 class="anchored" data-anchor-id="dinâmica-de-cada-unidade">Dinâmica de cada unidade</h2>
+<ol type="1">
+<li>Apresentação de um problema;</li>
+<li>Discussão de possíveis soluções;</li>
+<li>Introdução dos conceitos necessários;</li>
+<li>Desenvolvimento no laboratório;</li>
+<li>Testes com diferentes situações;</li>
+<li>Melhorias na solução;</li>
+<li>Demonstração ou entrega da atividade.</li>
+</ol>
+<blockquote class="blockquote">
+<p>A teoria será apresentada como ferramenta para resolver problemas concretos.</p>
+</blockquote>
+</section>
+<section id="projeto-que-evolui-durante-a-disciplina" class="level2">
+<h2 class="anchored" data-anchor-id="projeto-que-evolui-durante-a-disciplina">Projeto que evolui durante a disciplina</h2>
+<p>Ao longo das aulas, será desenvolvido um sistema de:</p>
+<blockquote class="blockquote">
+<p><strong>Monitoramento e registro de um processo industrial</strong></p>
+</blockquote>
+<p>O sistema poderá envolver:</p>
+<ul>
+<li>Equipamentos industriais;</li>
+<li>Sensores;</li>
+<li>Dispositivos de coleta;</li>
+<li>Leituras de temperatura, pressão, nível e vibração;</li>
+<li>Alarmes;</li>
+<li>Histórico de dados;</li>
+<li>Banco de dados;</li>
+<li>Consultas e relatórios;</li>
+<li>Simulação de uma planta industrial.</li>
+</ul>
+</section>
+<section id="evolução-do-sistema" class="level2">
+<h2 class="anchored" data-anchor-id="evolução-do-sistema">Evolução do sistema</h2>
+<pre class="text"><code>Python básico
+     ↓
+Simulação de sensores
+     ↓
+Organização dos dados
+     ↓
+Programação orientada a objetos
+     ↓
+Modelagem do banco
+     ↓
+SQL com PostgreSQL
+     ↓
+Integração Python + PostgreSQL
+     ↓
+Sistema de monitoramento
+     ↓
+Projeto final</code></pre>
+</section>
+</section>
+<section id="objetivos-da-disciplina" class="level1">
+<h1>Objetivos da disciplina</h1>
+<section id="objetivo-geral" class="level2">
+<h2 class="anchored" data-anchor-id="objetivo-geral">Objetivo geral</h2>
+<p>Desenvolver aplicações em Python integradas a bancos de dados relacionais, aplicadas a problemas de monitoramento, aquisição e análise de dados em sistemas industriais de controle e automação.</p>
+</section>
+<section id="ao-final-da-disciplina-você-deverá-ser-capaz-de" class="level2">
+<h2 class="anchored" data-anchor-id="ao-final-da-disciplina-você-deverá-ser-capaz-de">Ao final da disciplina, você deverá ser capaz de:</h2>
+<ul>
+<li>Desenvolver algoritmos em Python;</li>
+<li>Utilizar estruturas condicionais e de repetição;</li>
+<li>Organizar dados em listas e dicionários;</li>
+<li>Criar funções e módulos reutilizáveis;</li>
+<li>Aplicar conceitos de programação orientada a objetos;</li>
+<li>Simular sensores e dispositivos de aquisição de dados;</li>
+<li>Modelar bancos de dados relacionais;</li>
+<li>Criar tabelas e relacionamentos no PostgreSQL;</li>
+<li>Executar consultas SQL;</li>
+<li>Integrar aplicações Python com PostgreSQL;</li>
+<li>Registrar leituras e alarmes;</li>
+<li>Desenvolver uma solução aplicada a um problema industrial.</li>
+</ul>
+</section>
+</section>
+<section id="módulo-1-python-aplicado-a-problemas-industriais" class="level1">
+<h1>Módulo 1 — Python aplicado a problemas industriais</h1>
+<section id="unidade-1-da-lógica-em-c-para-python" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-1-da-lógica-em-c-para-python">Unidade 1 — Da lógica em C para Python</h2>
+<p><strong>Problema:</strong> adaptar um programa de monitoramento desenvolvido conceitualmente em C para Python.</p>
+<section id="conceitos-trabalhados" class="level3">
+<h3 class="anchored" data-anchor-id="conceitos-trabalhados">Conceitos trabalhados</h3>
+<ul>
+<li>Estrutura básica de um programa Python;</li>
+<li>Variáveis e tipos de dados;</li>
+<li>Operadores;</li>
+<li>Entrada e saída;</li>
+<li>Conversão de tipos;</li>
+<li>Diferenças entre C e Python.</li>
+</ul>
+</section>
+<section id="atividade-prática" class="level3">
+<h3 class="anchored" data-anchor-id="atividade-prática">Atividade prática</h3>
+<p>Criar um programa que registre uma leitura industrial contendo:</p>
+<ul>
+<li>Equipamento;</li>
+<li>Sensor;</li>
+<li>Valor medido;</li>
+<li>Unidade;</li>
+<li>Limite de segurança.</li>
+</ul>
+</section>
+<section id="produto-da-unidade" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade">Produto da unidade</h3>
+<p>Um relatório simples de leitura de um sensor industrial.</p>
+</section>
+</section>
+<section id="unidade-2-decisão-e-classificação-de-estados" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-2-decisão-e-classificação-de-estados">Unidade 2 — Decisão e classificação de estados</h2>
+<p><strong>Problema:</strong> classificar automaticamente o estado de um equipamento.</p>
+<section id="conceitos-trabalhados-1" class="level3">
+<h3 class="anchored" data-anchor-id="conceitos-trabalhados-1">Conceitos trabalhados</h3>
+<ul>
+<li><code>if</code>;</li>
+<li><code>elif</code>;</li>
+<li><code>else</code>;</li>
+<li>Operadores relacionais;</li>
+<li>Operadores lógicos;</li>
+<li>Condições combinadas.</li>
+</ul>
+</section>
+<section id="atividade-prática-1" class="level3">
+<h3 class="anchored" data-anchor-id="atividade-prática-1">Atividade prática</h3>
+<p>Criar um classificador para as condições:</p>
+<ul>
+<li>Normal;</li>
+<li>Atenção;</li>
+<li>Alarme;</li>
+<li>Emergência.</li>
+</ul>
+<p>O sistema deverá analisar variáveis como:</p>
+<ul>
+<li>Temperatura;</li>
+<li>Pressão;</li>
+<li>Nível;</li>
+<li>Vibração.</li>
+</ul>
+</section>
+<section id="produto-da-unidade-1" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-1">Produto da unidade</h3>
+<p>Um módulo de diagnóstico inicial do processo.</p>
+</section>
+</section>
+<section id="unidade-3-simulação-de-ciclos-de-leitura" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-3-simulação-de-ciclos-de-leitura">Unidade 3 — Simulação de ciclos de leitura</h2>
+<p><strong>Problema:</strong> um dispositivo de coleta precisa verificar os sensores em ciclos sucessivos.</p>
+<section id="conceitos-trabalhados-2" class="level3">
+<h3 class="anchored" data-anchor-id="conceitos-trabalhados-2">Conceitos trabalhados</h3>
+<ul>
+<li><code>while</code>;</li>
+<li><code>for</code>;</li>
+<li><code>range()</code>;</li>
+<li><code>break</code>;</li>
+<li><code>continue</code>;</li>
+<li>Ciclos de amostragem.</li>
+</ul>
+</section>
+<section id="atividade-prática-2" class="level3">
+<h3 class="anchored" data-anchor-id="atividade-prática-2">Atividade prática</h3>
+<p>Simular 20 ciclos de coleta:</p>
+<ul>
+<li>Gerar valores de sensores;</li>
+<li>Exibir os dados coletados;</li>
+<li>Verificar limites;</li>
+<li>Identificar alarmes;</li>
+<li>Interromper a coleta em caso de emergência.</li>
+</ul>
+</section>
+<section id="produto-da-unidade-2" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-2">Produto da unidade</h3>
+<p>Um simulador de coleta de dados industriais.</p>
+</section>
+</section>
+<section id="unidade-4-histórico-de-leituras" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-4-histórico-de-leituras">Unidade 4 — Histórico de leituras</h2>
+<p><strong>Problema:</strong> o operador precisa analisar os dados coletados durante um ciclo de produção.</p>
+<section id="conceitos-trabalhados-3" class="level3">
+<h3 class="anchored" data-anchor-id="conceitos-trabalhados-3">Conceitos trabalhados</h3>
+<ul>
+<li>Listas;</li>
+<li>Índices;</li>
+<li>Fatiamento;</li>
+<li><code>min()</code>;</li>
+<li><code>max()</code>;</li>
+<li><code>sum()</code>;</li>
+<li><code>len()</code>;</li>
+<li>Média e contagem de eventos.</li>
+</ul>
+</section>
+<section id="atividade-prática-3" class="level3">
+<h3 class="anchored" data-anchor-id="atividade-prática-3">Atividade prática</h3>
+<p>A partir das leituras simuladas, calcular:</p>
+<ul>
+<li>Média;</li>
+<li>Valor mínimo;</li>
+<li>Valor máximo;</li>
+<li>Número de leituras;</li>
+<li>Quantidade de alarmes;</li>
+<li>Percentual de leituras normais;</li>
+<li>Maior variação entre leituras.</li>
+</ul>
+</section>
+<section id="produto-da-unidade-3" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-3">Produto da unidade</h3>
+<p>Um relatório de análise do histórico do sensor.</p>
+</section>
+</section>
+<section id="unidade-5-organização-dos-dados-em-python" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-5-organização-dos-dados-em-python">Unidade 5 — Organização dos dados em Python</h2>
+<p><strong>Problema:</strong> os dados estão espalhados em várias listas e precisam ser organizados como registros.</p>
+<section id="conceitos-trabalhados-4" class="level3">
+<h3 class="anchored" data-anchor-id="conceitos-trabalhados-4">Conceitos trabalhados</h3>
+<ul>
+<li>Dicionários;</li>
+<li>Listas de dicionários;</li>
+<li>Estruturas compostas;</li>
+<li>Busca;</li>
+<li>Filtragem;</li>
+<li>Organização de registros.</li>
+</ul>
+</section>
+<section id="exemplo-de-registro" class="level3">
+<h3 class="anchored" data-anchor-id="exemplo-de-registro">Exemplo de registro</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>leitura <span class="op">=</span> {</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"equipamento"</span>: <span class="st">"Motor M01"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"sensor"</span>: <span class="st">"Temperatura"</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"valor"</span>: <span class="fl">78.5</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"unidade"</span>: <span class="st">"°C"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"timestamp"</span>: <span class="st">"2026-08-07 19:30:00"</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"status"</span>: <span class="st">"NORMAL"</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="atividade-prática-4" class="level3">
+<h3 class="anchored" data-anchor-id="atividade-prática-4">Atividade prática</h3>
+<p>Criar um histórico com funcionalidades para:</p>
+<ul>
+<li>Filtrar por equipamento;</li>
+<li>Filtrar por sensor;</li>
+<li>Listar apenas alarmes;</li>
+<li>Calcular estatísticas;</li>
+<li>Exibir o histórico de um dispositivo.</li>
+</ul>
+</section>
+<section id="produto-da-unidade-4" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-4">Produto da unidade</h3>
+<p>Um histórico estruturado de dados em memória.</p>
+</section>
+</section>
+<section id="unidade-6-funções-validação-e-arquivos" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-6-funções-validação-e-arquivos">Unidade 6 — Funções, validação e arquivos</h2>
+<p><strong>Problema:</strong> o simulador está crescendo, possui código repetido e perde os dados ao ser encerrado.</p>
+<section id="conceitos-trabalhados-5" class="level3">
+<h3 class="anchored" data-anchor-id="conceitos-trabalhados-5">Conceitos trabalhados</h3>
+<ul>
+<li>Funções;</li>
+<li>Parâmetros;</li>
+<li>Retorno;</li>
+<li>Modularização;</li>
+<li>Tratamento de erros;</li>
+<li>Arquivos CSV;</li>
+<li>Data e hora.</li>
+</ul>
+</section>
+<section id="atividade-prática-5" class="level3">
+<h3 class="anchored" data-anchor-id="atividade-prática-5">Atividade prática</h3>
+<p>Organizar o simulador em funções como:</p>
+<ul>
+<li><code>gerar_leitura()</code>;</li>
+<li><code>classificar_leitura()</code>;</li>
+<li><code>registrar_evento()</code>;</li>
+<li><code>calcular_estatisticas()</code>;</li>
+<li><code>salvar_csv()</code>;</li>
+<li><code>carregar_historico()</code>.</li>
+</ul>
+</section>
+<section id="produto-da-unidade-5" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-5">Produto da unidade</h3>
+<p>Um simulador modular com armazenamento em arquivo CSV.</p>
+</section>
+</section>
+</section>
+<section id="módulo-2-programação-orientada-a-objetos" class="level1">
+<h1>Módulo 2 — Programação orientada a objetos</h1>
+<section id="unidade-7-classes-para-sensores-e-dispositivos" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-7-classes-para-sensores-e-dispositivos">Unidade 7 — Classes para sensores e dispositivos</h2>
+<p><strong>Problema:</strong> o sistema precisa representar diferentes sensores, equipamentos e dispositivos de coleta.</p>
+<section id="conceitos-trabalhados-6" class="level3">
+<h3 class="anchored" data-anchor-id="conceitos-trabalhados-6">Conceitos trabalhados</h3>
+<ul>
+<li>Classes;</li>
+<li>Objetos;</li>
+<li>Atributos;</li>
+<li>Métodos;</li>
+<li>Construtor <code>__init__</code>.</li>
+</ul>
+</section>
+<section id="atividade-prática-6" class="level3">
+<h3 class="anchored" data-anchor-id="atividade-prática-6">Atividade prática</h3>
+<p>Criar classes para:</p>
+<ul>
+<li><code>Sensor</code>;</li>
+<li><code>Equipamento</code>;</li>
+<li><code>DispositivoColeta</code>;</li>
+<li><code>Leitura</code>.</li>
+</ul>
+</section>
+<section id="responsabilidades-dos-objetos" class="level3">
+<h3 class="anchored" data-anchor-id="responsabilidades-dos-objetos">Responsabilidades dos objetos</h3>
+<ul>
+<li>O sensor possui nome, unidade e limites;</li>
+<li>O equipamento possui estado operacional;</li>
+<li>O dispositivo realiza a coleta;</li>
+<li>A leitura registra valor, horário e status.</li>
+</ul>
+</section>
+<section id="produto-da-unidade-6" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-6">Produto da unidade</h3>
+<p>Modelo orientado a objetos para o sistema de monitoramento.</p>
+</section>
+</section>
+<section id="unidade-8-simulação-da-planta-industrial" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-8-simulação-da-planta-industrial">Unidade 8 — Simulação da planta industrial</h2>
+<p><strong>Problema:</strong> diferentes equipamentos possuem comportamentos e sensores próprios.</p>
+<section id="conceitos-trabalhados-7" class="level3">
+<h3 class="anchored" data-anchor-id="conceitos-trabalhados-7">Conceitos trabalhados</h3>
+<ul>
+<li>Métodos;</li>
+<li>Estado interno;</li>
+<li>Encapsulamento;</li>
+<li>Herança;</li>
+<li>Sobrescrita de métodos;</li>
+<li>Polimorfismo aplicado.</li>
+</ul>
+</section>
+<section id="atividade-prática-7" class="level3">
+<h3 class="anchored" data-anchor-id="atividade-prática-7">Atividade prática</h3>
+<p>Simular uma planta com:</p>
+<ul>
+<li>Motor;</li>
+<li>Bomba;</li>
+<li>Tanque;</li>
+<li>Esteira;</li>
+<li>Sensor de temperatura;</li>
+<li>Sensor de pressão;</li>
+<li>Sensor de nível;</li>
+<li>Sensor de vibração.</li>
+</ul>
+<p>Os objetos deverão ser capazes de:</p>
+<ul>
+<li>Ligar;</li>
+<li>Desligar;</li>
+<li>Simular leituras;</li>
+<li>Informar o estado;</li>
+<li>Gerar ocorrências;</li>
+<li>Executar parada de emergência.</li>
+</ul>
+</section>
+<section id="produto-da-unidade-7" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-7">Produto da unidade</h3>
+<p>Uma pequena planta industrial simulada em Python.</p>
+</section>
+</section>
+</section>
+<section id="módulo-3-banco-de-dados-e-sql" class="level1">
+<h1>Módulo 3 — Banco de dados e SQL</h1>
+<section id="unidade-9-do-arquivo-ao-banco-de-dados" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-9-do-arquivo-ao-banco-de-dados">Unidade 9 — Do arquivo ao banco de dados</h2>
+<p><strong>Problema:</strong> o arquivo CSV não é suficiente para armazenar milhares de leituras e permitir consultas eficientes.</p>
+<section id="conceitos-trabalhados-8" class="level3">
+<h3 class="anchored" data-anchor-id="conceitos-trabalhados-8">Conceitos trabalhados</h3>
+<ul>
+<li>Limitações dos arquivos;</li>
+<li>Banco de dados;</li>
+<li>SGBD;</li>
+<li>PostgreSQL;</li>
+<li>Tabela;</li>
+<li>Registro;</li>
+<li>Campo;</li>
+<li>Chave primária;</li>
+<li>Chave estrangeira.</li>
+</ul>
+</section>
+<section id="atividade-prática-8" class="level3">
+<h3 class="anchored" data-anchor-id="atividade-prática-8">Atividade prática</h3>
+<p>Analisar os dados produzidos pelo simulador e identificar:</p>
+<ul>
+<li>Entidades;</li>
+<li>Atributos;</li>
+<li>Relacionamentos;</li>
+<li>Dados repetidos;</li>
+<li>Informações que precisam ser persistidas.</li>
+</ul>
+</section>
+<section id="produto-da-unidade-8" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-8">Produto da unidade</h3>
+<p>Primeira proposta de estrutura do banco da planta industrial.</p>
+</section>
+</section>
+<section id="unidade-10-modelagem-e-criação-do-banco" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-10-modelagem-e-criação-do-banco">Unidade 10 — Modelagem e criação do banco</h2>
+<p><strong>Problema:</strong> transformar o modelo da planta industrial em tabelas no PostgreSQL.</p>
+<section id="conceitos-trabalhados-9" class="level3">
+<h3 class="anchored" data-anchor-id="conceitos-trabalhados-9">Conceitos trabalhados</h3>
+<ul>
+<li>Modelo entidade-relacionamento;</li>
+<li>Relacionamentos;</li>
+<li><code>CREATE TABLE</code>;</li>
+<li>Tipos de dados;</li>
+<li><code>PRIMARY KEY</code>;</li>
+<li><code>FOREIGN KEY</code>;</li>
+<li><code>NOT NULL</code>;</li>
+<li><code>UNIQUE</code>;</li>
+<li><code>CHECK</code>;</li>
+<li><code>DEFAULT</code>.</li>
+</ul>
+</section>
+<section id="tabelas-sugeridas" class="level3">
+<h3 class="anchored" data-anchor-id="tabelas-sugeridas">Tabelas sugeridas</h3>
+<ul>
+<li><code>equipamentos</code>;</li>
+<li><code>sensores</code>;</li>
+<li><code>dispositivos_coleta</code>;</li>
+<li><code>leituras</code>;</li>
+<li><code>alarmes</code>.</li>
+</ul>
+</section>
+<section id="atividade-prática-9" class="level3">
+<h3 class="anchored" data-anchor-id="atividade-prática-9">Atividade prática</h3>
+<p>Criar o banco e testar sua integridade:</p>
+<ul>
+<li>Impedir sensor sem equipamento;</li>
+<li>Impedir leitura sem sensor;</li>
+<li>Validar valores;</li>
+<li>Registrar data e hora;</li>
+<li>Evitar cadastros duplicados.</li>
+</ul>
+</section>
+<section id="produto-da-unidade-9" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-9">Produto da unidade</h3>
+<p>Banco de dados funcional para o sistema de monitoramento.</p>
+</section>
+</section>
+<section id="unidade-11-inserção-alteração-e-consultas-sql" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-11-inserção-alteração-e-consultas-sql">Unidade 11 — Inserção, alteração e consultas SQL</h2>
+<p><strong>Problema:</strong> a equipe precisa cadastrar a planta e obter informações para a supervisão.</p>
+<section id="conceitos-trabalhados-10" class="level3">
+<h3 class="anchored" data-anchor-id="conceitos-trabalhados-10">Conceitos trabalhados</h3>
+<ul>
+<li><code>INSERT</code>;</li>
+<li><code>UPDATE</code>;</li>
+<li><code>DELETE</code>;</li>
+<li><code>SELECT</code>;</li>
+<li><code>WHERE</code>;</li>
+<li><code>ORDER BY</code>;</li>
+<li><code>GROUP BY</code>;</li>
+<li><code>JOIN</code>;</li>
+<li><code>AVG</code>;</li>
+<li><code>MIN</code>;</li>
+<li><code>MAX</code>;</li>
+<li><code>COUNT</code>.</li>
+</ul>
+</section>
+<section id="atividade-prática-10" class="level3">
+<h3 class="anchored" data-anchor-id="atividade-prática-10">Atividade prática</h3>
+<p>Cadastrar:</p>
+<ul>
+<li>Equipamentos;</li>
+<li>Sensores;</li>
+<li>Dispositivos de coleta;</li>
+<li>Leituras;</li>
+<li>Alarmes.</li>
+</ul>
+<p>Criar consultas para responder:</p>
+<ul>
+<li>Qual equipamento possui mais alarmes?</li>
+<li>Qual foi a temperatura média por equipamento?</li>
+<li>Quais sensores excederam os limites?</li>
+<li>Quantas leituras foram realizadas por dispositivo?</li>
+<li>Qual foi o maior valor registrado por sensor?</li>
+</ul>
+</section>
+<section id="produto-da-unidade-10" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-10">Produto da unidade</h3>
+<p>Relatório operacional produzido com SQL.</p>
+</section>
+</section>
+</section>
+<section id="módulo-4-integração-python-e-postgresql" class="level1">
+<h1>Módulo 4 — Integração Python e PostgreSQL</h1>
+<section id="unidade-12-conexão-python-com-postgresql" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-12-conexão-python-com-postgresql">Unidade 12 — Conexão Python com PostgreSQL</h2>
+<p><strong>Problema:</strong> substituir o armazenamento em CSV pelo armazenamento em banco de dados.</p>
+<section id="conceitos-trabalhados-11" class="level3">
+<h3 class="anchored" data-anchor-id="conceitos-trabalhados-11">Conceitos trabalhados</h3>
+<ul>
+<li>Biblioteca de conexão;</li>
+<li>Conexão;</li>
+<li>Cursor;</li>
+<li>Execução de comandos SQL;</li>
+<li>Consultas parametrizadas;</li>
+<li><code>commit</code>;</li>
+<li>Encerramento da conexão.</li>
+</ul>
+</section>
+<section id="atividade-prática-11" class="level3">
+<h3 class="anchored" data-anchor-id="atividade-prática-11">Atividade prática</h3>
+<p>Criar um módulo Python que permita:</p>
+<ul>
+<li>Conectar ao banco;</li>
+<li>Testar a conexão;</li>
+<li>Inserir um equipamento;</li>
+<li>Consultar equipamentos;</li>
+<li>Encerrar corretamente a conexão.</li>
+</ul>
+</section>
+<section id="produto-da-unidade-11" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-11">Produto da unidade</h3>
+<p>Primeiro programa Python conectado ao PostgreSQL.</p>
+</section>
+</section>
+<section id="unidade-13-persistência-das-leituras-simuladas" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-13-persistência-das-leituras-simuladas">Unidade 13 — Persistência das leituras simuladas</h2>
+<p><strong>Problema:</strong> o dispositivo de coleta deve enviar os dados diretamente para o banco.</p>
+<section id="atividade-prática-12" class="level3">
+<h3 class="anchored" data-anchor-id="atividade-prática-12">Atividade prática</h3>
+<p>Adaptar o simulador para:</p>
+<ol type="1">
+<li>Gerar uma leitura;</li>
+<li>Identificar o sensor;</li>
+<li>Registrar data e hora;</li>
+<li>Inserir a leitura no PostgreSQL;</li>
+<li>Confirmar o armazenamento;</li>
+<li>Consultar a leitura gravada.</li>
+</ol>
+</section>
+<section id="sensores-simulados" class="level3">
+<h3 class="anchored" data-anchor-id="sensores-simulados">Sensores simulados</h3>
+<ul>
+<li>Temperatura;</li>
+<li>Pressão;</li>
+<li>Nível;</li>
+<li>Vibração.</li>
+</ul>
+</section>
+<section id="produto-da-unidade-12" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-12">Produto da unidade</h3>
+<p>Simulador de sensores com persistência real no PostgreSQL.</p>
+</section>
+</section>
+<section id="unidade-14-dispositivo-de-coleta-de-dados" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-14-dispositivo-de-coleta-de-dados">Unidade 14 — Dispositivo de coleta de dados</h2>
+<p><strong>Problema:</strong> uma planta possui vários dispositivos independentes de aquisição de dados.</p>
+<section id="conceitos-trabalhados-12" class="level3">
+<h3 class="anchored" data-anchor-id="conceitos-trabalhados-12">Conceitos trabalhados</h3>
+<ul>
+<li>Classes de coleta;</li>
+<li>Associação entre dispositivo e sensores;</li>
+<li>Identificação de dispositivos;</li>
+<li>Ciclos de coleta;</li>
+<li>Simulação de comunicação;</li>
+<li>Persistência das leituras.</li>
+</ul>
+</section>
+<section id="atividade-prática-13" class="level3">
+<h3 class="anchored" data-anchor-id="atividade-prática-13">Atividade prática</h3>
+<p>Criar uma classe <code>DispositivoColeta</code> que:</p>
+<ul>
+<li>Possua um identificador;</li>
+<li>Esteja associada a um setor;</li>
+<li>Administre vários sensores;</li>
+<li>Realize ciclos de coleta;</li>
+<li>Envie leituras para o banco;</li>
+<li>Registre falhas de comunicação.</li>
+</ul>
+</section>
+<section id="produto-da-unidade-13" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-13">Produto da unidade</h3>
+<p>Simulação de um dispositivo de aquisição de dados industrial.</p>
+</section>
+</section>
+<section id="unidade-15-geração-automática-de-alarmes" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-15-geração-automática-de-alarmes">Unidade 15 — Geração automática de alarmes</h2>
+<p><strong>Problema:</strong> o sistema deve gerar um alarme sempre que uma leitura ultrapassar os limites configurados.</p>
+<section id="atividade-prática-14" class="level3">
+<h3 class="anchored" data-anchor-id="atividade-prática-14">Atividade prática</h3>
+<p>Ao registrar uma leitura, o sistema deverá:</p>
+<ol type="1">
+<li>Consultar os limites do sensor;</li>
+<li>Comparar o valor medido;</li>
+<li>Classificar o estado;</li>
+<li>Registrar o alarme, se necessário;</li>
+<li>Associar o evento ao equipamento;</li>
+<li>Exibir uma mensagem ao operador.</li>
+</ol>
+</section>
+<section id="situações-a-considerar" class="level3">
+<h3 class="anchored" data-anchor-id="situações-a-considerar">Situações a considerar</h3>
+<ul>
+<li>Leitura normal;</li>
+<li>Valor acima do limite;</li>
+<li>Valor abaixo do limite;</li>
+<li>Sensor sem resposta;</li>
+<li>Valor inválido;</li>
+<li>Falha de comunicação;</li>
+<li>Equipamento desativado.</li>
+</ul>
+</section>
+<section id="produto-da-unidade-14" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-14">Produto da unidade</h3>
+<p>Sistema automático de detecção e registro de alarmes.</p>
+</section>
+</section>
+<section id="unidade-16-histórico-e-relatórios-operacionais" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-16-histórico-e-relatórios-operacionais">Unidade 16 — Histórico e relatórios operacionais</h2>
+<p><strong>Problema:</strong> o supervisor precisa consultar o histórico de cada equipamento e identificar situações críticas.</p>
+<section id="atividade-prática-15" class="level3">
+<h3 class="anchored" data-anchor-id="atividade-prática-15">Atividade prática</h3>
+<p>Desenvolver funções Python para gerar:</p>
+<ul>
+<li>Histórico de um sensor;</li>
+<li>Histórico de um equipamento;</li>
+<li>Alarmes de determinado período;</li>
+<li>Média das leituras por hora;</li>
+<li>Maior e menor leitura;</li>
+<li>Sensores sem coleta recente;</li>
+<li>Equipamentos com maior número de alarmes.</li>
+</ul>
+</section>
+<section id="produto-da-unidade-15" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-15">Produto da unidade</h3>
+<p>Módulo de consultas e relatórios operacionais.</p>
+</section>
+</section>
+<section id="unidade-17-sistema-crud-de-monitoramento" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-17-sistema-crud-de-monitoramento">Unidade 17 — Sistema CRUD de monitoramento</h2>
+<p><strong>Problema:</strong> os usuários precisam utilizar o sistema sem executar SQL diretamente.</p>
+<section id="funcionalidades" class="level3">
+<h3 class="anchored" data-anchor-id="funcionalidades">Funcionalidades</h3>
+<ul>
+<li>Cadastrar equipamento;</li>
+<li>Cadastrar sensor;</li>
+<li>Cadastrar dispositivo de coleta;</li>
+<li>Registrar leitura manual;</li>
+<li>Executar coleta simulada;</li>
+<li>Consultar histórico;</li>
+<li>Listar alarmes;</li>
+<li>Atualizar limites;</li>
+<li>Desativar equipamento;</li>
+<li>Gerar relatório.</li>
+</ul>
+</section>
+<section id="conceitos-trabalhados-13" class="level3">
+<h3 class="anchored" data-anchor-id="conceitos-trabalhados-13">Conceitos trabalhados</h3>
+<ul>
+<li>CRUD;</li>
+<li>Menus;</li>
+<li>Funções;</li>
+<li>Classes;</li>
+<li>Consultas parametrizadas;</li>
+<li>Tratamento de exceções.</li>
+</ul>
+</section>
+<section id="produto-da-unidade-16" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-16">Produto da unidade</h3>
+<p>Aplicação de terminal integrada ao PostgreSQL.</p>
+</section>
+</section>
+<section id="unidade-18-testes-transações-e-preparação-do-projeto" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-18-testes-transações-e-preparação-do-projeto">Unidade 18 — Testes, transações e preparação do projeto</h2>
+<p><strong>Problema:</strong> o sistema funciona em condições normais, mas precisa lidar com falhas reais de operação.</p>
+<section id="testes-práticos" class="level3">
+<h3 class="anchored" data-anchor-id="testes-práticos">Testes práticos</h3>
+<ul>
+<li>Banco indisponível;</li>
+<li>Sensor inexistente;</li>
+<li>Equipamento desativado;</li>
+<li>Valor fora da faixa;</li>
+<li>Falha durante a gravação;</li>
+<li>Cadastro duplicado;</li>
+<li>Exclusão de registro relacionado;</li>
+<li>Falha de comunicação com dispositivo.</li>
+</ul>
+</section>
+<section id="conceitos-trabalhados-14" class="level3">
+<h3 class="anchored" data-anchor-id="conceitos-trabalhados-14">Conceitos trabalhados</h3>
+<ul>
+<li><code>commit</code>;</li>
+<li><code>rollback</code>;</li>
+<li>Tratamento de erros de conexão;</li>
+<li>Validação de dados;</li>
+<li>Testes funcionais;</li>
+<li>Organização do projeto.</li>
+</ul>
+</section>
+<section id="preparação-do-projeto-final" class="level3">
+<h3 class="anchored" data-anchor-id="preparação-do-projeto-final">Preparação do projeto final</h3>
+<p>Cada equipe deverá definir:</p>
+<ul>
+<li>Problema industrial;</li>
+<li>Usuários do sistema;</li>
+<li>Equipamentos;</li>
+<li>Sensores;</li>
+<li>Dispositivos de coleta;</li>
+<li>Dados coletados;</li>
+<li>Tabelas do banco;</li>
+<li>Funcionalidades;</li>
+<li>Forma de demonstração.</li>
+</ul>
+</section>
+<section id="produto-da-unidade-17" class="level3">
+<h3 class="anchored" data-anchor-id="produto-da-unidade-17">Produto da unidade</h3>
+<ul>
+<li>Sistema-base estável;</li>
+<li>Especificação do projeto final;</li>
+<li>Equipes formadas;</li>
+<li>Divisão de responsabilidades.</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="módulo-5-projeto-final" class="level1">
+<h1>Módulo 5 — Projeto final</h1>
+<section id="unidade-19-desenvolvimento-do-projeto-final" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-19-desenvolvimento-do-projeto-final">Unidade 19 — Desenvolvimento do projeto final</h2>
+<p><strong>Objetivo:</strong> desenvolver, integrar e testar a solução proposta pela equipe.</p>
+<section id="possíveis-temas" class="level3">
+<h3 class="anchored" data-anchor-id="possíveis-temas">Possíveis temas</h3>
+<ul>
+<li>Monitoramento de temperatura de motores;</li>
+<li>Controle e histórico do nível de um tanque;</li>
+<li>Monitoramento de pressão em uma linha;</li>
+<li>Sistema de alarmes para uma esteira;</li>
+<li>Monitoramento de vibração;</li>
+<li>Registro de consumo energético;</li>
+<li>Sistema de manutenção preventiva;</li>
+<li>Monitoramento de uma estação de bombeamento;</li>
+<li>Rastreamento de produção por lote.</li>
+</ul>
+</section>
+<section id="requisitos-mínimos" class="level3">
+<h3 class="anchored" data-anchor-id="requisitos-mínimos">Requisitos mínimos</h3>
+<p>O projeto deverá possuir:</p>
+<ul>
+<li>Problema relacionado à automação industrial;</li>
+<li>Aplicação desenvolvida em Python;</li>
+<li>Uso de funções e/ou classes;</li>
+<li>Banco de dados PostgreSQL;</li>
+<li>Cadastro de equipamentos ou dispositivos;</li>
+<li>Cadastro de sensores ou variáveis;</li>
+<li>Simulação ou entrada de dados de coleta;</li>
+<li>Registro de leituras;</li>
+<li>Identificação ou registro de alarmes;</li>
+<li>Pelo menos três consultas relevantes;</li>
+<li>Tratamento de erros;</li>
+<li>Demonstração funcional.</li>
+</ul>
+</section>
+<section id="atividades-da-unidade" class="level3">
+<h3 class="anchored" data-anchor-id="atividades-da-unidade">Atividades da unidade</h3>
+<ul>
+<li>Planejamento final;</li>
+<li>Desenvolvimento;</li>
+<li>Integração;</li>
+<li>Testes;</li>
+<li>Correção de falhas;</li>
+<li>Preparação da demonstração.</li>
+</ul>
+</section>
+</section>
+<section id="unidade-20-apresentação-e-avaliação-do-projeto" class="level2">
+<h2 class="anchored" data-anchor-id="unidade-20-apresentação-e-avaliação-do-projeto">Unidade 20 — Apresentação e avaliação do projeto</h2>
+<section id="atividades" class="level3">
+<h3 class="anchored" data-anchor-id="atividades">Atividades</h3>
+<ul>
+<li>Execução dos testes finais;</li>
+<li>Correção de falhas;</li>
+<li>Apresentação das equipes;</li>
+<li>Demonstração do sistema;</li>
+<li>Explicação da modelagem do banco;</li>
+<li>Demonstração da coleta simulada;</li>
+<li>Apresentação das consultas;</li>
+<li>Discussão das limitações;</li>
+<li>Propostas de melhorias futuras.</li>
+</ul>
+</section>
+<section id="entregas" class="level3">
+<h3 class="anchored" data-anchor-id="entregas">Entregas</h3>
+<ul>
+<li>Código-fonte Python;</li>
+<li>Script SQL de criação do banco;</li>
+<li>Dados de teste;</li>
+<li>Modelo das tabelas;</li>
+<li>Manual breve de execução;</li>
+<li>Relatório técnico;</li>
+<li>Apresentação ou demonstração funcional.</li>
+</ul>
+</section>
+<section id="perguntas-que-a-equipe-deverá-responder" class="level3">
+<h3 class="anchored" data-anchor-id="perguntas-que-a-equipe-deverá-responder">Perguntas que a equipe deverá responder</h3>
+<ul>
+<li>Qual problema foi escolhido?</li>
+<li>Quem utilizará o sistema?</li>
+<li>Quais dados são coletados?</li>
+<li>Como os dados são armazenados?</li>
+<li>Como os alarmes são identificados?</li>
+<li>Quais consultas são importantes?</li>
+<li>Como o sistema lida com falhas?</li>
+<li>Quais melhorias poderiam ser implementadas?</li>
+</ul>
+</section>
+</section>
+</section>
+<section id="avaliação-da-disciplina" class="level1">
+<h1>Avaliação da disciplina</h1>
+<section id="instrumentos-avaliativos" class="level2">
+<h2 class="anchored" data-anchor-id="instrumentos-avaliativos">Instrumentos avaliativos</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Atividade</th>
+<th style="text-align: right;">Percentual sugerido</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Atividades práticas de Python — unidades 1 a 6</td>
+<td style="text-align: right;">20%</td>
+</tr>
+<tr class="even">
+<td>Simulação orientada a objetos — unidades 7 e 8</td>
+<td style="text-align: right;">15%</td>
+</tr>
+<tr class="odd">
+<td>Modelagem e SQL — unidades 9 a 11</td>
+<td style="text-align: right;">20%</td>
+</tr>
+<tr class="even">
+<td>Integração Python + PostgreSQL — unidades 12 a 18</td>
+<td style="text-align: right;">25%</td>
+</tr>
+<tr class="odd">
+<td>Projeto final — unidades 19 e 20</td>
+<td style="text-align: right;">20%</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="o-que-será-avaliado" class="level2">
+<h2 class="anchored" data-anchor-id="o-que-será-avaliado">O que será avaliado?</h2>
+<ul>
+<li>Compreensão do problema;</li>
+<li>Funcionamento da solução;</li>
+<li>Organização do código;</li>
+<li>Uso adequado de Python;</li>
+<li>Uso adequado do PostgreSQL;</li>
+<li>Modelagem dos dados;</li>
+<li>Integração entre aplicação e banco;</li>
+<li>Tratamento de erros;</li>
+<li>Qualidade dos testes;</li>
+<li>Capacidade de explicar as decisões;</li>
+<li>Trabalho em equipe;</li>
+<li>Comunicação técnica.</li>
+</ul>
+</section>
+<section id="avaliação-no-ifpr" class="level2">
+<h2 class="anchored" data-anchor-id="avaliação-no-ifpr">Avaliação no IFPR</h2>
+<p>A avaliação será:</p>
+<ul>
+<li>Diagnóstica;</li>
+<li>Contínua;</li>
+<li>Inclusiva;</li>
+<li>Processual;</li>
+<li>Formativa;</li>
+<li>Baseada em diferentes instrumentos.</li>
+</ul>
+<p>Poderão ser utilizados:</p>
+<ul>
+<li>Exercícios práticos;</li>
+<li>Trabalhos individuais;</li>
+<li>Trabalhos em equipe;</li>
+<li>Relatórios;</li>
+<li>Demonstrações em laboratório;</li>
+<li>Resolução de problemas;</li>
+<li>Projetos;</li>
+<li>Seminários;</li>
+<li>Autoavaliação;</li>
+<li>Avaliação por pares.</li>
+</ul>
+</section>
+<section id="conceitos-de-aprendizagem" class="level2">
+<h2 class="anchored" data-anchor-id="conceitos-de-aprendizagem">Conceitos de aprendizagem</h2>
+<ul>
+<li><strong>Conceito A:</strong> aprendizagem plena;</li>
+<li><strong>Conceito B:</strong> aprendizagem parcialmente plena;</li>
+<li><strong>Conceito C:</strong> aprendizagem suficiente;</li>
+<li><strong>Conceito D:</strong> aprendizagem insuficiente.</li>
+</ul>
+<blockquote class="blockquote">
+<p>O objetivo não é apenas fazer o programa funcionar, mas compreender o problema, testar a solução e justificar as decisões técnicas.</p>
+</blockquote>
+</section>
+</section>
+<section id="regras-de-trabalho" class="level1">
+<h1>Regras de trabalho</h1>
+<section id="durante-as-atividades-práticas" class="level2">
+<h2 class="anchored" data-anchor-id="durante-as-atividades-práticas">Durante as atividades práticas</h2>
+<ul>
+<li>Trabalhe de forma colaborativa;</li>
+<li>Teste o código frequentemente;</li>
+<li>Registre os erros encontrados;</li>
+<li>Faça pequenas alterações por vez;</li>
+<li>Comente as decisões importantes;</li>
+<li>Não copie soluções sem compreender;</li>
+<li>Utilize nomes claros para variáveis e funções;</li>
+<li>Mantenha cópias do projeto;</li>
+<li>Documente o que foi desenvolvido.</li>
+</ul>
+</section>
+<section id="critérios-para-um-bom-projeto" class="level2">
+<h2 class="anchored" data-anchor-id="critérios-para-um-bom-projeto">Critérios para um bom projeto</h2>
+<p>Um bom projeto:</p>
+<ul>
+<li>Resolve um problema claro;</li>
+<li>Possui usuários definidos;</li>
+<li>Utiliza dados coerentes;</li>
+<li>Simula ou representa uma situação industrial;</li>
+<li>Persiste os dados corretamente;</li>
+<li>Produz informações úteis;</li>
+<li>Trata situações de erro;</li>
+<li>Pode ser demonstrado;</li>
+<li>Está organizado e documentado;</li>
+<li>Pode ser ampliado futuramente.</li>
+</ul>
+</section>
+</section>
+<section id="encerramento" class="level1">
+<h1>Encerramento</h1>
+<section id="a-lógica-da-disciplina" class="level2">
+<h2 class="anchored" data-anchor-id="a-lógica-da-disciplina">A lógica da disciplina</h2>
+<blockquote class="blockquote">
+<p><strong>Problema → hipótese de solução → conceito necessário → implementação → teste → melhoria → demonstração</strong></p>
+</blockquote>
+</section>
+<section id="o-que-vamos-construir" class="level2">
+<h2 class="anchored" data-anchor-id="o-que-vamos-construir">O que vamos construir?</h2>
+<p>Ao final da disciplina, cada estudante deverá ter participado da construção de uma solução que percorre todo o caminho:</p>
+<pre class="text"><code>Leitura do sensor
+     ↓
+Processamento em Python
+     ↓
+Classificação do estado
+     ↓
+Geração de alarmes
+     ↓
+Registro no PostgreSQL
+     ↓
+Consulta do histórico
+     ↓
+Relatório para tomada de decisão</code></pre>
+</section>
+<section id="resultado-esperado" class="level2">
+<h2 class="anchored" data-anchor-id="resultado-esperado">Resultado esperado</h2>
+<p>Ao finalizar a disciplina, você deverá ser capaz de desenvolver uma aplicação que:</p>
+<ul>
+<li>Receba ou simule dados de sensores;</li>
+<li>Processe as informações;</li>
+<li>Identifique condições anormais;</li>
+<li>Armazene os dados;</li>
+<li>Consulte históricos;</li>
+<li>Gere relatórios;</li>
+<li>Apoie a operação e a manutenção de sistemas industriais.</li>
+</ul>
+</section>
+<section id="pergunta-orientadora" class="level2">
+<h2 class="anchored" data-anchor-id="pergunta-orientadora">Pergunta orientadora</h2>
+<blockquote class="blockquote">
+<p><strong>Como transformar dados de sensores em informações úteis para operar, manter e melhorar um processo industrial?</strong></p>
+</blockquote>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
