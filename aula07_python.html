@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.10.18">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>aula07_python</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: 1.5em;}
+div.column{flex: auto;}
+@media screen {
+div.columns{gap: min(4vw, 1.5em);}
+div.column{overflow-x: auto;}
+}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="aula07_python_files/libs/clipboard/clipboard.min.js"></script>
+<script src="aula07_python_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="aula07_python_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="aula07_python_files/libs/quarto-html/popper.min.js"></script>
+<script src="aula07_python_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="aula07_python_files/libs/quarto-html/anchor.min.js"></script>
+<link href="aula07_python_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="aula07_python_files/libs/quarto-html/quarto-syntax-highlighting-64a204ab8560d761af7679ceaba22944.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="aula07_python_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="aula07_python_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="aula07_python_files/libs/bootstrap/bootstrap-215b371544c282197b31c8aa00ce3677.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+
+
+
+<section id="aula-7-persistência-de-dados-com-sqlite" class="level1">
+<h1>Aula 7 — Persistência de dados com SQLite</h1>
+<p><strong>Curso:</strong> Linguagens de Programação e Banco de Dados<br>
+<strong>Curso Superior:</strong> Tecnologia em Automação Industrial<br>
+<strong>Instituição:</strong> Instituto Federal do Paraná — Campus Assis Chateaubriand<br>
+<strong>Duração sugerida:</strong> 2 a 3 horas<br>
+<strong>Pré-requisitos:</strong> listas e dicionários em Python, funções, arquivos CSV e noções básicas de SQL.</p>
+<hr>
+<section id="tema-da-aula" class="level2">
+<h2 class="anchored" data-anchor-id="tema-da-aula">1. Tema da aula</h2>
+<p>Na Aula 6, o simulador gravava e recuperava leituras em arquivos CSV. Nesta aula, os dados serão armazenados em um <strong>banco de dados SQLite</strong>, consultados com SQL e manipulados pelo módulo <code>sqlite3</code> do Python.</p>
+<p>O objetivo é evoluir o histórico da lista de dicionários para uma tabela persistente. O arquivo do banco permanece disponível depois que o programa termina, permitindo inserir novas leituras e consultar o histórico em execuções futuras.</p>
+<blockquote class="blockquote">
+<p><strong>Ideia central:</strong> CSV organiza dados em linhas e colunas em um arquivo de texto; SQLite permite armazenar registros em tabelas e consultá-los com SQL.</p>
+</blockquote>
+</section>
+<section id="objetivos-de-aprendizagem" class="level2">
+<h2 class="anchored" data-anchor-id="objetivos-de-aprendizagem">2. Objetivos de aprendizagem</h2>
+<p>Ao final da aula, o estudante deverá ser capaz de:</p>
+<ul>
+<li>explicar o que é um banco de dados relacional e o que é SQLite;</li>
+<li>criar uma conexão com o banco usando <code>sqlite3</code>;</li>
+<li>criar tabelas com <code>CREATE TABLE</code>;</li>
+<li>inserir registros com <code>INSERT</code> e parâmetros;</li>
+<li>consultar dados com <code>SELECT</code>, <code>WHERE</code>, <code>ORDER BY</code> e funções de agregação;</li>
+<li>atualizar e remover registros com <code>UPDATE</code> e <code>DELETE</code>;</li>
+<li>relacionar as operações CRUD aos comandos SQL;</li>
+<li>converter leituras do simulador em registros persistentes;</li>
+<li>usar transações e fechar conexões corretamente;</li>
+<li>evitar a montagem de comandos SQL por concatenação de texto.</li>
+</ul>
+</section>
+<section id="situação-problema" class="level2">
+<h2 class="anchored" data-anchor-id="situação-problema">3. Situação-problema</h2>
+<p>O simulador industrial gera temperatura, pressão, corrente e estado geral do equipamento M-01. Na Aula 5, cada leitura era um dicionário; na Aula 6, a lista de dicionários podia ser salva em CSV. Agora, a equipe precisa:</p>
+<ol type="1">
+<li>armazenar cada leitura em uma tabela;</li>
+<li>preservar o número original do ciclo, mesmo quando uma coleta é ignorada;</li>
+<li>consultar alarmes, emergências e valores máximos;</li>
+<li>acrescentar leituras em novas execuções sem apagar o histórico;</li>
+<li>atualizar ou excluir registros quando necessário.</li>
+</ol>
+<p>O ciclo 5 continuará simulando falha de comunicação: ele não produzirá registro no banco, mas os ciclos seguintes continuarão com a numeração original.</p>
+</section>
+<section id="conceitos-essenciais" class="level2">
+<h2 class="anchored" data-anchor-id="conceitos-essenciais">4. Conceitos essenciais</h2>
+<section id="banco-de-dados-tabela-registro-e-campo" class="level3">
+<h3 class="anchored" data-anchor-id="banco-de-dados-tabela-registro-e-campo">4.1 Banco de dados, tabela, registro e campo</h3>
+<ul>
+<li><strong>Banco de dados:</strong> conjunto organizado de dados. Neste exercício, será um arquivo SQLite.</li>
+<li><strong>Tabela:</strong> estrutura que agrupa registros de um mesmo tipo, semelhante a uma planilha.</li>
+<li><strong>Registro ou linha:</strong> conjunto de valores referentes a uma leitura de um ciclo.</li>
+<li><strong>Campo ou coluna:</strong> informação definida para cada registro, como temperatura ou estado geral.</li>
+<li><strong>Chave primária:</strong> campo que identifica cada linha de forma única.</li>
+</ul>
+</section>
+<section id="o-que-é-sqlite" class="level3">
+<h3 class="anchored" data-anchor-id="o-que-é-sqlite">4.2 O que é SQLite?</h3>
+<p>SQLite é um sistema de banco de dados relacional que armazena o banco em um arquivo local. O Python inclui o módulo <code>sqlite3</code>, portanto não é necessário instalar um servidor de banco para esta aula.</p>
+<p>A conexão pode criar o arquivo do banco automaticamente:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>conexao <span class="op">=</span> sqlite3.<span class="ex">connect</span>(<span class="st">"historico_industrial.db"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Se o arquivo não existir, o SQLite o cria. O banco não é um CSV: trata-se de um arquivo próprio, que deve ser acessado pelo SQLite.</p>
+</section>
+<section id="tipos-de-dados-usados" class="level3">
+<h3 class="anchored" data-anchor-id="tipos-de-dados-usados">4.3 Tipos de dados usados</h3>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 13%">
+<col style="width: 37%">
+<col style="width: 48%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Tipo SQLite</th>
+<th>Uso no simulador</th>
+<th>Exemplo</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>INTEGER</code></td>
+<td>números inteiros e indicadores</td>
+<td>ciclo <code>1</code>, situação crítica <code>0</code> ou <code>1</code></td>
+</tr>
+<tr class="even">
+<td><code>REAL</code></td>
+<td>números decimais</td>
+<td>temperatura <code>72.5</code></td>
+</tr>
+<tr class="odd">
+<td><code>TEXT</code></td>
+<td>textos</td>
+<td>equipamento <code>M-01</code>, estado <code>ATENÇÃO</code></td>
+</tr>
+</tbody>
+</table>
+<p>SQLite também aceita <code>NULL</code> para representar ausência de valor. Nesta atividade, os campos principais serão preenchidos.</p>
+</section>
+</section>
+<section id="sql-básico" class="level2">
+<h2 class="anchored" data-anchor-id="sql-básico">5. SQL básico</h2>
+<p>SQL é a linguagem usada para definir e consultar dados relacionais.</p>
+<section id="criar-uma-tabela" class="level3">
+<h3 class="anchored" data-anchor-id="criar-uma-tabela">Criar uma tabela</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">CREATE</span> <span class="kw">TABLE</span> <span class="cf">IF</span> <span class="kw">NOT</span> <span class="kw">EXISTS</span> leituras (</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">id</span> <span class="dt">INTEGER</span> <span class="kw">PRIMARY</span> <span class="kw">KEY</span> AUTOINCREMENT,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    ciclo <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    equipamento TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    dispositivo TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    temperatura <span class="dt">REAL</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    pressao <span class="dt">REAL</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    corrente <span class="dt">REAL</span> <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    status_temperatura TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    status_pressao TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    status_corrente TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    estado_geral TEXT <span class="kw">NOT</span> <span class="kw">NULL</span>,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>    situacao_critica <span class="dt">INTEGER</span> <span class="kw">NOT</span> <span class="kw">NULL</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>id</code> é um identificador gerado pelo banco. Ele é diferente de <code>ciclo</code>: o ciclo representa a posição da coleta na simulação; o <code>id</code> distingue cada registro armazenado. Isso permite que a tabela aceite históricos de várias execuções sem exigir que o ciclo seja único.</p>
+<p><code>NOT NULL</code> indica que o campo deve receber um valor. <code>AUTOINCREMENT</code> solicita que o SQLite gere o identificador automaticamente.</p>
+</section>
+<section id="inserir-um-registro" class="level3">
+<h3 class="anchored" data-anchor-id="inserir-um-registro">Inserir um registro</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">INSERT</span> <span class="kw">INTO</span> leituras (</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    ciclo, equipamento, dispositivo,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>    temperatura, pressao, corrente,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>    status_temperatura, status_pressao, status_corrente,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>    estado_geral, situacao_critica</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">VALUES</span> (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Os pontos de interrogação são parâmetros. Os valores são fornecidos separadamente pelo Python.</p>
+</section>
+<section id="consultar-registros" class="level3">
+<h3 class="anchored" data-anchor-id="consultar-registros">Consultar registros</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> ciclo, temperatura, pressao, corrente, estado_geral</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> leituras</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> equipamento <span class="op">=</span> <span class="st">'M-01'</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> ciclo;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li><code>SELECT</code> escolhe os campos;</li>
+<li><code>FROM</code> indica a tabela;</li>
+<li><code>WHERE</code> filtra linhas;</li>
+<li><code>ORDER BY</code> define a ordenação.</li>
+</ul>
+</section>
+<section id="atualizar-e-remover" class="level3">
+<h3 class="anchored" data-anchor-id="atualizar-e-remover">Atualizar e remover</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">UPDATE</span> leituras</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="kw">SET</span> estado_geral <span class="op">=</span> <span class="st">'ATENÇÃO'</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="kw">id</span> <span class="op">=</span> <span class="dv">1</span>;</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="kw">DELETE</span> <span class="kw">FROM</span> leituras</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> <span class="kw">id</span> <span class="op">=</span> <span class="dv">1</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><strong>Atenção:</strong> sempre confira o <code>WHERE</code> em <code>UPDATE</code> e <code>DELETE</code>. Sem ele, todas as linhas da tabela podem ser afetadas.</p>
+</section>
+</section>
+<section id="mapeamento-das-operações-crud" class="level2">
+<h2 class="anchored" data-anchor-id="mapeamento-das-operações-crud">6. Mapeamento das operações CRUD</h2>
+<p>CRUD representa as quatro operações básicas sobre dados persistentes.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Operação</th>
+<th>Significado</th>
+<th>SQL</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Create</td>
+<td>criar/inserir</td>
+<td><code>INSERT</code></td>
+</tr>
+<tr class="even">
+<td>Read</td>
+<td>consultar/ler</td>
+<td><code>SELECT</code></td>
+</tr>
+<tr class="odd">
+<td>Update</td>
+<td>atualizar</td>
+<td><code>UPDATE</code></td>
+</tr>
+<tr class="even">
+<td>Delete</td>
+<td>excluir</td>
+<td><code>DELETE</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="exercício-guiado-criar-o-banco-e-a-tabela" class="level2">
+<h2 class="anchored" data-anchor-id="exercício-guiado-criar-o-banco-e-a-tabela">7. Exercício guiado: criar o banco e a tabela</h2>
+<p>Crie o arquivo <code>aula_07_sqlite.py</code> e comece com:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>NOME_BANCO <span class="op">=</span> <span class="st">"historico_industrial.db"</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>conexao <span class="op">=</span> sqlite3.<span class="ex">connect</span>(NOME_BANCO)</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>cursor <span class="op">=</span> conexao.cursor()</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>cursor.execute(<span class="st">"""</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="st">    CREATE TABLE IF NOT EXISTS leituras (</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="st">        id INTEGER PRIMARY KEY AUTOINCREMENT,</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="st">        ciclo INTEGER NOT NULL,</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="st">        equipamento TEXT NOT NULL,</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="st">        dispositivo TEXT NOT NULL,</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a><span class="st">        temperatura REAL NOT NULL,</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a><span class="st">        pressao REAL NOT NULL,</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a><span class="st">        corrente REAL NOT NULL,</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a><span class="st">        status_temperatura TEXT NOT NULL,</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a><span class="st">        status_pressao TEXT NOT NULL,</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a><span class="st">        status_corrente TEXT NOT NULL,</span></span>
+<span id="cb6-20"><a href="#cb6-20" aria-hidden="true" tabindex="-1"></a><span class="st">        estado_geral TEXT NOT NULL,</span></span>
+<span id="cb6-21"><a href="#cb6-21" aria-hidden="true" tabindex="-1"></a><span class="st">        situacao_critica INTEGER NOT NULL</span></span>
+<span id="cb6-22"><a href="#cb6-22" aria-hidden="true" tabindex="-1"></a><span class="st">    )</span></span>
+<span id="cb6-23"><a href="#cb6-23" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>)</span>
+<span id="cb6-24"><a href="#cb6-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-25"><a href="#cb6-25" aria-hidden="true" tabindex="-1"></a>conexao.commit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>cursor</code> executa comandos SQL. <code>commit()</code> confirma as alterações pendentes. A tabela só é criada se ainda não existir, então o programa pode ser executado novamente sem tentar recriá-la.</p>
+</section>
+<section id="inserção-de-dicionários-com-parâmetros" class="level2">
+<h2 class="anchored" data-anchor-id="inserção-de-dicionários-com-parâmetros">8. Inserção de dicionários com parâmetros</h2>
+<p>Cada leitura gerada pelo simulador pode continuar sendo representada como dicionário em Python:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>leitura <span class="op">=</span> {</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"ciclo"</span>: <span class="dv">1</span>,</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">"equipamento"</span>: <span class="st">"M-01"</span>,</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"dispositivo"</span>: <span class="st">"CLP-SIM-01"</span>,</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"temperatura"</span>: <span class="fl">72.5</span>,</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"pressao"</span>: <span class="fl">6.8</span>,</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"corrente"</span>: <span class="fl">12.4</span>,</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"status_temperatura"</span>: <span class="st">"ATENÇÃO"</span>,</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"status_pressao"</span>: <span class="st">"NORMAL"</span>,</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"status_corrente"</span>: <span class="st">"NORMAL"</span>,</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"estado_geral"</span>: <span class="st">"ATENÇÃO"</span>,</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    <span class="st">"situacao_critica"</span>: <span class="va">False</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Uma função separada pode inserir o registro:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> inserir_leitura(cursor, conexao, leitura):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    cursor.execute(<span class="st">"""</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="st">        INSERT INTO leituras (</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="st">            ciclo, equipamento, dispositivo,</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="st">            temperatura, pressao, corrente,</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="st">            status_temperatura, status_pressao, status_corrente,</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="st">            estado_geral, situacao_critica</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="st">        )</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="st">        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>, (</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"ciclo"</span>],</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"equipamento"</span>],</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"dispositivo"</span>],</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"temperatura"</span>],</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"pressao"</span>],</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"corrente"</span>],</span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"status_temperatura"</span>],</span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"status_pressao"</span>],</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"status_corrente"</span>],</span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"estado_geral"</span>],</span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">int</span>(leitura[<span class="st">"situacao_critica"</span>])</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>    conexao.commit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>O Python converte <code>True</code> e <code>False</code> para inteiros; aqui fazemos essa conversão explicitamente para gravar <code>1</code> ou <code>0</code>.</p>
+<blockquote class="blockquote">
+<p><strong>Segurança e correção:</strong> use parâmetros <code>?</code> em vez de construir SQL com <code>+</code> ou f-strings. A parametrização trata os valores corretamente e ajuda a evitar erros e injeção de SQL.</p>
+</blockquote>
+</section>
+<section id="simulador-integrado-versão-de-referência" class="level2">
+<h2 class="anchored" data-anchor-id="simulador-integrado-versão-de-referência">9. Simulador integrado — versão de referência</h2>
+<p>O programa abaixo cria a tabela, simula 20 ciclos, ignora a falha de comunicação no ciclo 5, grava as leituras válidas e executa consultas básicas. Execute-o na mesma pasta de trabalho: o arquivo <code>historico_industrial.db</code> será criado ali.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> random</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> sqlite3</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>NOME_BANCO <span class="op">=</span> <span class="st">"historico_industrial.db"</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>EQUIPAMENTO <span class="op">=</span> <span class="st">"M-01"</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>DISPOSITIVO <span class="op">=</span> <span class="st">"CLP-SIM-01"</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>CICLOS_PLANEJADOS <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>LIMITE_TEMPERATURA <span class="op">=</span> <span class="dv">80</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>LIMITE_PRESSAO <span class="op">=</span> <span class="dv">8</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>LIMITE_CORRENTE <span class="op">=</span> <span class="dv">15</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> criar_tabela(cursor):</span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>    cursor.execute(<span class="st">"""</span></span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="st">        CREATE TABLE IF NOT EXISTS leituras (</span></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="st">            id INTEGER PRIMARY KEY AUTOINCREMENT,</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="st">            ciclo INTEGER NOT NULL,</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="st">            equipamento TEXT NOT NULL,</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="st">            dispositivo TEXT NOT NULL,</span></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="st">            temperatura REAL NOT NULL,</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="st">            pressao REAL NOT NULL,</span></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="st">            corrente REAL NOT NULL,</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="st">            status_temperatura TEXT NOT NULL,</span></span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="st">            status_pressao TEXT NOT NULL,</span></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="st">            status_corrente TEXT NOT NULL,</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="st">            estado_geral TEXT NOT NULL,</span></span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="st">            situacao_critica INTEGER NOT NULL</span></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="st">        )</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>)</span>
+<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classificar_temperatura(temperatura):</span>
+<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> temperatura <span class="op">&lt;</span> <span class="dv">70</span>:</span>
+<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"NORMAL"</span></span>
+<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> temperatura <span class="op">&lt;=</span> LIMITE_TEMPERATURA:</span>
+<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"ATENÇÃO"</span></span>
+<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"ALARME"</span></span>
+<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classificar_pressao(pressao):</span>
+<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> pressao <span class="op">&lt;</span> <span class="dv">7</span>:</span>
+<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"NORMAL"</span></span>
+<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> pressao <span class="op">&lt;=</span> LIMITE_PRESSAO:</span>
+<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"ATENÇÃO"</span></span>
+<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"ALARME"</span></span>
+<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> classificar_corrente(corrente):</span>
+<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> corrente <span class="op">&lt;</span> <span class="dv">13</span>:</span>
+<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"NORMAL"</span></span>
+<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> corrente <span class="op">&lt;=</span> LIMITE_CORRENTE:</span>
+<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">"ATENÇÃO"</span></span>
+<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">"ALARME"</span></span>
+<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> criar_leitura(numero_ciclo):</span>
+<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a>    temperatura <span class="op">=</span> <span class="bu">round</span>(random.uniform(<span class="dv">60</span>, <span class="dv">95</span>), <span class="dv">2</span>)</span>
+<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a>    pressao <span class="op">=</span> <span class="bu">round</span>(random.uniform(<span class="fl">5.0</span>, <span class="fl">10.0</span>), <span class="dv">2</span>)</span>
+<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a>    corrente <span class="op">=</span> <span class="bu">round</span>(random.uniform(<span class="fl">10.0</span>, <span class="fl">20.0</span>), <span class="dv">2</span>)</span>
+<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a>    status_temperatura <span class="op">=</span> classificar_temperatura(temperatura)</span>
+<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a>    status_pressao <span class="op">=</span> classificar_pressao(pressao)</span>
+<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a>    status_corrente <span class="op">=</span> classificar_corrente(corrente)</span>
+<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a>    situacao_critica <span class="op">=</span> (</span>
+<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a>        temperatura <span class="op">&gt;</span> <span class="dv">90</span></span>
+<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a>        <span class="kw">or</span> pressao <span class="op">&gt;</span> <span class="dv">10</span></span>
+<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a>        <span class="kw">or</span> corrente <span class="op">&gt;</span> <span class="dv">18</span></span>
+<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a>    existe_alarme <span class="op">=</span> (</span>
+<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a>        status_temperatura <span class="op">==</span> <span class="st">"ALARME"</span></span>
+<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a>        <span class="kw">or</span> status_pressao <span class="op">==</span> <span class="st">"ALARME"</span></span>
+<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a>        <span class="kw">or</span> status_corrente <span class="op">==</span> <span class="st">"ALARME"</span></span>
+<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a>    existe_atencao <span class="op">=</span> (</span>
+<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a>        status_temperatura <span class="op">==</span> <span class="st">"ATENÇÃO"</span></span>
+<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a>        <span class="kw">or</span> status_pressao <span class="op">==</span> <span class="st">"ATENÇÃO"</span></span>
+<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a>        <span class="kw">or</span> status_corrente <span class="op">==</span> <span class="st">"ATENÇÃO"</span></span>
+<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> situacao_critica:</span>
+<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a>        estado_geral <span class="op">=</span> <span class="st">"EMERGÊNCIA"</span></span>
+<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> existe_alarme:</span>
+<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a>        estado_geral <span class="op">=</span> <span class="st">"ALARME"</span></span>
+<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a>    <span class="cf">elif</span> existe_atencao:</span>
+<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a>        estado_geral <span class="op">=</span> <span class="st">"ATENÇÃO"</span></span>
+<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a>        estado_geral <span class="op">=</span> <span class="st">"NORMAL"</span></span>
+<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> {</span>
+<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a>        <span class="st">"ciclo"</span>: numero_ciclo,</span>
+<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a>        <span class="st">"equipamento"</span>: EQUIPAMENTO,</span>
+<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a>        <span class="st">"dispositivo"</span>: DISPOSITIVO,</span>
+<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a>        <span class="st">"temperatura"</span>: temperatura,</span>
+<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a>        <span class="st">"pressao"</span>: pressao,</span>
+<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a>        <span class="st">"corrente"</span>: corrente,</span>
+<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a>        <span class="st">"status_temperatura"</span>: status_temperatura,</span>
+<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a>        <span class="st">"status_pressao"</span>: status_pressao,</span>
+<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a>        <span class="st">"status_corrente"</span>: status_corrente,</span>
+<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a>        <span class="st">"estado_geral"</span>: estado_geral,</span>
+<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a>        <span class="st">"situacao_critica"</span>: situacao_critica</span>
+<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> inserir_leitura(cursor, leitura):</span>
+<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a>    cursor.execute(<span class="st">"""</span></span>
+<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a><span class="st">        INSERT INTO leituras (</span></span>
+<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a><span class="st">            ciclo, equipamento, dispositivo,</span></span>
+<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a><span class="st">            temperatura, pressao, corrente,</span></span>
+<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a><span class="st">            status_temperatura, status_pressao, status_corrente,</span></span>
+<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a><span class="st">            estado_geral, situacao_critica</span></span>
+<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a><span class="st">        )</span></span>
+<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a><span class="st">        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)</span></span>
+<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>, (</span>
+<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"ciclo"</span>],</span>
+<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"equipamento"</span>],</span>
+<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"dispositivo"</span>],</span>
+<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"temperatura"</span>],</span>
+<span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"pressao"</span>],</span>
+<span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"corrente"</span>],</span>
+<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"status_temperatura"</span>],</span>
+<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"status_pressao"</span>],</span>
+<span id="cb9-125"><a href="#cb9-125" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"status_corrente"</span>],</span>
+<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a>        leitura[<span class="st">"estado_geral"</span>],</span>
+<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a>        <span class="bu">int</span>(leitura[<span class="st">"situacao_critica"</span>])</span>
+<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a>    ))</span>
+<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> exibir_historico(cursor):</span>
+<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a>    cursor.execute(<span class="st">"""</span></span>
+<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a><span class="st">        SELECT ciclo, temperatura, pressao, corrente, estado_geral</span></span>
+<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a><span class="st">        FROM leituras</span></span>
+<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a><span class="st">        WHERE equipamento = ?</span></span>
+<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a><span class="st">        ORDER BY id</span></span>
+<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>, (EQUIPAMENTO,))</span>
+<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a>    registros <span class="op">=</span> cursor.fetchall()</span>
+<span id="cb9-140"><a href="#cb9-140" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\\</span><span class="st">n=== HISTÓRICO DO EQUIPAMENTO ==="</span>)</span>
+<span id="cb9-141"><a href="#cb9-141" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-142"><a href="#cb9-142" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> registros:</span>
+<span id="cb9-143"><a href="#cb9-143" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Não há leituras armazenadas."</span>)</span>
+<span id="cb9-144"><a href="#cb9-144" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
+<span id="cb9-145"><a href="#cb9-145" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-146"><a href="#cb9-146" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> ciclo, temperatura, pressao, corrente, estado <span class="kw">in</span> registros:</span>
+<span id="cb9-147"><a href="#cb9-147" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(</span>
+<span id="cb9-148"><a href="#cb9-148" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"Ciclo </span><span class="sc">{</span>ciclo<span class="sc">:02d}</span><span class="ss"> | "</span></span>
+<span id="cb9-149"><a href="#cb9-149" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"T=</span><span class="sc">{</span>temperatura<span class="sc">:.2f}</span><span class="ss"> °C | "</span></span>
+<span id="cb9-150"><a href="#cb9-150" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"P=</span><span class="sc">{</span>pressao<span class="sc">:.2f}</span><span class="ss"> bar | "</span></span>
+<span id="cb9-151"><a href="#cb9-151" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"I=</span><span class="sc">{</span>corrente<span class="sc">:.2f}</span><span class="ss"> A | "</span></span>
+<span id="cb9-152"><a href="#cb9-152" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"Estado=</span><span class="sc">{</span>estado<span class="sc">}</span><span class="ss">"</span></span>
+<span id="cb9-153"><a href="#cb9-153" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb9-154"><a href="#cb9-154" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-155"><a href="#cb9-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-156"><a href="#cb9-156" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> exibir_estatisticas(cursor):</span>
+<span id="cb9-157"><a href="#cb9-157" aria-hidden="true" tabindex="-1"></a>    cursor.execute(<span class="st">"""</span></span>
+<span id="cb9-158"><a href="#cb9-158" aria-hidden="true" tabindex="-1"></a><span class="st">        SELECT</span></span>
+<span id="cb9-159"><a href="#cb9-159" aria-hidden="true" tabindex="-1"></a><span class="st">            COUNT(*),</span></span>
+<span id="cb9-160"><a href="#cb9-160" aria-hidden="true" tabindex="-1"></a><span class="st">            MIN(temperatura), MAX(temperatura), AVG(temperatura),</span></span>
+<span id="cb9-161"><a href="#cb9-161" aria-hidden="true" tabindex="-1"></a><span class="st">            MIN(pressao), MAX(pressao), AVG(pressao),</span></span>
+<span id="cb9-162"><a href="#cb9-162" aria-hidden="true" tabindex="-1"></a><span class="st">            MIN(corrente), MAX(corrente), AVG(corrente)</span></span>
+<span id="cb9-163"><a href="#cb9-163" aria-hidden="true" tabindex="-1"></a><span class="st">        FROM leituras</span></span>
+<span id="cb9-164"><a href="#cb9-164" aria-hidden="true" tabindex="-1"></a><span class="st">        WHERE equipamento = ?</span></span>
+<span id="cb9-165"><a href="#cb9-165" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>, (EQUIPAMENTO,))</span>
+<span id="cb9-166"><a href="#cb9-166" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-167"><a href="#cb9-167" aria-hidden="true" tabindex="-1"></a>    resultado <span class="op">=</span> cursor.fetchone()</span>
+<span id="cb9-168"><a href="#cb9-168" aria-hidden="true" tabindex="-1"></a>    quantidade <span class="op">=</span> resultado[<span class="dv">0</span>]</span>
+<span id="cb9-169"><a href="#cb9-169" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-170"><a href="#cb9-170" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\\</span><span class="st">n=== ESTATÍSTICAS ==="</span>)</span>
+<span id="cb9-171"><a href="#cb9-171" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> quantidade <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb9-172"><a href="#cb9-172" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Não há dados para calcular estatísticas."</span>)</span>
+<span id="cb9-173"><a href="#cb9-173" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
+<span id="cb9-174"><a href="#cb9-174" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-175"><a href="#cb9-175" aria-hidden="true" tabindex="-1"></a>    (_, t_min, t_max, t_media,</span>
+<span id="cb9-176"><a href="#cb9-176" aria-hidden="true" tabindex="-1"></a>     p_min, p_max, p_media,</span>
+<span id="cb9-177"><a href="#cb9-177" aria-hidden="true" tabindex="-1"></a>     i_min, i_max, i_media) <span class="op">=</span> resultado</span>
+<span id="cb9-178"><a href="#cb9-178" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-179"><a href="#cb9-179" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Quantidade de leituras: </span><span class="sc">{</span>quantidade<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-180"><a href="#cb9-180" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Temperatura: mín. </span><span class="sc">{</span>t_min<span class="sc">:.2f}</span><span class="ss">, máx. </span><span class="sc">{</span>t_max<span class="sc">:.2f}</span><span class="ss">, média </span><span class="sc">{</span>t_media<span class="sc">:.2f}</span><span class="ss"> °C"</span>)</span>
+<span id="cb9-181"><a href="#cb9-181" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Pressão: mín. </span><span class="sc">{</span>p_min<span class="sc">:.2f}</span><span class="ss">, máx. </span><span class="sc">{</span>p_max<span class="sc">:.2f}</span><span class="ss">, média </span><span class="sc">{</span>p_media<span class="sc">:.2f}</span><span class="ss"> bar"</span>)</span>
+<span id="cb9-182"><a href="#cb9-182" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"Corrente: mín. </span><span class="sc">{</span>i_min<span class="sc">:.2f}</span><span class="ss">, máx. </span><span class="sc">{</span>i_max<span class="sc">:.2f}</span><span class="ss">, média </span><span class="sc">{</span>i_media<span class="sc">:.2f}</span><span class="ss"> A"</span>)</span>
+<span id="cb9-183"><a href="#cb9-183" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-184"><a href="#cb9-184" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-185"><a href="#cb9-185" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> exibir_leituras_criticas(cursor):</span>
+<span id="cb9-186"><a href="#cb9-186" aria-hidden="true" tabindex="-1"></a>    cursor.execute(<span class="st">"""</span></span>
+<span id="cb9-187"><a href="#cb9-187" aria-hidden="true" tabindex="-1"></a><span class="st">        SELECT ciclo, temperatura, pressao, corrente, estado_geral</span></span>
+<span id="cb9-188"><a href="#cb9-188" aria-hidden="true" tabindex="-1"></a><span class="st">        FROM leituras</span></span>
+<span id="cb9-189"><a href="#cb9-189" aria-hidden="true" tabindex="-1"></a><span class="st">        WHERE equipamento = ?</span></span>
+<span id="cb9-190"><a href="#cb9-190" aria-hidden="true" tabindex="-1"></a><span class="st">          AND estado_geral IN ('ALARME', 'EMERGÊNCIA')</span></span>
+<span id="cb9-191"><a href="#cb9-191" aria-hidden="true" tabindex="-1"></a><span class="st">        ORDER BY id</span></span>
+<span id="cb9-192"><a href="#cb9-192" aria-hidden="true" tabindex="-1"></a><span class="st">    """</span>, (EQUIPAMENTO,))</span>
+<span id="cb9-193"><a href="#cb9-193" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-194"><a href="#cb9-194" aria-hidden="true" tabindex="-1"></a>    registros <span class="op">=</span> cursor.fetchall()</span>
+<span id="cb9-195"><a href="#cb9-195" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"</span><span class="ch">\\</span><span class="st">n=== ALARMES E EMERGÊNCIAS ==="</span>)</span>
+<span id="cb9-196"><a href="#cb9-196" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> registros:</span>
+<span id="cb9-197"><a href="#cb9-197" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"Nenhum alarme ou emergência encontrado."</span>)</span>
+<span id="cb9-198"><a href="#cb9-198" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span></span>
+<span id="cb9-199"><a href="#cb9-199" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-200"><a href="#cb9-200" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> ciclo, temperatura, pressao, corrente, estado <span class="kw">in</span> registros:</span>
+<span id="cb9-201"><a href="#cb9-201" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(</span>
+<span id="cb9-202"><a href="#cb9-202" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"Ciclo </span><span class="sc">{</span>ciclo<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>estado<span class="sc">}</span><span class="ss"> — "</span></span>
+<span id="cb9-203"><a href="#cb9-203" aria-hidden="true" tabindex="-1"></a>            <span class="ss">f"</span><span class="sc">{</span>temperatura<span class="sc">:.2f}</span><span class="ss"> °C, </span><span class="sc">{</span>pressao<span class="sc">:.2f}</span><span class="ss"> bar, </span><span class="sc">{</span>corrente<span class="sc">:.2f}</span><span class="ss"> A"</span></span>
+<span id="cb9-204"><a href="#cb9-204" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb9-205"><a href="#cb9-205" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-206"><a href="#cb9-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-207"><a href="#cb9-207" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> main():</span>
+<span id="cb9-208"><a href="#cb9-208" aria-hidden="true" tabindex="-1"></a>    conexao <span class="op">=</span> sqlite3.<span class="ex">connect</span>(NOME_BANCO)</span>
+<span id="cb9-209"><a href="#cb9-209" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-210"><a href="#cb9-210" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb9-211"><a href="#cb9-211" aria-hidden="true" tabindex="-1"></a>        cursor <span class="op">=</span> conexao.cursor()</span>
+<span id="cb9-212"><a href="#cb9-212" aria-hidden="true" tabindex="-1"></a>        criar_tabela(cursor)</span>
+<span id="cb9-213"><a href="#cb9-213" aria-hidden="true" tabindex="-1"></a>        conexao.commit()</span>
+<span id="cb9-214"><a href="#cb9-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-215"><a href="#cb9-215" aria-hidden="true" tabindex="-1"></a>        leituras_ignoradas <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb9-216"><a href="#cb9-216" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-217"><a href="#cb9-217" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> numero_ciclo <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, CICLOS_PLANEJADOS <span class="op">+</span> <span class="dv">1</span>):</span>
+<span id="cb9-218"><a href="#cb9-218" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\\</span><span class="ss">nColetando ciclo </span><span class="sc">{</span>numero_ciclo<span class="sc">}</span><span class="ss">..."</span>)</span>
+<span id="cb9-219"><a href="#cb9-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-220"><a href="#cb9-220" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> numero_ciclo <span class="op">==</span> <span class="dv">5</span>:</span>
+<span id="cb9-221"><a href="#cb9-221" aria-hidden="true" tabindex="-1"></a>                <span class="bu">print</span>(<span class="st">"Falha de comunicação com o sensor. Leitura ignorada."</span>)</span>
+<span id="cb9-222"><a href="#cb9-222" aria-hidden="true" tabindex="-1"></a>                leituras_ignoradas <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb9-223"><a href="#cb9-223" aria-hidden="true" tabindex="-1"></a>                <span class="cf">continue</span></span>
+<span id="cb9-224"><a href="#cb9-224" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-225"><a href="#cb9-225" aria-hidden="true" tabindex="-1"></a>            leitura <span class="op">=</span> criar_leitura(numero_ciclo)</span>
+<span id="cb9-226"><a href="#cb9-226" aria-hidden="true" tabindex="-1"></a>            inserir_leitura(cursor, leitura)</span>
+<span id="cb9-227"><a href="#cb9-227" aria-hidden="true" tabindex="-1"></a>            <span class="bu">print</span>(<span class="ss">f"Registro do ciclo </span><span class="sc">{</span>numero_ciclo<span class="sc">}</span><span class="ss"> inserido: </span><span class="sc">{</span>leitura[<span class="st">'estado_geral'</span>]<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-228"><a href="#cb9-228" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-229"><a href="#cb9-229" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Confirma as inserções da execução atual.</span></span>
+<span id="cb9-230"><a href="#cb9-230" aria-hidden="true" tabindex="-1"></a>        conexao.commit()</span>
+<span id="cb9-231"><a href="#cb9-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-232"><a href="#cb9-232" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="ch">\\</span><span class="ss">nCiclos planejados: </span><span class="sc">{</span>CICLOS_PLANEJADOS<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-233"><a href="#cb9-233" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Leituras ignoradas: </span><span class="sc">{</span>leituras_ignoradas<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-234"><a href="#cb9-234" aria-hidden="true" tabindex="-1"></a>        exibir_historico(cursor)</span>
+<span id="cb9-235"><a href="#cb9-235" aria-hidden="true" tabindex="-1"></a>        exibir_leituras_criticas(cursor)</span>
+<span id="cb9-236"><a href="#cb9-236" aria-hidden="true" tabindex="-1"></a>        exibir_estatisticas(cursor)</span>
+<span id="cb9-237"><a href="#cb9-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-238"><a href="#cb9-238" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> sqlite3.Error <span class="im">as</span> erro:</span>
+<span id="cb9-239"><a href="#cb9-239" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Se houver erro antes do commit, desfaz as alterações pendentes.</span></span>
+<span id="cb9-240"><a href="#cb9-240" aria-hidden="true" tabindex="-1"></a>        conexao.rollback()</span>
+<span id="cb9-241"><a href="#cb9-241" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Erro no banco de dados: </span><span class="sc">{</span>erro<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb9-242"><a href="#cb9-242" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-243"><a href="#cb9-243" aria-hidden="true" tabindex="-1"></a>    <span class="cf">finally</span>:</span>
+<span id="cb9-244"><a href="#cb9-244" aria-hidden="true" tabindex="-1"></a>        conexao.close()</span>
+<span id="cb9-245"><a href="#cb9-245" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="st">"</span><span class="ch">\\</span><span class="st">nConexão com o banco encerrada."</span>)</span>
+<span id="cb9-246"><a href="#cb9-246" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-247"><a href="#cb9-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-248"><a href="#cb9-248" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> <span class="va">__name__</span> <span class="op">==</span> <span class="st">"__main__"</span>:</span>
+<span id="cb9-249"><a href="#cb9-249" aria-hidden="true" tabindex="-1"></a>    main()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="observação-importante-sobre-execuções-repetidas" class="level3">
+<h3 class="anchored" data-anchor-id="observação-importante-sobre-execuções-repetidas">Observação importante sobre execuções repetidas</h3>
+<p>O banco persiste os dados. Por isso, executar o simulador várias vezes <strong>acrescenta</strong> novas leituras, em vez de apagar as anteriores. Como esta versão grava uma nova simulação a cada execução, os ciclos de 1 a 20 podem aparecer repetidos em diferentes execuções; o campo <code>id</code> continua identificando cada linha.</p>
+<p>Para uma atividade inicial, isso ajuda a demonstrar persistência. Em um sistema real, é recomendável adicionar um campo <code>data_hora</code> ou um identificador da execução para distinguir simulações. Evite apagar o banco automaticamente: isso eliminaria o histórico salvo.</p>
+<blockquote class="blockquote">
+<p><strong>Limite da simulação:</strong> com pressão gerada entre 5,0 e 10,0 bar, a condição <code>pressao &gt; 10</code> nunca será verdadeira. A corrente acima de 18 A e a temperatura acima de 90 °C ainda podem produzir situação crítica. Essa observação é útil para discutir se os limites e as faixas de geração são coerentes.</p>
+</blockquote>
+</section>
+</section>
+<section id="consultas-sql-de-análise" class="level2">
+<h2 class="anchored" data-anchor-id="consultas-sql-de-análise">10. Consultas SQL de análise</h2>
+<p>As consultas a seguir podem ser executadas pelo cursor do Python usando <code>cursor.execute(...)</code>.</p>
+<section id="consultar-leituras-de-um-equipamento" class="level3">
+<h3 class="anchored" data-anchor-id="consultar-leituras-de-um-equipamento">Consultar leituras de um equipamento</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> ciclo, temperatura, pressao, corrente, estado_geral</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> leituras</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> equipamento <span class="op">=</span> ?</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> ciclo;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="consultar-apenas-alarmes-e-emergências" class="level3">
+<h3 class="anchored" data-anchor-id="consultar-apenas-alarmes-e-emergências">Consultar apenas alarmes e emergências</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> ciclo, estado_geral, temperatura, pressao, corrente</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> leituras</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> estado_geral <span class="kw">IN</span> (<span class="st">'ALARME'</span>, <span class="st">'EMERGÊNCIA'</span>)</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> ciclo;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="encontrar-a-maior-temperatura" class="level3">
+<h3 class="anchored" data-anchor-id="encontrar-a-maior-temperatura">Encontrar a maior temperatura</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> ciclo, temperatura</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> leituras</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> temperatura <span class="op">=</span> (<span class="kw">SELECT</span> <span class="fu">MAX</span>(temperatura) <span class="kw">FROM</span> leituras);</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Essa consulta pode retornar mais de uma linha em caso de empate.</p>
+</section>
+<section id="contar-estados-gerais" class="level3">
+<h3 class="anchored" data-anchor-id="contar-estados-gerais">Contar estados gerais</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> estado_geral, <span class="fu">COUNT</span>(<span class="op">*</span>) <span class="kw">AS</span> quantidade</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> leituras</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="kw">GROUP</span> <span class="kw">BY</span> estado_geral</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="kw">ORDER</span> <span class="kw">BY</span> quantidade <span class="kw">DESC</span>;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><code>GROUP BY</code> agrupa linhas com o mesmo valor; <code>COUNT(*)</code> conta as linhas de cada grupo.</p>
+</section>
+<section id="calcular-estatísticas" class="level3">
+<h3 class="anchored" data-anchor-id="calcular-estatísticas">Calcular estatísticas</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">MIN</span>(temperatura), <span class="fu">MAX</span>(temperatura), <span class="fu">AVG</span>(temperatura),</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">MIN</span>(pressao), <span class="fu">MAX</span>(pressao), <span class="fu">AVG</span>(pressao),</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">MIN</span>(corrente), <span class="fu">MAX</span>(corrente), <span class="fu">AVG</span>(corrente)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> leituras;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>O SQLite oferece <code>MIN</code>, <code>MAX</code>, <code>AVG</code>, <code>SUM</code> e <code>COUNT</code> para cálculos agregados.</p>
+</section>
+<section id="contar-leituras-acima-de-um-limite" class="level3">
+<h3 class="anchored" data-anchor-id="contar-leituras-acima-de-um-limite">Contar leituras acima de um limite</h3>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode sql code-with-copy"><code class="sourceCode sql"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">SELECT</span> <span class="fu">COUNT</span>(<span class="op">*</span>)</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="kw">FROM</span> leituras</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="kw">WHERE</span> temperatura <span class="op">&gt;</span> ?;</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>No Python:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>cursor.execute(</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"SELECT COUNT(*) FROM leituras WHERE temperatura &gt; ?"</span>,</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    (LIMITE_TEMPERATURA,)</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>quantidade <span class="op">=</span> cursor.fetchone()[<span class="dv">0</span>]</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f"Leituras acima do limite: </span><span class="sc">{</span>quantidade<span class="sc">}</span><span class="ss">"</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+</section>
+<section id="atualização-e-exclusão-controladas" class="level2">
+<h2 class="anchored" data-anchor-id="atualização-e-exclusão-controladas">11. Atualização e exclusão controladas</h2>
+<p>Para praticar <code>UPDATE</code>, use o identificador (<code>id</code>) de uma linha conhecida:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>cursor.execute(<span class="st">"""</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="st">    UPDATE leituras</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="st">    SET estado_geral = ?</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="st">    WHERE id = ?</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="st">"""</span>, (<span class="st">"ATENÇÃO"</span>, <span class="dv">1</span>))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>conexao.commit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Para praticar <code>DELETE</code>, exclua apenas uma linha identificada:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>cursor.execute(</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">"DELETE FROM leituras WHERE id = ?"</span>,</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    (<span class="dv">1</span>,)</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>conexao.commit()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Esses comandos alteram dados reais no banco. Realize os testes em um banco de exercício ou com registros de teste, não no histórico que se deseja preservar.</p>
+</section>
+<section id="transações-e-conexão" class="level2">
+<h2 class="anchored" data-anchor-id="transações-e-conexão">12. Transações e conexão</h2>
+<p>Uma transação agrupa alterações que devem ser confirmadas ou desfeitas. No exemplo, <code>commit()</code> confirma mudanças e <code>rollback()</code> desfaz alterações ainda não confirmadas após um erro.</p>
+<p>Práticas importantes:</p>
+<ul>
+<li>abrir a conexão com <code>sqlite3.connect(...)</code>;</li>
+<li>confirmar alterações com <code>commit()</code>;</li>
+<li>usar <code>rollback()</code> quando necessário;</li>
+<li>fechar a conexão ao terminar;</li>
+<li>executar SQL parametrizado;</li>
+<li>tratar o caso de consulta sem resultados;</li>
+<li>não assumir que o banco começa vazio.</li>
+</ul>
+<p>O <code>try/except/finally</code> da versão de referência garante que a conexão seja fechada mesmo se ocorrer erro.</p>
+</section>
+<section id="comparação-csv-e-sqlite" class="level2">
+<h2 class="anchored" data-anchor-id="comparação-csv-e-sqlite">13. Comparação: CSV e SQLite</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 25%">
+<col style="width: 37%">
+<col style="width: 36%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Aspecto</th>
+<th>CSV</th>
+<th>SQLite</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Formato</td>
+<td>Texto organizado por delimitadores</td>
+<td>Banco relacional em arquivo próprio</td>
+</tr>
+<tr class="even">
+<td>Consultas e filtros</td>
+<td>Geralmente feitos pelo programa</td>
+<td>Feitos diretamente com SQL</td>
+</tr>
+<tr class="odd">
+<td>Tipos</td>
+<td>Valores lidos como texto e convertidos</td>
+<td>Tipos declarados nas colunas</td>
+</tr>
+<tr class="even">
+<td>Atualização de um registro</td>
+<td>Normalmente reescreve o arquivo</td>
+<td>Usa <code>UPDATE</code> para linhas selecionadas</td>
+</tr>
+<tr class="odd">
+<td>Relações e integridade</td>
+<td>Limitadas</td>
+<td>Tabelas, chaves e restrições</td>
+</tr>
+<tr class="even">
+<td>Melhor uso didático</td>
+<td>Troca simples de dados</td>
+<td>Persistência estruturada e consultas</td>
+</tr>
+</tbody>
+</table>
+<p>CSV continua sendo útil para intercâmbio e planilhas. SQLite é mais apropriado quando se deseja consultar e modificar registros com frequência e manter dados estruturados.</p>
+</section>
+<section id="testes-controlados" class="level2">
+<h2 class="anchored" data-anchor-id="testes-controlados">14. Testes controlados</h2>
+<section id="teste-1-banco-e-tabela" class="level3">
+<h3 class="anchored" data-anchor-id="teste-1-banco-e-tabela">Teste 1 — Banco e tabela</h3>
+<ul>
+<li>Executar o programa;</li>
+<li>verificar se o arquivo <code>historico_industrial.db</code> foi criado;</li>
+<li>executar novamente e confirmar que a tabela não causa erro de criação duplicada.</li>
+</ul>
+</section>
+<section id="teste-2-persistência" class="level3">
+<h3 class="anchored" data-anchor-id="teste-2-persistência">Teste 2 — Persistência</h3>
+<ul>
+<li>Executar o simulador;</li>
+<li>encerrar o programa;</li>
+<li>executar novamente;</li>
+<li>observar que a quantidade total de registros aumenta.</li>
+</ul>
+</section>
+<section id="teste-3-ciclo-com-falha" class="level3">
+<h3 class="anchored" data-anchor-id="teste-3-ciclo-com-falha">Teste 3 — Ciclo com falha</h3>
+<ul>
+<li>conferir se o ciclo 5 não foi inserido;</li>
+<li>verificar se os ciclos 4 e 6 permanecem com seus números originais;</li>
+<li>confirmar que a falha não interrompe as demais coletas.</li>
+</ul>
+</section>
+<section id="teste-4-filtro-de-críticos" class="level3">
+<h3 class="anchored" data-anchor-id="teste-4-filtro-de-críticos">Teste 4 — Filtro de críticos</h3>
+<ul>
+<li>consultar alarmes e emergências;</li>
+<li>comparar as linhas retornadas com a coluna <code>estado_geral</code>;</li>
+<li>lembrar que uma execução aleatória pode não gerar todos os estados.</li>
+</ul>
+</section>
+<section id="teste-5-estatísticas" class="level3">
+<h3 class="anchored" data-anchor-id="teste-5-estatísticas">Teste 5 — Estatísticas</h3>
+<ul>
+<li>comparar <code>MIN</code>, <code>MAX</code> e <code>AVG</code> com os valores apresentados no histórico;</li>
+<li>confirmar que os cálculos usam apenas as linhas consultadas, caso exista um <code>WHERE</code>.</li>
+</ul>
+</section>
+<section id="teste-6-banco-sem-leituras" class="level3">
+<h3 class="anchored" data-anchor-id="teste-6-banco-sem-leituras">Teste 6 — Banco sem leituras</h3>
+<p>Criar uma tabela vazia ou usar outro nome de banco e verificar se as funções apresentam mensagem informativa, sem tentar formatar valores inexistentes.</p>
+</section>
+<section id="teste-7-atualização-e-exclusão" class="level3">
+<h3 class="anchored" data-anchor-id="teste-7-atualização-e-exclusão">Teste 7 — Atualização e exclusão</h3>
+<ul>
+<li>inserir um registro de teste;</li>
+<li>atualizar somente o registro com o <code>id</code> escolhido;</li>
+<li>consultar o resultado;</li>
+<li>excluir o registro de teste e conferir novamente.</li>
+</ul>
+</section>
+</section>
+<section id="exercícios" class="level2">
+<h2 class="anchored" data-anchor-id="exercícios">15. Exercícios</h2>
+<section id="exercício-1-explorar-a-tabela" class="level3">
+<h3 class="anchored" data-anchor-id="exercício-1-explorar-a-tabela">Exercício 1 — Explorar a tabela</h3>
+<p>Escreva uma consulta que mostre <code>id</code>, ciclo, equipamento e estado geral em ordem decrescente de temperatura.</p>
+</section>
+<section id="exercício-2-filtrar-por-faixa" class="level3">
+<h3 class="anchored" data-anchor-id="exercício-2-filtrar-por-faixa">Exercício 2 — Filtrar por faixa</h3>
+<p>Liste as leituras com temperatura superior a 80 °C e corrente superior a 15 A.</p>
+</section>
+<section id="exercício-3-contar-emergências" class="level3">
+<h3 class="anchored" data-anchor-id="exercício-3-contar-emergências">Exercício 3 — Contar emergências</h3>
+<p>Use SQL para contar quantas leituras possuem estado geral <code>EMERGÊNCIA</code>.</p>
+</section>
+<section id="exercício-4-maior-valor-por-variável" class="level3">
+<h3 class="anchored" data-anchor-id="exercício-4-maior-valor-por-variável">Exercício 4 — Maior valor por variável</h3>
+<p>Faça consultas para encontrar os valores máximos de temperatura, pressão e corrente, indicando o ciclo correspondente.</p>
+</section>
+<section id="exercício-5-inserir-um-registro-controlado" class="level3">
+<h3 class="anchored" data-anchor-id="exercício-5-inserir-um-registro-controlado">Exercício 5 — Inserir um registro controlado</h3>
+<p>Insira manualmente uma leitura de teste com estado <code>ALARME</code>, usando parâmetros no Python. Consulte-a depois com <code>SELECT</code>.</p>
+</section>
+<section id="exercício-6-completar-os-campos" class="level3">
+<h3 class="anchored" data-anchor-id="exercício-6-completar-os-campos">Exercício 6 — Completar os campos</h3>
+<p>Evolua a tabela para armazenar <code>data_hora</code>, <code>operador</code>, <code>turno</code> e <code>observacao</code>. Atualize também o comando <code>INSERT</code> para preencher as novas colunas.</p>
+</section>
+<section id="exercício-7-importar-csv" class="level3">
+<h3 class="anchored" data-anchor-id="exercício-7-importar-csv">Exercício 7 — Importar CSV</h3>
+<p>Como extensão, leia um CSV gerado na Aula 6 com <code>csv.DictReader</code> e insira suas linhas no SQLite. Converta os campos numéricos para os tipos adequados e converta <code>situacao_critica</code> para <code>0</code> ou <code>1</code>.</p>
+</section>
+</section>
+<section id="desafio-final" class="level2">
+<h2 class="anchored" data-anchor-id="desafio-final">16. Desafio final</h2>
+<p>Evolua o simulador para:</p>
+<ol type="1">
+<li>registrar data e horário da coleta;</li>
+<li>identificar uma execução de simulação;</li>
+<li>armazenar operador e turno;</li>
+<li>inserir as leituras válidas em uma transação;</li>
+<li>permitir consulta pelo equipamento e por intervalo de data;</li>
+<li>exibir o ciclo de maior temperatura, pressão e corrente;</li>
+<li>contar quantidades por estado geral;</li>
+<li>exportar uma consulta selecionada para CSV;</li>
+<li>incluir uma opção de menu para consultar, atualizar ou excluir uma leitura de teste.</li>
+</ol>
+</section>
+<section id="perguntas-de-análise" class="level2">
+<h2 class="anchored" data-anchor-id="perguntas-de-análise">17. Perguntas de análise</h2>
+<ol type="1">
+<li>Qual é a diferença entre um arquivo CSV e um banco SQLite?</li>
+<li>O que representam tabela, linha e coluna?</li>
+<li>Qual é a finalidade da chave primária <code>id</code>?</li>
+<li>Por que o número do ciclo não substitui necessariamente o <code>id</code>?</li>
+<li>O que fazem <code>CREATE TABLE</code>, <code>INSERT</code>, <code>SELECT</code>, <code>UPDATE</code> e <code>DELETE</code>?</li>
+<li>Para que serve o <code>WHERE</code>? O que pode acontecer se ele for omitido em um <code>UPDATE</code> ou <code>DELETE</code>?</li>
+<li>Por que os valores devem ser enviados como parâmetros em vez de concatenados ao SQL?</li>
+<li>Qual é a diferença entre <code>commit()</code> e <code>rollback()</code>?</li>
+<li>Por que a falha do ciclo 5 não deve alterar a numeração dos ciclos seguintes?</li>
+<li>O que acontece com o histórico se o simulador for executado várias vezes?</li>
+<li>Como <code>GROUP BY</code> e <code>COUNT(*)</code> podem ajudar na análise de estados?</li>
+<li>Quais vantagens e limitações o SQLite apresenta para um simulador local?</li>
+<li>Quais campos adicionais seriam úteis para a rastreabilidade industrial?</li>
+<li>Como o SQLite pode apoiar uma futura integração com sistemas maiores?</li>
+</ol>
+</section>
+<section id="entrega-da-atividade" class="level2">
+<h2 class="anchored" data-anchor-id="entrega-da-atividade">18. Entrega da atividade</h2>
+<p>Cada estudante ou dupla deverá entregar:</p>
+<ul>
+<li>arquivo <code>aula_07_sqlite.py</code>;</li>
+<li>arquivo do banco SQLite criado pelo programa;</li>
+<li>tabela <code>leituras</code> com registros completos;</li>
+<li>implementação da falha de comunicação no ciclo 5;</li>
+<li>consultas para histórico, críticos e estatísticas;</li>
+<li>demonstração de pelo menos uma operação de atualização e uma de exclusão em registro de teste;</li>
+<li>testes controlados e evidências dos resultados;</li>
+<li>respostas às perguntas de análise;</li>
+<li>uma melhoria no simulador, como data/hora, filtros, menu ou importação de CSV.</li>
+</ul>
+<p><strong>Cuidados com a entrega:</strong> o banco deve conter os dados necessários para demonstrar o trabalho. Não apagar o arquivo do banco antes de enviá-lo. Se o histórico tiver dados de várias execuções, explicar isso no relatório.</p>
+</section>
+<section id="critérios-de-avaliação" class="level2">
+<h2 class="anchored" data-anchor-id="critérios-de-avaliação">19. Critérios de avaliação</h2>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Critério</th>
+<th style="text-align: right;">Pontuação</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Criação da conexão e da tabela</td>
+<td style="text-align: right;">1,0</td>
+</tr>
+<tr class="even">
+<td>Inserção parametrizada dos registros</td>
+<td style="text-align: right;">1,5</td>
+</tr>
+<tr class="odd">
+<td>Integração correta com o simulador e ciclo ignorado</td>
+<td style="text-align: right;">1,5</td>
+</tr>
+<tr class="even">
+<td>Consultas, filtros e ordenação</td>
+<td style="text-align: right;">1,5</td>
+</tr>
+<tr class="odd">
+<td>Estatísticas e agrupamentos SQL</td>
+<td style="text-align: right;">1,0</td>
+</tr>
+<tr class="even">
+<td>Uso correto de commit, rollback e fechamento</td>
+<td style="text-align: right;">1,0</td>
+</tr>
+<tr class="odd">
+<td>Testes, organização e clareza do código</td>
+<td style="text-align: right;">1,0</td>
+</tr>
+<tr class="even">
+<td>Operações CRUD demonstradas com segurança</td>
+<td style="text-align: right;">1,0</td>
+</tr>
+<tr class="odd">
+<td>Implementação de melhoria</td>
+<td style="text-align: right;">0,5</td>
+</tr>
+<tr class="even">
+<td><strong>Total</strong></td>
+<td style="text-align: right;"><strong>10,0</strong></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="fechamento-conceitual" class="level2">
+<h2 class="anchored" data-anchor-id="fechamento-conceitual">20. Fechamento conceitual</h2>
+<p>A sequência de aulas evoluiu o modo de representar e persistir as leituras:</p>
+<ol type="1">
+<li><strong>Aula 4:</strong> listas paralelas para guardar o histórico em memória;</li>
+<li><strong>Aula 5:</strong> lista de dicionários, com cada leitura organizada como um registro;</li>
+<li><strong>Aula 6:</strong> gravação e recuperação dos registros em CSV;</li>
+<li><strong>Aula 7:</strong> armazenamento persistente em tabela SQLite e consultas com SQL.</li>
+</ol>
+<p>O caminho de uma leitura é: <strong>sensores simulados → dicionário Python → comando parametrizado <code>INSERT</code> → tabela SQLite → consultas SQL</strong>. Essa base prepara o estudante para aprofundar modelagem relacional, chaves, relações entre tabelas e integração com sistemas de automação.</p>
+</section>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>
